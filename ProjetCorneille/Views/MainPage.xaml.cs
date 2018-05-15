@@ -20,10 +20,10 @@ namespace ProjetCorneille.Views
     /// <summary>
     /// Logique d'interaction pour EcranPrincipal.xaml
     /// </summary>
-    public partial class EcranPrincipal : Page
+    public partial class MainPage : Page
     {
         MainPageViewModel mainPageViewModel = new MainPageViewModel();
-        public EcranPrincipal()
+        public MainPage()
         {
             InitializeComponent();
             this.DataContext = mainPageViewModel;

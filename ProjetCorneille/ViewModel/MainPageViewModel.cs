@@ -24,6 +24,7 @@ namespace ProjetCorneille.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
         public string SelectUserPath
         {
             get
@@ -35,7 +36,6 @@ namespace ProjetCorneille.ViewModel
                 this.selectUserPath = value;
                 this.NotifyPropertyChanged("SelectUserPath");
             }
-
-            }
+        }
     }
 }
