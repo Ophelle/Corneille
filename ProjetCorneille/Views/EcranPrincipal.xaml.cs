@@ -12,21 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using OpenCvSharp;
 using ProjetCorneille.Outils;
 
-namespace ProjetCorneille
+namespace ProjetCorneille.Views
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour EcranPrincipal.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class EcranPrincipal : Page
     {
-        public MainWindow()
+        public EcranPrincipal()
         {
             InitializeComponent();
-            
-           
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpencvTools.swithOnTheCamera();
         }
     }
- }
+}
