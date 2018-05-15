@@ -84,6 +84,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Outils\General.cs" />
+    <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="Views\EcranPrincipal.xaml.cs">
       <DependentUpon>EcranPrincipal.xaml</DependentUpon>
     </Compile>
@@ -135,7 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

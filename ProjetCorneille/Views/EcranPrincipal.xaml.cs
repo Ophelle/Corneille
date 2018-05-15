@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProjetCorneille.Outils;
+using ProjetCorneille.ViewModel;
 
 namespace ProjetCorneille.Views
 {
@@ -21,14 +22,21 @@ namespace ProjetCorneille.Views
     /// </summary>
     public partial class EcranPrincipal : Page
     {
+        MainPageViewModel mainPageViewModel = new MainPageViewModel();
         public EcranPrincipal()
         {
             InitializeComponent();
+            this.DataContext = mainPageViewModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpencvTools.swithOnTheCamera();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.mainPageViewModel.SelectUserPath =  General.getPathUser();
         }
     }
 }
