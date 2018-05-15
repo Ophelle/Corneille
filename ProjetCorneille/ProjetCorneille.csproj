@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\OpenCV.Net.3.3.1\build\net40\OpenCV.Net.props" Condition="Exists('..\packages\OpenCV.Net.3.3.1\build\net40\OpenCV.Net.props')" />
+  <Import Project="..\packages\OpenCvSharp3-AnyCPU.3.4.1.20180319\build\OpenCvSharp3-AnyCPU.props" Condition="Exists('..\packages\OpenCvSharp3-AnyCPU.3.4.1.20180319\build\OpenCvSharp3-AnyCPU.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -37,8 +37,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenCV.Net, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenCV.Net.3.3.1\lib\net40\OpenCV.Net.dll</HintPath>
+    <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.4.1.20180319\lib\net46\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.Blob, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.4.1.20180319\lib\net46\OpenCvSharp.Blob.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.4.1.20180319\lib\net46\OpenCvSharp.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.UserInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.4.1.20180319\lib\net46\OpenCvSharp.UserInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -74,6 +83,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Outils\OpencvTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -101,7 +111,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Outils\" />
     <Folder Include="Resources\" />
     <Folder Include="ViewModel\" />
     <Folder Include="Views\" />
@@ -111,8 +120,6 @@
     <PropertyGroup>
       <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\OpenCV.Net.3.3.1\build\net40\OpenCV.Net.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OpenCV.Net.3.3.1\build\net40\OpenCV.Net.props'))" />
-    <Error Condition="!Exists('..\packages\OpenCV.Net.3.3.1\build\net40\OpenCV.Net.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OpenCV.Net.3.3.1\build\net40\OpenCV.Net.targets'))" />
+    <Error Condition="!Exists('..\packages\OpenCvSharp3-AnyCPU.3.4.1.20180319\build\OpenCvSharp3-AnyCPU.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OpenCvSharp3-AnyCPU.3.4.1.20180319\build\OpenCvSharp3-AnyCPU.props'))" />
   </Target>
-  <Import Project="..\packages\OpenCV.Net.3.3.1\build\net40\OpenCV.Net.targets" Condition="Exists('..\packages\OpenCV.Net.3.3.1\build\net40\OpenCV.Net.targets')" />
 </Project>
