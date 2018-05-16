@@ -56,7 +56,7 @@ namespace ProjetCorneille.ViewModel
             movie.Name = fileName;
             XMLUtility.SerializeForXml<Movie>(fileName,"Movie",movie);
 
-            AddMovieInXMLCameras(idCamera, path);
+            //AddMovieInXMLCameras(idCamera, path);
 
         }
 
