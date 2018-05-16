@@ -84,10 +84,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Cameras.cs" />
+    <Compile Include="Model\motion.cs" />
+    <Compile Include="Model\movie.cs" />
     <Compile Include="Outils\General.cs" />
+    <Compile Include="Outils\XMLUtility.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
-    <Compile Include="Views\EcranPrincipal.xaml.cs">
-      <DependentUpon>EcranPrincipal.xaml</DependentUpon>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -101,9 +105,9 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\EcranPrincipal.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +129,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
