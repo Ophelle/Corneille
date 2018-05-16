@@ -37,6 +37,7 @@ namespace ProjetCorneille.Views
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.mainPageViewModel.SelectUserPath =  General.getPathUser();
+            mainPageViewModel.CreateXMLMovie(General.getPathUser(),1);
             MessageBox.Show(this.mainPageViewModel.SelectUserPath);
             OpencvTools.openVideoFile(this.mainPageViewModel.SelectUserPath);
         }

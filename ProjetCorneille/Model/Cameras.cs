@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ProjetCorneille.Model
 {
-	class Cameras
+	public class Cameras
 	{
 		public List<Camera> CamerasList { get; set; }
 
 		public class Camera
 		{
 			public string Name { get; set; }
-			public string ID { get; set; }
+			public int ID { get; set; }
 			public List<Coordinate> Coordinates { get; set; }
 			public List<InfoMovie> InfoMovies { get; set; }
 

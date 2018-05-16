@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace ProjetCorneille.Model
 {
-	class movie
+	public class Movie
 	{
 		public string Name { get; set; }
-		public int ID { get; set; }
 		public string Path { get; set; }
 		public List<InfoMotion> InfoMotions { get; set; }
-		public String IDCamera{ get; set; }
+		public int IDCamera{ get; set; }
 
 		public class InfoMotion
 		{
