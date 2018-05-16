@@ -28,5 +28,11 @@ namespace ProjetCorneille
             
            
         }
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpencvTools.openVideoFile("");
+        }
     }
  }
