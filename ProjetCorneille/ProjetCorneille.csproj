@@ -94,6 +94,7 @@
     <Compile Include="Model\Motion.cs" />
     <Compile Include="Model\Movie.cs" />
     <Compile Include="Outils\General.cs" />
+    <Compile Include="Outils\XMLManager.cs" />
     <Compile Include="Outils\XMLUtility.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
