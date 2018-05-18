@@ -3,22 +3,13 @@ using System.ComponentModel;
 
 namespace ProjetCorneille.ViewModel
 {
-    public class MainPageViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : ViewModelBase
     {
         private string selectUserPath;
 
         public MainPageViewModel()
         {
 
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
 
         public string SelectUserPath
@@ -31,7 +22,7 @@ namespace ProjetCorneille.ViewModel
             set
             {
                 this.selectUserPath = value;
-                this.NotifyPropertyChanged("SelectUserPath");
+                NotifyPropertyChanged("SelectUserPath");
             }
         }
     }
