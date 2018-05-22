@@ -31,7 +31,8 @@ namespace ProjetCorneille.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OpencvTools.swithOnTheCamera();
+            //OpencvTools.swithOnTheCamera();
+            AForgeTools.Initialisation();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

@@ -2,13 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using OpenCvSharp;
-using OpenCvSharp.XFeatures2D;
 
 namespace ProjetCorneille.Outils
 {
     class OpencvTools
     {
-
         public static void openVideoFile1(string path)
         {
             VideoCapture capture;
@@ -59,7 +57,6 @@ namespace ProjetCorneille.Outils
             cap.Release();
 
         }
-
 
         public static void swithOnTheCamera()
         {
@@ -197,7 +194,7 @@ namespace ProjetCorneille.Outils
         }
 
         //Return overlap size
-        private static double CalSize(Size a, Size b)
+        private static double CalSize(OpenCvSharp.Size a, OpenCvSharp.Size b)
         {
             return a.Height * a.Width / (double)(b.Height * b.Width);
         }
