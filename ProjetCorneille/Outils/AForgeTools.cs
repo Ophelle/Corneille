@@ -5,9 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Accord.Video.FFMPEG;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using AForge.Vision.Motion;
+
 
 namespace ProjetCorneille.Outils
 {
@@ -18,6 +20,8 @@ namespace ProjetCorneille.Outils
         private static bool _hasMotion;
         private static int _volgnr;
         private static string _path;
+        private static VideoFileWriter _FileWriter = new VideoFileWriter();
+        private static DateTime _firstFrameTime = new DateTime();
 
         public static void Initialisation()
         {
@@ -58,12 +62,20 @@ namespace ProjetCorneille.Outils
 
             if (motionLevel > _motionAlarmLevel)
             {
-                if (_hasMotion) return;
-                Console.WriteLine(DateTime.Now + ": Motion started. Motion level: " + motionLevel);
-                var file = _path + @"\picture_" + _volgnr + ".jpg";
-                Console.WriteLine(DateTime.Now + "Image saved as " + file);
-                image.Save(file, ImageFormat.Jpeg);
-                _volgnr++;
+                if (_hasMotion){
+                    _FileWriter.WriteVideoFrame(image, DateTime.Now - _firstFrameTime);
+                }
+                else {
+                    _volgnr++;
+                    int h = image.Height;
+                    int w = image.Width;
+                    Console.WriteLine(DateTime.Now + ": Motion started. Motion level: " + motionLevel);
+                    _FileWriter = new VideoFileWriter();
+                    _FileWriter.Open(_path+"/motion"+_volgnr, w, h);
+                    Console.WriteLine(_path + "/motion" + _volgnr);
+                    _FileWriter.WriteVideoFrame(image);
+                    _firstFrameTime = DateTime.Now;
+                }
                 _hasMotion = true;
             }
             else
@@ -71,8 +83,12 @@ namespace ProjetCorneille.Outils
                 if (_hasMotion)
                 {
                     Console.WriteLine(DateTime.Now + ": Motion stopped. Motion level: " + motionLevel);
+                    _FileWriter.WriteVideoFrame(image);
+                    _FileWriter.Close();
+                    _FileWriter.Dispose();
                 }
                 _hasMotion = false;
+                _firstFrameTime = new DateTime();
             }
         }
     }
