@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ProjetCorneille.Outils;
 using ProjetCorneille.ViewModel;
 
@@ -23,16 +14,32 @@ namespace ProjetCorneille.Views
     public partial class MainPage : Page
     {
         MainPageViewModel mainPageViewModel = new MainPageViewModel();
+        Boolean click;
         public MainPage()
         {
             InitializeComponent();
             this.DataContext = mainPageViewModel;
+            click = true;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
+            Button button = (Button)sender;
             //OpencvTools.swithOnTheCamera();
-            AForgeTools.Initialisation();
+            if (click)
+            {
+                AForgeTools.Initialisation();
+                button.Content = "Fermer";
+                click = false;
+            }
+            else
+            {
+                AForgeTools.stopCamera();
+                button.Content = "Open";
+                click = true;
+            }
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -42,5 +49,20 @@ namespace ProjetCorneille.Views
             MessageBox.Show(this.mainPageViewModel.SelectUserPath);
             OpencvTools.openVideoFile(this.mainPageViewModel.SelectUserPath);
         }
+
+        private void Image_Loaded(object sender, RoutedEventArgs e)
+        {
+            // ... Create a new BitmapImage.
+            BitmapImage b = new BitmapImage();
+            b.BeginInit();
+            b.UriSource = new Uri(@"E:\Corneille\Corneille\ProjetCorneille\Resources\Capture001.png");
+            b.EndInit();
+
+            // ... Get Image reference from sender.
+            var image = sender as Image;
+            // ... Assign Source.
+            image.Source = b;
+        }
+
     }
 }

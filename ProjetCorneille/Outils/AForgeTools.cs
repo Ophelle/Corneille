@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Accord.Video.FFMPEG;
+using AForge.Controls;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using AForge.Vision.Motion;
@@ -22,6 +23,7 @@ namespace ProjetCorneille.Outils
         private static string _path;
         private static VideoFileWriter _FileWriter = new VideoFileWriter();
         private static DateTime _firstFrameTime = new DateTime();
+        private static VideoSourcePlayer videoSourcePlayer;
 
         public static void Initialisation()
         {
@@ -49,7 +51,7 @@ namespace ProjetCorneille.Outils
 
                 var videoDevice = new FilterInfoCollection(FilterCategory.VideoInputDevice)[0];
                 var videoCaptureDevice = new VideoCaptureDevice(videoDevice.MonikerString);
-                var videoSourcePlayer = new AForge.Controls.VideoSourcePlayer();
+                videoSourcePlayer = new AForge.Controls.VideoSourcePlayer();
                 videoSourcePlayer.NewFrame += VideoSourcePlayer_NewFrame;
                 videoSourcePlayer.VideoSource = new AsyncVideoSource(videoCaptureDevice);
                 videoSourcePlayer.Start();
@@ -90,6 +92,16 @@ namespace ProjetCorneille.Outils
                 _hasMotion = false;
                 _firstFrameTime = new DateTime();
             }
+        }
+
+        public static void stopCamera()
+        {
+            if(videoSourcePlayer != null)
+            {
+                videoSourcePlayer.Stop();
+                videoSourcePlayer = null;
+            }
+                      
         }
     }
 }
