@@ -23,7 +23,12 @@
             </ComboBox>
         </Grid>
         <Grid Grid.Row="2">
-            <StackPanel Orientation="Horizontal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="126*"/>
+                <ColumnDefinition Width="31*"/>
+                <ColumnDefinition Width="635*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
                 <ComboBox Width="365">
                     <ComboBoxItem IsSelected="True">Chosir une motion de la video</ComboBoxItem>
                     <ComboBoxItem>Motion #1</ComboBoxItem>
@@ -46,7 +51,21 @@
                 <ColumnDefinition Width="25*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <MediaElement />
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="90*"></RowDefinition>
+                    <RowDefinition  Height="10*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <MediaElement x:Name="MediaPlayer" Grid.RowSpan="1" LoadedBehavior="Manual"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btnPlay" Content="Play" Click="btnPlay_Click" Width="150" Height="25"/>
+                        <Button x:Name="btnStop" Content="Stop" Click="btnStop_Click" Width="150" Height="25" />
+                        <Button x:Name="btnMoveBack" Content="Back" Click="btnMoveBack_Click" Width="150" Height="25" />
+                        <Button x:Name="btnMoveForward" Content="Forward" Click="btnMoveForward_Click" Width="150" Height="25" />
+                    </StackPanel>
+                </Grid>
             </Grid>
             <StackPanel Orientation="Vertical" Grid.Column="1">
                 <Button Content="Demarrer le marqueur" Height="50"></Button>
