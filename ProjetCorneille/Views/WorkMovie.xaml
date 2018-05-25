@@ -1,0 +1,51 @@
+﻿<Window x:Class="ProjetCorneille.Views.WorkMovie"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetCorneille.Views"
+        mc:Ignorable="d"
+        Title="WorkMovie" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="10*"></RowDefinition>
+            <RowDefinition  Height="60*"></RowDefinition>
+            <RowDefinition  Height="10*"></RowDefinition>
+            <RowDefinition  Height="10*"></RowDefinition>
+            <RowDefinition  Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <ComboBox>
+                <ComboBoxItem IsSelected="True">Chosir une video</ComboBoxItem>
+                <ComboBoxItem>ListBox Item #1</ComboBoxItem>
+                <ComboBoxItem>ListBox Item #2</ComboBoxItem>
+                <ComboBoxItem>ListBox Item #3</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Button Content="Enregistrer"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75*"></ColumnDefinition>
+                <ColumnDefinition Width="25*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Column="1">
+                <Button Content="Demarrer le marqueur" Height="50"></Button>
+                <Button Content="Arreter le marqueur" Height="50"></Button>
+                <GroupBox>
+                    <GroupBox.Header>
+                        <Label>Chosir une action detectée</Label>
+                    </GroupBox.Header>
+                    <StackPanel Orientation="Vertical">
+                        <RadioButton  Margin="5">Vol</RadioButton>
+                        <RadioButton  Margin="5">Vol1</RadioButton>
+                        <RadioButton  Margin="5">Vol2</RadioButton>
+                        <RadioButton  Margin="5">Autres</RadioButton>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>
