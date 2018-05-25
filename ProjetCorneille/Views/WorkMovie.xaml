@@ -56,14 +56,14 @@
                     <RowDefinition  Height="10*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <MediaElement  />
+                    <MediaElement x:Name="MediaPlayer" Grid.RowSpan="1" LoadedBehavior="Manual"/>
                 </Grid>
                 <Grid Grid.Row="1">
                     <StackPanel Orientation="Horizontal">
-                        <Button Width="150">Demarrer</Button>
-                        <Button Width="150">Arreter</Button>
-                        <Button Width="150">Avancer</Button>
-                        <Button Width="150">Reculer</Button>
+                        <Button x:Name="btnPlay" Content="Play" Click="btnPlay_Click" Width="150" Height="25"/>
+                        <Button x:Name="btnStop" Content="Stop" Click="btnStop_Click" Width="150" Height="25" />
+                        <Button x:Name="btnMoveBack" Content="Back" Click="btnMoveBack_Click" Width="150" Height="25" />
+                        <Button x:Name="btnMoveForward" Content="Forward" Click="btnMoveForward_Click" Width="150" Height="25" />
                     </StackPanel>
 
                 </Grid>
