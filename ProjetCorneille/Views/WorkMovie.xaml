@@ -22,14 +22,32 @@
                 <ComboBoxItem>ListBox Item #3</ComboBoxItem>
             </ComboBox>
         </Grid>
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Width="365">
+                    <ComboBoxItem IsSelected="True">Chosir une motion de la video</ComboBoxItem>
+                    <ComboBoxItem>Motion #1</ComboBoxItem>
+                    <ComboBoxItem>Motion #2</ComboBoxItem>
+                    <ComboBoxItem>Motion #3</ComboBoxItem>
+                </ComboBox>
+                <Button Width="214">Precedante</Button>
+                <Button Width="214">Suivante</Button>                
+            </StackPanel>
+        </Grid>
         <Grid Grid.Row="4">
             <Button Content="Enregistrer"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <TextBox Text="Mettre un commentaire"></TextBox>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="75*"></ColumnDefinition>
                 <ColumnDefinition Width="25*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <MediaElement />
+            </Grid>
             <StackPanel Orientation="Vertical" Grid.Column="1">
                 <Button Content="Demarrer le marqueur" Height="50"></Button>
                 <Button Content="Arreter le marqueur" Height="50"></Button>
