@@ -85,5 +85,10 @@ namespace ProjetCorneille.Outils
             movie.InfoMotions.Add(infoMotion);
             XMLUtility.SerializeForXml<Movie>(fileName, "Movie", movie);
         }
+        
+        public static void addToXmlMarqueurMotionInMovie(string nameOfVideo, string nameOfMotion, DateTime date , DateTime dateFin)
+        {
+            return;
+        }
     }
 }
