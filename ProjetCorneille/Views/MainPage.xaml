@@ -7,20 +7,17 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EcranPrincipal">
-
-    <Grid Background="White">
+       <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Image Grid.Row="0"
-            HorizontalAlignment="Left"
-           
-            Margin="10,10,0,0"
-            VerticalAlignment="Top"
-           
-            Loaded="Image_Loaded"/>
+        <Menu>
+            <MenuItem Header="Visualisation" Click="MenuClickVisu"></MenuItem>
+            <MenuItem Header="Test2"></MenuItem>
+            <MenuItem Header="Test3"></MenuItem>
+        </Menu>
         <Border Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>

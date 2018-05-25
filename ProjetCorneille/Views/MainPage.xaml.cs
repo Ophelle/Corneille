@@ -64,5 +64,14 @@ namespace ProjetCorneille.Views
             image.Source = b;
         }
 
+        private void MenuClickVisu(object sender, RoutedEventArgs e)
+        {
+            WorkMovie wm = new WorkMovie();
+           
+           if ( wm.DialogResult != false)
+            {
+                wm.Show();
+            }
+        }
     }
 }
