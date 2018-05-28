@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using ProjetCorneille.Outils;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ProjetCorneille.ViewModel
 {
@@ -20,13 +22,173 @@ namespace ProjetCorneille.ViewModel
         private bool buttonValVol1;
         private bool buttonValVol2;
 
+        //Video lecture buttons
+        private bool btnPlay;
+        private bool btnStop;
+        private bool btnMoveBack;
+        private bool btnMoveForward;
+        private bool btnOpen;
+
+        private string btnPlayContent;
+        private string btnStopContent;
+        private string btnMoveBackContent;
+        private string btnMoveForwardContent;
+        private string btnOpenContent;
+
+        public bool BtnPlay
+        {
+            get
+            {
+                return this.btnPlay;
+            }
+            set
+            {
+                this.btnPlay = value;
+                NotifyPropertyChanged("BtnPlay");
+            }
+        }
+
+        public string BtnPlayContent
+        {
+            get
+            {
+                return this.btnPlayContent;
+            }
+            set
+            {
+                this.btnPlayContent = value;
+                NotifyPropertyChanged("BtnPlayContent");
+            }
+
+        }
+
+        public bool BtnStop
+        {
+            get
+            {
+                return this.btnStop;
+            }
+            set
+            {
+                this.btnStop = value;
+                NotifyPropertyChanged("BtnStop");
+            }
+        }
+
+        public string BtnStopContent
+        {
+            get
+            {
+                return this.btnStopContent;
+            }
+            set
+            {
+                this.btnStopContent = value;
+                NotifyPropertyChanged("BtnPlayContent");
+            }
+
+        }
+
+        public bool BtnMoveBack
+        {
+            get
+            {
+                return this.btnMoveBack;
+            }
+            set
+            {
+                this.btnMoveBack = value;
+                NotifyPropertyChanged("BtnMoveBack");
+            }
+        }
+
+        public string BtnMoveBackContent
+        {
+            get
+            {
+                return this.btnMoveBackContent;
+            }
+            set
+            {
+                this.btnMoveBackContent = value;
+                NotifyPropertyChanged("BtnMoveBackContent");
+            }
+
+        }
+
+        public bool BtnMoveForward
+        {
+            get
+            {
+                return this.btnMoveBack;
+            }
+            set
+            {
+                this.btnMoveBack = value;
+                NotifyPropertyChanged("BtnMoveBack");
+            }
+        }
+
+        public string BtnMoveForwardContent
+        {
+            get
+            {
+                return this.btnMoveForwardContent;
+            }
+            set
+            {
+                this.btnMoveForwardContent = value;
+                NotifyPropertyChanged("BtnMoveForwardContent");
+            }
+
+        }
+
+        public bool BtnOpen
+        {
+            get
+            {
+                return this.btnOpen;
+            }
+            set
+            {
+                this.btnOpen = value;
+                NotifyPropertyChanged("BtnOpen");
+            }
+        }
+
+        public string BtnOpenContent
+        {
+            get
+            {
+                return this.btnOpenContent;
+            }
+            set
+            {
+                this.btnOpenContent = value;
+                NotifyPropertyChanged("BtnOpenContent");
+            }
+
+        }
+
         public WorkingMovieViewModel()
         {
+            /*
+             TODO : Define Command for video button and bind them
+             */
+
+
+
+            //For marquer events 
             CommandButtonStart = new RelayCommand(FunctionboolToChange);
             CommandButtonStop = new RelayCommand(FunctionboolToChangeToFalse);
             CommandSaveMarqueur = new RelayCommand(FunctionboolToChange);
             ButtonValVol0 = true;
             StartAndStop = false;
+            BtnPlayContent = "Play";
+
+            //For the video lecture it has to be false before 
+            IsPlaying(false);
+
         }
 
         // Button to save marqueur 
@@ -37,6 +199,73 @@ namespace ProjetCorneille.ViewModel
 
         // Bouton to stop marqueur
         public RelayCommand CommandButtonStop { get; set; }
+
+        private void IsPlaying(bool flag)
+        {
+            BtnPlay = flag;
+            BtnStop = flag;
+            BtnMoveBack = flag;
+            BtnMoveForward = flag;
+        }
+
+        private void FunctionBtnPlay(Object obj)
+        {
+            //we have to set true "IsEnabled", so video will start directly 
+            IsPlaying(true);
+            if (BtnPlayContent == "Play")
+            {
+                MediaPlayer.Play();
+                BtnPlayContent = "Pause";
+            }
+            else
+            {
+                MediaPlayer.Pause();
+                BtnPlayContent = "Play";
+            }
+        }
+
+        private void FunctionBtnStop(Object obj)
+        {
+            MediaPlayer.Pause();
+            btnPlayContent = "Play";
+            IsPlaying(false);
+            BtnPlay = true;
+        }
+
+        private void FunctionBtnMoveBack(Object obj)
+        {
+            MediaPlayer.Position -= TimeSpan.FromSeconds(10);
+        }
+
+        private void FunctionBtnMoveForward(Object obj)
+        {
+            //to fetch video time by TimeSpan.FromSeconds() function 
+            MediaPlayer.Position += TimeSpan.FromSeconds(10);
+        }
+
+        //Open option will be for testing videos
+        private void FunctionBtnOpen(Object obj)
+        {
+            // Configure open file dialog box
+            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.FileName = "Videos"; // Default file name
+            dialog.DefaultExt = ".WMV"; // Default file extension
+            dialog.Filter = "WMV file (.wm)|*.mp4"; // Filter files by extension 
+
+            // Show open file dialog box
+            Nullable<bool> result = dialog.ShowDialog();
+
+            // Process open file dialog box results 
+            if (result == true)
+            {
+                // Open document 
+                MediaPlayer.Source = new Uri(dialog.FileName);
+                BtnPlay = true;
+            }
+        }
+
+        //
+
 
         // Methode to change le statut 
         public void FunctionboolToChange(Object obj)
@@ -53,6 +282,8 @@ namespace ProjetCorneille.ViewModel
             }
            
         }
+
+
         // Methode to change le statut 
         public void FunctionboolToChangeToFalse(Object obj)
         {
