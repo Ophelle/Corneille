@@ -42,14 +42,6 @@ namespace ProjetCorneille.Outils
                 {
                     Directory.CreateDirectory("/MotionsVideo");
                 }
-                else
-                {
-                    var dir = new DirectoryInfo("/MotionsVideo");
-                    foreach (var fi in dir.GetFiles())
-                    {
-                        fi.Delete();
-                    }
-                }
 
                 _FileReader.Open(path);
                 while (true){
