@@ -60,10 +60,11 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnPlay" Content="Play" Click="btnPlay_Click" Width="150" Height="25"/>
-                        <Button x:Name="btnStop" Content="Stop" Click="btnStop_Click" Width="150" Height="25" />
-                        <Button x:Name="btnMoveBack" Content="Back" Click="btnMoveBack_Click" Width="150" Height="25" />
-                        <Button x:Name="btnMoveForward" Content="Forward" Click="btnMoveForward_Click" Width="150" Height="25" />
+                        <Button x:Name="btnPlay" Content="Play" Click="btnPlay_Click" Width="120" Height="25"/>
+                        <Button x:Name="btnStop" Content="Stop" Click="btnStop_Click" Width="120" Height="25" />
+                        <Button x:Name="btnMoveBack" Content="Back" Click="btnMoveBack_Click" Width="120" Height="25" />
+                        <Button x:Name="btnMoveForward" Content="Forward" Click="btnMoveForward_Click" Width="120" Height="25" />
+                        <Button x:Name="btnOpen" Content="Open" Click="btnOpen_Click" Width="120" Height="25" />
                     </StackPanel>
                 </Grid>
             </Grid>
