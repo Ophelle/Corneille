@@ -14,6 +14,7 @@ namespace ProjetCorneille.ViewModel
         private DateTime date;
         private bool startAndStop;
         private string category;
+        private string comment;
         public bool StartAndStop
         {
             get
@@ -38,21 +39,37 @@ namespace ProjetCorneille.ViewModel
                 NotifyPropertyChanged("Category");
             }
         }
+        public string Comment
+        {
+            get
+            {
+                return this.comment;
+            }
+            set
+            {
+                this.comment = value;
+                NotifyPropertyChanged("Comment");
+            }
+        }
 
         /**
         * @bool paramètre permettant de savoir si on doit enregistrer ou pas la video 
+        * @string category type de vol constaté 
+        * @comment commentaire par le marqueur 
         * @string nom de la video 
         * @string nom de la motion
         * @DateTime heure de capture  
         *
         */
-        public void FunctionStartAndStopRecToXmlSaveMarqueur( string nameOfVideo, string nameOfMotion, DateTime date)
+        public void FunctionStartAndStopRecToXmlSaveMarqueur(string nameOfVideo, string nameOfMotion, string category, string comment, DateTime date)
         {
             if(this.StartAndStop)
             {
                 //Insestion dans les varaibles globales
                 this.nameOfMotion = nameOfMotion;
                 this.nameOfVideo = nameOfVideo;
+                this.category = category;
+                this.comment = comment;
                 this.date = date;
             }
             // Insertion dans le XMl et fin du marqueur
@@ -60,8 +77,6 @@ namespace ProjetCorneille.ViewModel
             {
                 XMLManager.addToXmlMarqueurMotionInMovie(this.nameOfMotion, this.nameOfVideo, this.date, date);
             }
-        }
-
-            
+        }            
     }
 }
