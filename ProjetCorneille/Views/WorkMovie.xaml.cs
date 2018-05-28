@@ -21,10 +21,9 @@ namespace ProjetCorneille.Views
     public partial class WorkMovie : Window
     {
          
-        // We have to give path of video to this player as Source
-        // MediaPlayer.Source = new Uri(dialog.FileName);
-        
        
+
+
         public WorkMovie()
         {
             InitializeComponent();
@@ -47,8 +46,6 @@ namespace ProjetCorneille.Views
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
             //we have to set true "IsEnabled", so video will start directly 
-           // btnPlay.IsEnabled = true;
-
             IsPlaying(true);
             if (btnPlay.Content.ToString() == "Play")
             {
@@ -77,10 +74,31 @@ namespace ProjetCorneille.Views
 
         private void btnMoveForward_Click(object sender, RoutedEventArgs e)
         {
+            //to fetch video time by TimeSpan.FromSeconds() function 
             MediaPlayer.Position += TimeSpan.FromSeconds(10);
         }
 
-        
+        //Open option will be for testing videos
+        private void btnOpen_Click(object sender, RoutedEventArgs e)
+        {
+            // Configure open file dialog box
+            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.FileName = "Videos"; // Default file name
+            dialog.DefaultExt = ".WMV"; // Default file extension
+            dialog.Filter = "WMV file (.wm)|*.mp4"; // Filter files by extension 
+
+            // Show open file dialog box
+            Nullable<bool> result = dialog.ShowDialog();
+
+            // Process open file dialog box results 
+            if (result == true)
+            {
+                // Open document 
+                MediaPlayer.Source = new Uri(dialog.FileName);
+                btnPlay.IsEnabled = true;
+            }
+        }
+
 
     }
 }
