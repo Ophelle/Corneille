@@ -40,7 +40,7 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4">
-            <Button Content="Enregistrer"/>
+            <Button Content="Enregistrer" Command="{Binding CommandSaveMarqueur}"/>
         </Grid>
         <Grid Grid.Row="3">
             <TextBox Text="Mettre un commentaire"></TextBox>
@@ -69,17 +69,17 @@
                 </Grid>
             </Grid>
             <StackPanel Orientation="Vertical" Grid.Column="1">
-                <Button Content="Demarrer le marqueur" Height="50"></Button>
-                <Button Content="Arreter le marqueur" Height="50"></Button>
+                <Button Content="Demarrer le marqueur" Height="50" Command="{Binding CommandButtonStart}"/>
+                <Button Content="Arreter le marqueur" Height="50"  Command="{Binding CommandButtonStop}"/>
                 <GroupBox>
                     <GroupBox.Header>
                         <Label>Chosir une action detectée</Label>
                     </GroupBox.Header>
                     <StackPanel Orientation="Vertical">
-                        <RadioButton  Margin="5">Vol</RadioButton>
-                        <RadioButton  Margin="5">Vol1</RadioButton>
-                        <RadioButton  Margin="5">Vol2</RadioButton>
-                        <RadioButton  Margin="5">Autres</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol0}">Vol</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol1}">Vol1</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol2}">Vol2</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol3}">Autres</RadioButton>
                     </StackPanel>
                 </GroupBox>
             </StackPanel>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ProjetCorneille.Outils;
 
 namespace ProjetCorneille.ViewModel
@@ -15,6 +16,49 @@ namespace ProjetCorneille.ViewModel
         private bool startAndStop;
         private string category;
         private string comment;
+        private bool buttonValVol0;
+        private bool buttonValVol1;
+        private bool buttonValVol2;
+
+        public WorkingMovieViewModel()
+        {
+            CommandButtonStart = new RelayCommand(FunctionboolToChange);
+            CommandButtonStop = new RelayCommand(FunctionboolToChangeToFalse);
+            CommandSaveMarqueur = new RelayCommand(FunctionboolToChange);
+            ButtonValVol0 = true;
+            StartAndStop = false;
+        }
+
+        // Button to save marqueur 
+        public RelayCommand CommandSaveMarqueur { get; set; }
+
+        // Button to start marqueur
+        public RelayCommand CommandButtonStart { get; set; }
+
+        // Bouton to stop marqueur
+        public RelayCommand CommandButtonStop { get; set; }
+
+        // Methode to change le statut 
+        public void FunctionboolToChange(Object obj)
+        {
+            StartAndStop = true;  
+        }
+
+        // Methode ta save marqueur
+        public void SaveMarqueurToXml(Object obj)
+        {
+            if (!StartAndStop)
+            {
+                FunctionStartAndStopRecToXmlSaveMarqueur(this.nameOfVideo, this.nameOfMotion, this.category, this.comment, this.date);
+            }
+           
+        }
+        // Methode to change le statut 
+        public void FunctionboolToChangeToFalse(Object obj)
+        {
+            StartAndStop = false;
+        }
+
         public bool StartAndStop
         {
             get
@@ -27,6 +71,50 @@ namespace ProjetCorneille.ViewModel
                 NotifyPropertyChanged("StartAndStop");
             }
         }
+        // Bouton de catagorie de vol 
+        public bool ButtonValVol0
+        {
+            get
+            {
+                return this.buttonValVol0;
+            }
+            set
+            {
+                this.buttonValVol0 = value;
+                NotifyPropertyChanged("ButtonValVol0");
+                this.category = "Vol";
+            }
+        }
+        // vol1 
+        public bool ButtonValVol1
+        {
+            get
+            {
+                return this.buttonValVol1;
+            }
+            set
+            {
+                this.buttonValVol1 = value;
+                NotifyPropertyChanged("ButtonValVol1");
+                this.category = "Vol1";
+            }
+        }
+
+        // vol2
+        public bool ButtonValVol2
+        {
+            get
+            {
+                return this.buttonValVol2;
+            }
+            set
+            {
+                this.buttonValVol2 = value;
+                NotifyPropertyChanged("ButtonValVol2");
+                this.category = "Vol2";
+            }
+        }
+
         public string Category
         {
             get
@@ -63,7 +151,7 @@ namespace ProjetCorneille.ViewModel
         */
         public void FunctionStartAndStopRecToXmlSaveMarqueur(string nameOfVideo, string nameOfMotion, string category, string comment, DateTime date)
         {
-            if(this.StartAndStop)
+            if(StartAndStop)
             {
                 //Insestion dans les varaibles globales
                 this.nameOfMotion = nameOfMotion;
@@ -75,7 +163,9 @@ namespace ProjetCorneille.ViewModel
             // Insertion dans le XMl et fin du marqueur
             else
             {
-                XMLManager.addToXmlMarqueurMotionInMovie(this.nameOfMotion, this.nameOfVideo, this.date, date);
+                this.comment = comment;
+                this.category = category;
+                XMLManager.addToXmlMarqueurMotionInMovie(this.category, this.comment, this.nameOfMotion, this.nameOfVideo, this.date, date);
             }
         }            
     }

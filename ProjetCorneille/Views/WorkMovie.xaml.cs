@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
+using ProjetCorneille.ViewModel;
 
 namespace ProjetCorneille.Views
 {
@@ -27,6 +28,7 @@ namespace ProjetCorneille.Views
         public WorkMovie()
         {
             InitializeComponent();
+            this.DataContext = new WorkingMovieViewModel();
             IsPlaying(false);
         }
 
