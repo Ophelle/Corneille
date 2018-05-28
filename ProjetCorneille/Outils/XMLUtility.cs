@@ -29,6 +29,7 @@ namespace ProjetCorneille.Outils
             }
             TextWriter writer = new StreamWriter("/"+type+"/"+fileName);
 			x.Serialize(writer, XML);
+            writer.Close();
 		}
 	}
 }

@@ -9,10 +9,20 @@ namespace ProjetCorneille.ViewModel
     {
         private string selectUserPath;
         public RelayCommand CommandBouton { get; set; }
+        public RelayCommand OpenButton { get; set; }
 
         public MainPageViewModel()
         {
             CommandBouton = new RelayCommand(bonjour);
+            OpenButton = new RelayCommand(motionDetection);
+        }
+
+        private void motionDetection(object obj)
+        {
+            string path = General.getPathUser();
+            MessageBox.Show(path);
+            XMLManager.CreateXMLMovie(path, 1);
+            AForgeTools.Initialisation(path);
         }
 
         private static void bonjour(object obj)

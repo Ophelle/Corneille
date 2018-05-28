@@ -66,7 +66,7 @@ namespace ProjetCorneille.Outils
             motion.Name = fileName;
             motion.DateHoursStart = dateHoursStart;
             motion.DateHoursEnd = dateHoursEnd;
-            XMLUtility.SerializeForXml<Movie>(fileName, "Motion", motion);
+            XMLUtility.SerializeForXml<Motion>(fileName, "Motion", motion);
 
             AddMotionInXMLMovie("/Motion/" + fileName, pathMovie, start, end);
 

@@ -29,7 +29,7 @@ namespace ProjetCorneille.Views
             //OpencvTools.swithOnTheCamera();
             if (click)
             {
-                AForgeTools.Initialisation();
+                //AForgeTools.Initialisation();
                 button.Content = "Fermer";
                 click = false;
             }
@@ -40,14 +40,6 @@ namespace ProjetCorneille.Views
                 click = true;
             }
 
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.mainPageViewModel.SelectUserPath =  General.getPathUser();
-            XMLManager.CreateXMLMovie(General.getPathUser(),1);
-            MessageBox.Show(this.mainPageViewModel.SelectUserPath);
-            OpencvTools.openVideoFile(this.mainPageViewModel.SelectUserPath);
         }
 
         private void Image_Loaded(object sender, RoutedEventArgs e)
