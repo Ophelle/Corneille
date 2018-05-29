@@ -56,15 +56,15 @@
                     <RowDefinition  Height="10*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <MediaElement x:Name="MediaPlayer" Grid.RowSpan="1" LoadedBehavior="Manual"/>
+                    <MediaElement x:Name="mediaPlayer" Grid.RowSpan="1" LoadedBehavior="Manual"/>
                 </Grid>
                 <Grid Grid.Row="1">
                     <StackPanel Orientation="Horizontal">
-                        <Button IsEnabled="{Binding BtnPlay}" Content="{Binding BtnPlayContent}" Width="120" Height="25" />
-                        <Button x:Name="btnStop" Content="Stop" Click="btnStop_Click" Width="120" Height="25" />
-                        <Button x:Name="btnMoveBack" Content="Back" Click="btnMoveBack_Click" Width="120" Height="25" />
-                        <Button x:Name="btnMoveForward" Content="Forward" Click="btnMoveForward_Click" Width="120" Height="25" />
-                        <Button x:Name="btnOpen" Content="Open" Click="btnOpen_Click" Width="120" Height="25" />
+                        <Button IsEnabled="{Binding BtnPlay}" Content="{Binding BtnPlayContent}" Command="{Binding CommandBtnPlay}" Width="120" Height="25" />
+                        <Button IsEnabled="{Binding BtnStop}"  Content="{Binding BtnStopContent}"  Command="{Binding CommandBtnStop}" Width="120" Height="25" />
+                        <Button IsEnabled="{Binding BtnMoveBack}" Content="{Binding BtnMoveBackContent}"  Command="{Binding CommandBtnMoveBack}" Width="120" Height="25" />
+                        <Button IsEnabled="{Binding BtnMoveForward}" Content="{Binding BtnMoveForwardContent}"  Command="{Binding CommandBtnMoveForward}" Width="120" Height="25" />
+                        <Button IsEnabled="{Binding BtnOpen}" Content="{Binding BtnOpenContent}"  Command="{Binding CommandBtnOpen}" Width="120" Height="25" />
                     </StackPanel>
                 </Grid>
             </Grid>
