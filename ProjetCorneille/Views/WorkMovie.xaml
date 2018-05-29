@@ -15,11 +15,12 @@
             <RowDefinition  Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <ComboBox>
-                <ComboBoxItem IsSelected="True">Chosir une video</ComboBoxItem>
-                <ComboBoxItem>ListBox Item #1</ComboBoxItem>
-                <ComboBoxItem>ListBox Item #2</ComboBoxItem>
-                <ComboBoxItem>ListBox Item #3</ComboBoxItem>
+            <ComboBox ItemsSource="{Binding itemList}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
         <Grid Grid.Row="2">
@@ -29,21 +30,22 @@
                 <ColumnDefinition Width="635*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
-                <ComboBox Width="365">
-                    <ComboBoxItem IsSelected="True">Chosir une motion de la video</ComboBoxItem>
-                    <ComboBoxItem>Motion #1</ComboBoxItem>
-                    <ComboBoxItem>Motion #2</ComboBoxItem>
-                    <ComboBoxItem>Motion #3</ComboBoxItem>
+                <ComboBox ItemsSource="{Binding itemMotionList}" Width="364" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Button Width="214">Precedante</Button>
                 <Button Width="214">Suivante</Button>                
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4">
-            <Button Content="Enregistrer" Command="{Binding CommandSaveMarqueur}"/>
+            <Button Content="Enregistrer" Command="{Binding CommandSaveMarqueur}" IsEnabled="{Binding ButtonDisableButton}"/>
         </Grid>
         <Grid Grid.Row="3">
-            <TextBox Text="Mettre un commentaire"></TextBox>
+            <TextBox Text="{Binding Comment}" ></TextBox>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

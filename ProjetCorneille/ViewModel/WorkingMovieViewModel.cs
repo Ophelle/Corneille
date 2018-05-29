@@ -8,8 +8,6 @@ using ProjetCorneille.Outils;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 
@@ -21,11 +19,13 @@ namespace ProjetCorneille.ViewModel
         private string nameOfMotion;
         private DateTime date;
         private bool startAndStop;
+        private bool buttonDisableButton;
         private string category;
         private string comment;
         private bool buttonValVol0;
         private bool buttonValVol1;
         private bool buttonValVol2;
+        private bool buttonValVol3;
 
         //Video lecture buttons
         private bool btnPlay;
@@ -49,7 +49,7 @@ namespace ProjetCorneille.ViewModel
             //For marquer events 
             CommandButtonStart = new RelayCommand(FunctionboolToChange);
             CommandButtonStop = new RelayCommand(FunctionboolToChangeToFalse);
-            CommandSaveMarqueur = new RelayCommand(FunctionboolToChange);
+            CommandSaveMarqueur = new RelayCommand(FunctionSaveMarqueurToXml);
 
             //Video Lecture
             CommandBtnPlay = new RelayCommand(FunctionBtnPlay);
@@ -78,6 +78,58 @@ namespace ProjetCorneille.ViewModel
             BtnMoveBack = flag;
             BtnMoveForward = flag;
             BtnOpen = true;
+
+            CommandSaveMarqueur = new RelayCommand(FunctionSaveMarqueurToXml);
+
+            ButtonValVol0 = true;
+            StartAndStop = false;
+            ButtonDisableButton = true;
+            itemList = new List<Item>();
+            itemMotionList = new List<Item>();
+            sendVideoToCombobox();         
+        }
+
+        // liste d item pour afficher les videos
+        public List<Item> itemList { get; set; }
+
+        //Liste ditem motion afin de pouvoir afficher les motion d'une video
+        public List<Item> itemMotionList { get; set; }
+
+        //peupagle des motion via les videos 
+        public void sendVideoToMotionCombobox(string NameOfVideo)
+        {
+            List<Item> video = XMLManager.bringMotionFromVideoAndXml(NameOfVideo);
+            // TODO enlever une fois que se sera dynamique
+            itemMotionList = video;
+            Item apple = new Item(1, "Motion 1 ");
+            Item orange = new Item(2, "Motion 2");
+            Item banana = new Item(3, "Motion 3 ");
+            itemMotionList.Add(orange);
+            itemMotionList.Add(apple);
+            itemMotionList.Add(banana);
+        }
+
+        // peupagle de la lsite de video
+        /*
+         * 
+         * @Return list de video a afficher
+         */
+
+        public void sendVideoToCombobox()
+        {
+            List<Item> video = XMLManager.bringVideoFromXml();
+            // TODO enlever une fois que se sera dynamique
+            itemList = video;
+            Item apple = new Item(1, "Apple");
+            Item orange = new Item(2, "Orange");
+            Item banana = new Item(3, "Banana");
+            itemList.Add(orange);
+            itemList.Add(apple);
+            itemList.Add(banana);
+            if (itemList.Count > 0 )
+            {
+                sendVideoToMotionCombobox("Motion 1");
+            }
         }
 
         public RelayCommand CommandBtnPlay { get; set; }
@@ -300,15 +352,20 @@ namespace ProjetCorneille.ViewModel
         // Methode to change le statut 
         public void FunctionboolToChange(Object obj)
         {
-            StartAndStop = true;  
+            StartAndStop = true;
+            ButtonDisableButton = false;
         }
 
         // Methode ta save marqueur
-        public void SaveMarqueurToXml(Object obj)
+        public void FunctionSaveMarqueurToXml(Object obj)
         {
             if (!StartAndStop)
             {
                 FunctionStartAndStopRecToXmlSaveMarqueur(this.nameOfVideo, this.nameOfMotion, this.category, this.comment, this.date);
+            }
+            else
+            {
+                MessageBox.Show("Vous devez d'abord stopper le marqueur");
             }
            
         }
@@ -318,8 +375,20 @@ namespace ProjetCorneille.ViewModel
         public void FunctionboolToChangeToFalse(Object obj)
         {
             StartAndStop = false;
+            ButtonDisableButton = true;
         }
-
+        public bool ButtonDisableButton
+        {
+            get
+            {
+                return this.buttonDisableButton;
+            }
+            set
+            {
+                this.buttonDisableButton = value;
+                NotifyPropertyChanged("ButtonDisableButton");
+            }
+        }
         public bool StartAndStop
         {
             get
@@ -332,6 +401,8 @@ namespace ProjetCorneille.ViewModel
                 NotifyPropertyChanged("StartAndStop");
             }
         }
+
+        
         // Bouton de catagorie de vol 
         public bool ButtonValVol0
         {
@@ -373,6 +444,20 @@ namespace ProjetCorneille.ViewModel
                 this.buttonValVol2 = value;
                 NotifyPropertyChanged("ButtonValVol2");
                 this.category = "Vol2";
+            }
+        }
+        // Autres
+        public bool ButtonValVol3
+        {
+            get
+            {
+                return this.buttonValVol3;
+            }
+            set
+            {
+                this.buttonValVol3 = value;
+                NotifyPropertyChanged("buttonValVol3");
+                this.category = "Autres";
             }
         }
 
@@ -426,8 +511,23 @@ namespace ProjetCorneille.ViewModel
             {
                 this.comment = comment;
                 this.category = category;
-                XMLManager.addToXmlMarqueurMotionInMovie(this.category, this.comment, this.nameOfMotion, this.nameOfVideo, this.date, date);
+                XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.nameOfMotion, this.nameOfVideo, this.date, date);
+                MessageBox.Show(this.category);
+                MessageBox.Show(Comment);   
             }
         }            
     }
+}
+
+public class Item
+{
+    public int itemID { get; set; }
+    public string Name { get; set; }
+
+    public Item(int ID, string name)
+    {
+        this.itemID = ID;
+        this.Name = name;
+    }
+
 }

@@ -8,6 +8,7 @@ using ProjetCorneille.Model;
 using static ProjetCorneille.Model.Cameras;
 using static ProjetCorneille.Model.Cameras.Camera;
 using static ProjetCorneille.Model.Movie;
+using ProjetCorneille.ViewModel;
 
 namespace ProjetCorneille.Outils
 {
@@ -89,6 +90,20 @@ namespace ProjetCorneille.Outils
         public static void addToXmlMarqueurMotionInMovie(string category, string comment, string nameOfVideo, string nameOfMotion, DateTime date , DateTime dateFin)
         {
             return;
+        }
+
+        public static List<Item> bringVideoFromXml()
+        {
+            List<Item> video = new List<Item>();
+            // TODO faire le traitment pour alimenter la liste
+            return video;
+        }
+
+        public static List<Item> bringMotionFromVideoAndXml(string nameOfVideo)
+        {
+            List<Item> video = new List<Item>();
+            // TODO faire le traitment pour alimenter la liste
+            return video;
         }
     }
 }
