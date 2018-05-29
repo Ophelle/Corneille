@@ -486,6 +486,19 @@ namespace ProjetCorneille.ViewModel
             }
         }
 
+        public bool BtnPlayEnable
+        {
+            get
+            {
+                return this.btnPlay;
+            }
+            set
+            {
+                this.btnPlay = value;
+                NotifyPropertyChanged("BtnPlay");
+            }
+        }
+
         /**
         * @bool paramètre permettant de savoir si on doit enregistrer ou pas la video 
         * @string category type de vol constaté 

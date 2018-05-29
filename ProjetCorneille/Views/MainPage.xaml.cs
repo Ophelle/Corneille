@@ -55,15 +55,5 @@ namespace ProjetCorneille.Views
             // ... Assign Source.
             image.Source = b;
         }
-
-        private void MenuClickVisu(object sender, RoutedEventArgs e)
-        {
-            WorkMovie wm = new WorkMovie();
-           
-           if ( wm.DialogResult != false)
-            {
-                wm.Show();
-            }
-        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ProjetCorneille.Outils;
+using ProjetCorneille.Views;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -14,6 +15,8 @@ namespace ProjetCorneille.ViewModel
         public MainPageViewModel()
         {
             CommandBouton = new RelayCommand(bonjour);
+            CommandMenuVisu = new RelayCommand(FunctionCommandMenuVisu);
+            CommandMenuCreateCamera = new RelayCommand(FunctionCommandMenuCreateCamera);
             OpenButton = new RelayCommand(motionDetection);
         }
 
@@ -25,13 +28,20 @@ namespace ProjetCorneille.ViewModel
             AForgeTools.Initialisation(path);
         }
 
+        private void FunctionCommandMenuCreateCamera(object obj)
+        {
+           CreateCameraWindow ccw = new CreateCameraWindow();
+           ccw.Show();
+        }
+
         private static void bonjour(object obj)
         {
             MessageBox.Show("Nique ta mère");
         }
 
+        public RelayCommand CommandMenuVisu { get; set; }
+        public RelayCommand CommandMenuCreateCamera { get; }
 
-      
         public string SelectUserPath
         {
             get
@@ -43,6 +53,16 @@ namespace ProjetCorneille.ViewModel
             {
                 this.selectUserPath = value;
                 NotifyPropertyChanged("SelectUserPath");
+            }
+        }
+
+        private void FunctionCommandMenuVisu (object obj)
+        {
+            WorkMovie wm = new WorkMovie();
+
+            if (wm.DialogResult != false)
+            {
+                wm.Show();
             }
         }
     }

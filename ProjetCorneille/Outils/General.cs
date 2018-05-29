@@ -1,6 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using Accord.Video.FFMPEG;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +24,28 @@ namespace ProjetCorneille.Outils
             {
                 path = openFileDialog.FileName;
             }
-            MessageBox.Show(path);
             return path;
+        }
+
+        public static string createPreviewFromVideo(string pathVideo)
+        {
+            string pathImage ="";
+
+            if(!String.IsNullOrEmpty(pathVideo))
+            {
+                VideoFileReader reader = new VideoFileReader();
+                // open video file
+                reader.Open(pathVideo);
+                Bitmap videoFrame = reader.ReadVideoFrame();
+                pathImage = Path.GetDirectoryName(pathVideo) + @"\" + Path.GetFileNameWithoutExtension(pathVideo) + "image.png";
+                videoFrame.Save(pathImage);
+                // dispose the frame when it is no longer required
+                videoFrame.Dispose();
+
+                reader.Close();
+            }
+            
+            return pathImage;
         }
     }
 }
