@@ -9,6 +9,7 @@ using static ProjetCorneille.Model.Cameras;
 using static ProjetCorneille.Model.Cameras.Camera;
 using static ProjetCorneille.Model.Movie;
 using ProjetCorneille.ViewModel;
+using System.Collections.ObjectModel;
 
 namespace ProjetCorneille.Outils
 {
@@ -92,16 +93,16 @@ namespace ProjetCorneille.Outils
             return;
         }
 
-        public static List<Item> bringVideoFromXml()
+        public static ObservableCollection<Item> bringVideoFromXml()
         {
-            List<Item> video = new List<Item>();
+            ObservableCollection<Item> video = new ObservableCollection<Item>();
             // TODO faire le traitment pour alimenter la liste
             return video;
         }
 
-        public static List<Item> bringMotionFromVideoAndXml(string nameOfVideo)
+        public static ObservableCollection<Item> bringMotionFromVideoAndXml(string nameOfVideo)
         {
-            List<Item> video = new List<Item>();
+            ObservableCollection<Item> video = new ObservableCollection<Item>();
             // TODO faire le traitment pour alimenter la liste
             return video;
         }
