@@ -27,24 +27,33 @@ namespace ProjetCorneille.Outils
             return path;
         }
 
-        public static string createPreviewFromVideo(string pathVideo)
+        public static string createPreviewFromVideo(string pathVideo, string cameraName)
         {
-            string pathImage ="";
+            string pathImage = "";
 
-            if(!String.IsNullOrEmpty(pathVideo))
+            if (!String.IsNullOrEmpty(pathVideo))
             {
                 VideoFileReader reader = new VideoFileReader();
                 // open video file
                 reader.Open(pathVideo);
                 Bitmap videoFrame = reader.ReadVideoFrame();
-                pathImage = Path.GetDirectoryName(pathVideo) + @"\" + Path.GetFileNameWithoutExtension(pathVideo) + "image.png";
+                if (String.IsNullOrEmpty(cameraName))
+                {
+                    pathImage = Path.GetDirectoryName(pathVideo) + @"\" + Path.GetFileNameWithoutExtension(pathVideo) + "image.png";
+                }
+                else
+                {
+                    pathImage = Path.GetDirectoryName(pathVideo) + @"\" + cameraName + "image.png";
+                }
+                if (File.Exists(pathImage))
+                {
+                    File.Delete(pathImage);
+                }
                 videoFrame.Save(pathImage);
-                // dispose the frame when it is no longer required
                 videoFrame.Dispose();
-
                 reader.Close();
             }
-            
+
             return pathImage;
         }
     }

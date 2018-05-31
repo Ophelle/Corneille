@@ -17,18 +17,22 @@ namespace ProjetCorneille.ViewModel
         private string videoCameraPath;
         private string cameraNameText;
         private string sourceImage;
+        private bool enableButtonOK;
 
         public CreateCameraViewModel()
         {
             CommandButtonChoice = new RelayCommand(FunctionCommandButtonChoice);
             CommandButtonValider = new RelayCommand(FunctionCommandButtonValider);
+
             SourceImage = "";
             VideoCameraPath = "";
+            CameraNameText = "Camera"+(XMLManager.idLastCamera()+1);
+            EnableButtonOK = false;
         }
 
         private void FunctionCommandButtonValider(object obj)
         {
-            SourceImage = Outils.General.createPreviewFromVideo(VideoCameraPath);
+            SourceImage = Outils.General.createPreviewFromVideo(VideoCameraPath, CameraNameText);
         }
 
         private void FunctionCommandButtonChoice(object obj)
@@ -62,6 +66,8 @@ namespace ProjetCorneille.ViewModel
             {
                 this.cameraNameText = value;
                 NotifyPropertyChanged("CameraNameText");
+                EnableButtonOK = !String.IsNullOrEmpty(this.cameraNameText);
+
             }
         }
 
@@ -75,6 +81,19 @@ namespace ProjetCorneille.ViewModel
             {
                 this.sourceImage = value;
                 NotifyPropertyChanged("SourceImage");
+            }
+        }
+
+        public bool EnableButtonOK
+        {
+            get
+            {
+                return this.enableButtonOK;
+            }
+            set
+            {
+                this.enableButtonOK = value;
+                NotifyPropertyChanged("EnableButtonOK");
             }
         }
 

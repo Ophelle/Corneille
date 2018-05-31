@@ -41,11 +41,13 @@ namespace ProjetCorneille.Outils
         public static void CreateXMLCameras()
         {
             Cameras cameras = new Cameras();
-            XMLUtility.SerializeForXml<Movie>("Cameras", "Cameras", cameras);
+            cameras.CamerasList = new List<Camera>();
+            XMLUtility.SerializeForXml<Cameras>("Cameras", "Cameras", cameras);
         }
 
         public static void AddCameraInXMLCameras(string name, List<Coordinate> coordinates)
         {
+            int idBefore = 0;
             if (!File.Exists("/Cameras/Cameras.xml"))
             {
                 CreateXMLCameras();
@@ -53,11 +55,29 @@ namespace ProjetCorneille.Outils
             Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
             Camera camera = new Camera();
             camera.Name = name;
-            int idBefore = cameras.CamerasList.Max(cam => cam.ID);
+            if (cameras.CamerasList.Count > 0)
+            {
+                idBefore = cameras.CamerasList.Max(cam => cam.ID);
+            }
             camera.ID = idBefore + 1;
             camera.Coordinates = coordinates;
             cameras.CamerasList.Add(camera);
-            XMLUtility.SerializeForXml<Movie>("Cameras", "Cameras", cameras);
+            XMLUtility.SerializeForXml<Cameras>("Cameras", "Cameras", cameras);
+        }
+
+        public static int idLastCamera()
+        {
+            int id = 0;
+            if (!File.Exists("/Cameras/Cameras.xml"))
+            {
+                CreateXMLCameras();
+            }
+            Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
+            if(cameras.CamerasList.Count > 0)
+            {
+                id = cameras.CamerasList.Max(cam => cam.ID);
+            }
+            return id;
         }
 
         public static void CreateXMLMotion(string pathMovie, int numbermotion, DateTime dateHoursStart, DateTime dateHoursEnd, string start, string end)
@@ -68,9 +88,7 @@ namespace ProjetCorneille.Outils
             motion.DateHoursStart = dateHoursStart;
             motion.DateHoursEnd = dateHoursEnd;
             XMLUtility.SerializeForXml<Motion>(fileName, "Motion", motion);
-
             AddMotionInXMLMovie("/Motion/" + fileName, pathMovie, start, end);
-
         }
 
         private static void AddMotionInXMLMovie(string pathMotion, string pathMovie, string start, string end)
