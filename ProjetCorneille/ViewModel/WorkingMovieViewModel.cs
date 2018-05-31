@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Input;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
+using System.Collections.ObjectModel;
 
 namespace ProjetCorneille.ViewModel
 {
@@ -26,6 +27,8 @@ namespace ProjetCorneille.ViewModel
         private bool buttonValVol1;
         private bool buttonValVol2;
         private bool buttonValVol3;
+        private Item valueSelectedMotion;
+        private int motionIndex;
 
         //Video lecture buttons
         private bool btnPlay;
@@ -51,12 +54,21 @@ namespace ProjetCorneille.ViewModel
             CommandButtonStop = new RelayCommand(FunctionboolToChangeToFalse);
             CommandSaveMarqueur = new RelayCommand(FunctionSaveMarqueurToXml);
 
+            ButtonValVol0 = true;
+            StartAndStop = false;
+            ButtonDisableButton = true;
+            List<Item>  itemList = new List<Item>();
+            List<Item>  itemMotionList = new List<Item>();
+            sendVideoToCombobox();
+
             //Video Lecture
             CommandBtnPlay = new RelayCommand(FunctionBtnPlay);
             CommandBtnStop = new RelayCommand(FunctionBtnStop);
             CommandBtnMoveBack = new RelayCommand(FunctionBtnMoveBack);
             CommandBtnMoveForward = new RelayCommand(FunctionBtnMoveForward);
             CommandBtnOpen = new RelayCommand(FunctionBtnOpen);
+            NextMotion = new RelayCommand(NextMotionItemList);
+            PreviousMotion = new RelayCommand(PreviousMotionItemList);
 
             ButtonValVol0 = true;
             StartAndStop = false;
@@ -68,6 +80,37 @@ namespace ProjetCorneille.ViewModel
 
             //For the video lecture it has to be false before 
             IsPlaying(false);
+            this.motionIndex = 0;
+            ValueSelectedMotion = ItemMotionList[this.motionIndex];
+
+
+        }
+
+        /*
+         * Permet de pouvoir allez directement à la motion suivante
+         * 
+         */
+         public void NextMotionItemList(Object obj)
+        {           
+            if(this.motionIndex + 1 < ItemMotionList.Count)
+            {
+                this.motionIndex++;
+                ValueSelectedMotion = ItemMotionList[this.motionIndex];
+            }
+            
+        }
+
+         /*
+         * Permet de pouvoir allez directement à la motion suivante
+         * 
+         */
+        public void PreviousMotionItemList(Object obj)
+        {
+            if (this.motionIndex - 1 >= 0)
+            {
+                this.motionIndex--;
+                ValueSelectedMotion = ItemMotionList[this.motionIndex];       
+            }
 
         }
 
@@ -84,29 +127,29 @@ namespace ProjetCorneille.ViewModel
             ButtonValVol0 = true;
             StartAndStop = false;
             ButtonDisableButton = true;
-            itemList = new List<Item>();
-            itemMotionList = new List<Item>();
-            sendVideoToCombobox();         
+            ItemList = new ObservableCollection<Item>();
+            ItemMotionList = new ObservableCollection<Item>();
+            sendVideoToCombobox();
         }
 
         // liste d item pour afficher les videos
-        public List<Item> itemList { get; set; }
+        public ObservableCollection<Item> ItemList { get; set; }
 
         //Liste ditem motion afin de pouvoir afficher les motion d'une video
-        public List<Item> itemMotionList { get; set; }
+        public ObservableCollection<Item> ItemMotionList { get; set; }
 
         //peupagle des motion via les videos 
         public void sendVideoToMotionCombobox(string NameOfVideo)
         {
-            List<Item> video = XMLManager.bringMotionFromVideoAndXml(NameOfVideo);
+            ObservableCollection<Item> video = XMLManager.bringMotionFromVideoAndXml(NameOfVideo);
             // TODO enlever une fois que se sera dynamique
-            itemMotionList = video;
+            ItemMotionList = video;
             Item apple = new Item(1, "Motion 1 ");
             Item orange = new Item(2, "Motion 2");
             Item banana = new Item(3, "Motion 3 ");
-            itemMotionList.Add(orange);
-            itemMotionList.Add(apple);
-            itemMotionList.Add(banana);
+            ItemMotionList.Add(apple);
+            ItemMotionList.Add(orange);
+            ItemMotionList.Add(banana);
         }
 
         // peupagle de la lsite de video
@@ -117,16 +160,16 @@ namespace ProjetCorneille.ViewModel
 
         public void sendVideoToCombobox()
         {
-            List<Item> video = XMLManager.bringVideoFromXml();
+            ObservableCollection<Item> video = XMLManager.bringVideoFromXml();
             // TODO enlever une fois que se sera dynamique
-            itemList = video;
+            ItemList = video;
             Item apple = new Item(1, "Apple");
             Item orange = new Item(2, "Orange");
             Item banana = new Item(3, "Banana");
-            itemList.Add(orange);
-            itemList.Add(apple);
-            itemList.Add(banana);
-            if (itemList.Count > 0 )
+            ItemList.Add(orange);
+            ItemList.Add(apple);
+            ItemList.Add(banana);
+            if (ItemList.Count > 0 )
             {
                 sendVideoToMotionCombobox("Motion 1");
             }
@@ -138,6 +181,12 @@ namespace ProjetCorneille.ViewModel
 
         public RelayCommand CommandBtnMoveForward { get; set; }
         public RelayCommand CommandBtnOpen { get; set; }
+
+        // Acces to next Motion
+        public RelayCommand NextMotion { get; set; }
+
+        // Acces to previpous Motion
+        public RelayCommand PreviousMotion { get; set; }
 
 
 
@@ -483,6 +532,19 @@ namespace ProjetCorneille.ViewModel
             {
                 this.comment = value;
                 NotifyPropertyChanged("Comment");
+            }
+        }
+
+        public Item ValueSelectedMotion
+        {
+            get
+            {
+                return this.valueSelectedMotion;
+            }
+            set
+            {
+                this.valueSelectedMotion = value;
+                NotifyPropertyChanged("ValueSelectedMotion");
             }
         }
 

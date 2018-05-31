@@ -15,7 +15,7 @@
             <RowDefinition  Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <ComboBox ItemsSource="{Binding itemList}" >
+            <ComboBox ItemsSource="{Binding ItemList}" IsEnabled="{Binding ButtonDisableButton}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -30,15 +30,10 @@
                 <ColumnDefinition Width="635*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
-                <ComboBox ItemsSource="{Binding itemMotionList}" Width="364" >
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <Button Width="214">Precedante</Button>
-                <Button Width="214">Suivante</Button>                
+                <ComboBox ItemsSource="{Binding ItemMotionList}" SelectedValue="{Binding ValueSelectedMotion}"
+                          DisplayMemberPath="Name" Width="364" IsEnabled="{Binding ButtonDisableButton}" />
+                <Button Width="214" Command="{Binding PreviousMotion}" IsEnabled="{Binding ButtonDisableButton}">Precedante</Button>
+                <Button Width="214" Command="{Binding NextMotion}" IsEnabled="{Binding ButtonDisableButton}">Suivante</Button>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4">
@@ -71,7 +66,7 @@
                 </Grid>
             </Grid>
             <StackPanel Orientation="Vertical" Grid.Column="1">
-                <Button Content="Demarrer le marqueur" Height="50" Command="{Binding CommandButtonStart}"/>
+                <Button Content="Demarrer le marqueur" Height="50" Command="{Binding CommandButtonStart}" IsEnabled="{Binding ButtonDisableButton}"/>
                 <Button Content="Arreter le marqueur" Height="50"  Command="{Binding CommandButtonStop}"/>
                 <GroupBox>
                     <GroupBox.Header>
