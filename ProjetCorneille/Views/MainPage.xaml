@@ -14,8 +14,8 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="Visualisation" Click="MenuClickVisu"></MenuItem>
-            <MenuItem Header="Test2"></MenuItem>
+            <MenuItem Header="Visualisation" Command="{Binding CommandMenuVisu}"></MenuItem>
+            <MenuItem Header="Créer Camera" Command="{Binding CommandMenuCreateCamera}"></MenuItem>
             <MenuItem Header="Test3"></MenuItem>
         </Menu>
         <Border Grid.Row="1">

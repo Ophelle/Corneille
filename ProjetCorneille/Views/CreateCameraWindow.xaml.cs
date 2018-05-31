@@ -11,22 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Navigation;
 using ProjetCorneille.ViewModel;
 
-namespace ProjetCorneille.Views
+namespace ProjetCorneille.ViewModel
 {
     /// <summary>
-    /// Logique d'interaction pour WorkMovie.xaml
+    /// Logique d'interaction pour CreateCameraWindow.xaml
     /// </summary>
-    public partial class WorkMovie : Window
+    public partial class CreateCameraWindow : Window
     {
-         
-        public WorkMovie()
+        public CreateCameraWindow()
         {
             InitializeComponent();
-            this.DataContext = new WorkingMovieViewModel();
+            this.DataContext = new CreateCameraViewModel();
         }
-
     }
 }
