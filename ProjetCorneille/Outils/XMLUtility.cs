@@ -14,7 +14,7 @@ namespace ProjetCorneille.Outils
 		public static T DeserializeForXml<T>(string filePath)
 		{
 			XmlSerializer selializer = new XmlSerializer(typeof(T));
-			using (Stream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+			using (Stream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read))
 			{
 				return (T)selializer.Deserialize(fs);
 			}
@@ -27,7 +27,7 @@ namespace ProjetCorneille.Outils
             {
                 Directory.CreateDirectory("/"+type);
             }
-            TextWriter writer = new StreamWriter("/"+type+"/"+fileName);
+            TextWriter writer = new StreamWriter("/"+type+"/"+fileName+ ".xml");
 			x.Serialize(writer, XML);
             writer.Close();
 		}

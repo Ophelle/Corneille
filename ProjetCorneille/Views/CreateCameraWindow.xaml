@@ -29,7 +29,7 @@
                 <ColumnDefinition Width="20*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0" Text="{Binding CameraNameText}"></TextBox>
-            <Button Grid.Column="1" Content="Valider" Command="{Binding CommandButtonValider}"></Button>
+            <Button Grid.Column="1" Content="Valider" IsEnabled="{Binding EnableButtonOK}" Command="{Binding CommandButtonValider}"></Button>
         </Grid>
         <Image Grid.Row="3"  Source="{Binding SourceImage}"></Image>
 
