@@ -1,0 +1,2 @@
+C:\Users\Ophelle\Documents\Projet_M2\Corneille\ProjetCorneille.Tests\obj\Debug\ProjetCorneille.Tests.csprojAssemblyReference.cache
+C:\Users\Ophelle\Documents\Projet_M2\Corneille\ProjetCorneille.Tests\obj\Debug\ProjetCorneille.Tests.csproj.CoreCompileInputs.cache

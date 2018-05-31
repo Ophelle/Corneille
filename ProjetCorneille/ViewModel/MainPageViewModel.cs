@@ -9,15 +9,13 @@ namespace ProjetCorneille.ViewModel
     public class MainPageViewModel : ViewModelBase
     {
         private string selectUserPath;
-        public RelayCommand CommandBouton { get; set; }
-        public RelayCommand OpenButton { get; set; }
+        public RelayCommand CommandOpenButton { get; set; }
 
         public MainPageViewModel()
         {
-            CommandBouton = new RelayCommand(bonjour);
             CommandMenuVisu = new RelayCommand(FunctionCommandMenuVisu);
             CommandMenuCreateCamera = new RelayCommand(FunctionCommandMenuCreateCamera);
-            OpenButton = new RelayCommand(motionDetection);
+            CommandOpenButton = new RelayCommand(motionDetection);
         }
 
         private void motionDetection(object obj)
@@ -32,11 +30,6 @@ namespace ProjetCorneille.ViewModel
         {
            CreateCameraWindow ccw = new CreateCameraWindow();
            ccw.Show();
-        }
-
-        private static void bonjour(object obj)
-        {
-            MessageBox.Show("Nique ta mère");
         }
 
         public RelayCommand CommandMenuVisu { get; set; }

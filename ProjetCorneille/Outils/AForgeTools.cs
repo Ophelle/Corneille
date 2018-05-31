@@ -18,6 +18,7 @@ namespace ProjetCorneille.Outils
     class AForgeTools
     {
         private static MotionDetector _motionDetector;
+        // Motion detect level for copy frame
         private static float _motionAlarmLevel = 0.001f;
         private static bool _hasMotion = false;
         private static int _volgnr;
@@ -92,6 +93,7 @@ namespace ProjetCorneille.Outils
             }
             else 
             {
+                // Number of picture copy in the motion after motion alarm < _motionAlarmLevel 
                 if (nbPicture > 200)
                 {
                     Console.WriteLine(DateTime.Now + ": Motion stopped. Motion level: " + motionLevel);
@@ -110,16 +112,6 @@ namespace ProjetCorneille.Outils
                 }
                 _hasMotion = false;
             }
-        }
-
-        public static void stopCamera()
-        {
-            if (videoSourcePlayer != null)
-            {
-                videoSourcePlayer.Stop();
-                videoSourcePlayer = null;
-            }
-
         }
     }
 }
