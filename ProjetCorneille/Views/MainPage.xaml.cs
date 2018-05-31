@@ -24,21 +24,6 @@ namespace ProjetCorneille.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            Button button = (Button)sender;
-            //OpencvTools.swithOnTheCamera();
-            if (click)
-            {
-                //AForgeTools.Initialisation();
-                button.Content = "Fermer";
-                click = false;
-            }
-            else
-            {
-                AForgeTools.stopCamera();
-                button.Content = "Open";
-                click = true;
-            }
 
         }
 

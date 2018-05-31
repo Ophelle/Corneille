@@ -18,7 +18,7 @@ namespace ProjetCorneille.Outils
         {
             string path = "";
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            string formats = "Fichiers image (*.avi, *.mp4, *.mov)|*.avi; *.mp4; *.mov|Tous les fichiers (*.*)|*.*";
+            string formats = "Fichiers image (*.avi, *.av, *.mp4, *.mov)|*.avi; *.av; *.mp4; *.mov|Tous les fichiers (*.*)|*.*";
             openFileDialog.Filter = formats;
             if (openFileDialog.ShowDialog() == true)
             {
