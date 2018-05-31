@@ -51,6 +51,13 @@ namespace ProjetCorneille.ViewModel
             CommandButtonStop = new RelayCommand(FunctionboolToChangeToFalse);
             CommandSaveMarqueur = new RelayCommand(FunctionSaveMarqueurToXml);
 
+            ButtonValVol0 = true;
+            StartAndStop = false;
+            ButtonDisableButton = true;
+            itemList = new List<Item>();
+            itemMotionList = new List<Item>();
+            sendVideoToCombobox();
+
             //Video Lecture
             CommandBtnPlay = new RelayCommand(FunctionBtnPlay);
             CommandBtnStop = new RelayCommand(FunctionBtnStop);
@@ -78,15 +85,6 @@ namespace ProjetCorneille.ViewModel
             BtnMoveBack = flag;
             BtnMoveForward = flag;
             BtnOpen = true;
-
-            CommandSaveMarqueur = new RelayCommand(FunctionSaveMarqueurToXml);
-
-            ButtonValVol0 = true;
-            StartAndStop = false;
-            ButtonDisableButton = true;
-            itemList = new List<Item>();
-            itemMotionList = new List<Item>();
-            sendVideoToCombobox();         
         }
 
         // liste d item pour afficher les videos
