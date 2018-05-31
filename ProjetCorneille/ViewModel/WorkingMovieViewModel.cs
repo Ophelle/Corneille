@@ -78,10 +78,10 @@ namespace ProjetCorneille.ViewModel
             BtnMoveForwardContent = "Forward";
             BtnOpenContent = "Open";
 
-            //For the video lecture it has to be false before 
+            //For the video lecture it has to be false befor 
             IsPlaying(false);
             this.motionIndex = 0;
-            ValueSelectedMotion = ItemMotionList[this.motionIndex];
+            ValueSelectedMotion = (ItemList.Count > 0) ?  ItemMotionList[this.motionIndex] : null;
 
 
         }
@@ -166,9 +166,9 @@ namespace ProjetCorneille.ViewModel
             Item apple = new Item(1, "Apple");
             Item orange = new Item(2, "Orange");
             Item banana = new Item(3, "Banana");
-            ItemList.Add(orange);
-            ItemList.Add(apple);
-            ItemList.Add(banana);
+            //ItemList.Add(orange);
+            //ItemList.Add(apple);
+            //ItemList.Add(banana);
             if (ItemList.Count > 0 )
             {
                 sendVideoToMotionCombobox("Motion 1");
