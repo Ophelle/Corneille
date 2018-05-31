@@ -18,7 +18,7 @@ namespace ProjetCorneille.Outils
     class AForgeTools
     {
         private static MotionDetector _motionDetector;
-        private static float _motionAlarmLevel = 0.01f;
+        private static float _motionAlarmLevel = 0.001f;
         private static bool _hasMotion = false;
         private static int _volgnr;
         private static VideoFileWriter _FileWriter = new VideoFileWriter();
@@ -45,7 +45,7 @@ namespace ProjetCorneille.Outils
 
                 _FileReader.Open(path);
                 while (true){
-                    using (var videoFrame = _FileReader.ReadVideoFrame())
+                    using (Bitmap videoFrame = _FileReader.ReadVideoFrame())
                     {
                         if (videoFrame == null)
                             break;
@@ -60,6 +60,8 @@ namespace ProjetCorneille.Outils
                     _FileWriter.Dispose();
                     nbPicture = 0;
                     _firstFrameTime = new DateTime();
+                    // TODO : DateTime detect in the video 
+                    XMLManager.CreateXMLMotion("/Movie/" + fileNameMovie, _volgnr, DateTime.Now, DateTime.Now, "00", "00");
                 }
                 _FileReader.Close();
                 _FileReader.Dispose();
@@ -72,7 +74,7 @@ namespace ProjetCorneille.Outils
             if (motionLevel > _motionAlarmLevel)
             {
                 if (_hasMotion){
-                    _FileWriter.WriteVideoFrame(image, DateTime.Now - _firstFrameTime);
+                    _FileWriter.WriteVideoFrame(image);
                 }
                 else if (nbPicture == 0){
                     _volgnr++;
@@ -80,8 +82,8 @@ namespace ProjetCorneille.Outils
                     int w = image.Width;
                     Console.WriteLine(DateTime.Now + ": Motion started. Motion level: " + motionLevel);
                     _FileWriter = new VideoFileWriter();
-                    _FileWriter.Open("/MotionsVideo/"+fileNameMovie+"_motion"+_volgnr, w, h);
-                    Console.WriteLine("/MotionsVideo/" + fileNameMovie + "_motion" + _volgnr);
+                    _FileWriter.Open("/MotionsVideo/"+fileNameMovie+"_motion"+_volgnr+".avi", w, h, 25, VideoCodec.Default);
+                    Console.WriteLine("/MotionsVideo/" + fileNameMovie + "_motion" + _volgnr + ".avi");
                     _FileWriter.WriteVideoFrame(image);
                     _firstFrameTime = DateTime.Now;
                 }
@@ -103,7 +105,7 @@ namespace ProjetCorneille.Outils
                 }
                 else if(_hasMotion || nbPicture >=1)
                 {
-                    _FileWriter.WriteVideoFrame(image, DateTime.Now - _firstFrameTime);
+                    _FileWriter.WriteVideoFrame(image);
                     nbPicture++;
                 }
                 _hasMotion = false;
