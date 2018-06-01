@@ -31,6 +31,7 @@ namespace ProjetCorneille.Outils
 
         public static void Initialisation(string path)
         {
+            _FileReader = new VideoFileReader();
             Console.WriteLine("Motion Detector");
             Console.WriteLine("Threshold level: " + _motionAlarmLevel);
             _motionDetector = new MotionDetector(new TwoFramesDifferenceDetector(), new MotionAreaHighlighting());
