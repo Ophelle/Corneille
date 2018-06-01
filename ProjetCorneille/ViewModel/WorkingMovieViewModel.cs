@@ -28,6 +28,8 @@ namespace ProjetCorneille.ViewModel
         private bool buttonValVol2;
         private bool buttonValVol3;
         private Item valueSelectedMotion;
+        private Item valueSelectedVideo;
+        private ObservableCollection<Item> itemMotionList;
         private int motionIndex;
         private string nameOfMotionPath;
 
@@ -58,8 +60,8 @@ namespace ProjetCorneille.ViewModel
             ButtonValVol0 = true;
             StartAndStop = false;
             ButtonDisableButton = true;
-            List<Item>  itemList = new List<Item>();
-            List<Item>  itemMotionList = new List<Item>();
+            ItemList = new ObservableCollection<Item>();
+            ItemMotionList = new ObservableCollection<Item>();
             sendVideoToCombobox();
 
             //Video Lecture
@@ -70,6 +72,7 @@ namespace ProjetCorneille.ViewModel
             CommandBtnOpen = new RelayCommand(FunctionBtnOpen);
             NextMotion = new RelayCommand(NextMotionItemList);
             PreviousMotion = new RelayCommand(PreviousMotionItemList);
+
 
             ButtonValVol0 = true;
             StartAndStop = false;
@@ -82,8 +85,8 @@ namespace ProjetCorneille.ViewModel
             //For the video lecture it has to be false befor 
             IsPlaying(false);
             this.motionIndex = 0;
-            ValueSelectedMotion = (ItemList.Count > 0) ?  ItemMotionList[this.motionIndex] : null;
-
+            //ValueSelectedMotion = (ItemList.Count > 0) ?  ItemMotionList[this.motionIndex] : null;
+           
 
         }
 
@@ -128,29 +131,31 @@ namespace ProjetCorneille.ViewModel
             ButtonValVol0 = true;
             StartAndStop = false;
             ButtonDisableButton = true;
-            ItemList = new ObservableCollection<Item>();
-            ItemMotionList = new ObservableCollection<Item>();
-            sendVideoToCombobox();
+           
         }
 
         // liste d item pour afficher les videos
         public ObservableCollection<Item> ItemList { get; set; }
 
         //Liste ditem motion afin de pouvoir afficher les motion d'une video
-        public ObservableCollection<Item> ItemMotionList { get; set; }
+        public ObservableCollection<Item> ItemMotionList
+        {
+            get
+            {
+                return this.itemMotionList;
+            }
+            set
+            {
+                this.itemMotionList = value;
+                NotifyPropertyChanged("ItemMotionList");
+            }
+        }
 
         //peupagle des motion via les videos 
         public void sendVideoToMotionCombobox(string NameOfVideo)
         {
             ObservableCollection<Item> video = XMLManager.bringMotionFromVideoAndXml(NameOfVideo);
-            // TODO enlever une fois que se sera dynamique
             ItemMotionList = video;
-            //Item apple = new Item(1, "Motion 1 ");
-           // Item orange = new Item(2, "Motion 2");
-            // banana = new Item(3, "Motion 3 ");
-           // ItemMotionList.Add(apple);
-           // ItemMotionList.Add(orange);
-            //ItemMotionList.Add(banana);
         }
 
         // peupagle de la lsite de video
@@ -162,19 +167,7 @@ namespace ProjetCorneille.ViewModel
         public void sendVideoToCombobox()
         {
             ObservableCollection<Item> video = XMLManager.bringVideoFromXml();
-            // TODO enlever une fois que se sera dynamique
             ItemList = video;
-            
-            //Item apple = new Item(1, "Apple");
-           // Item orange = new Item(2, "Orange");
-            //Item banana = new Item(3, "Banana");
-            //ItemList.Add(orange);
-            //ItemList.Add(apple);
-            //ItemList.Add(banana);
-            if (ItemList.Count > 0 )
-            {
-                sendVideoToMotionCombobox("Motion 1");
-            }
         }
 
         public RelayCommand CommandBtnPlay { get; set; }
@@ -543,11 +536,27 @@ namespace ProjetCorneille.ViewModel
             get
             {
                 return this.valueSelectedMotion;
+                
             }
             set
             {
                 this.valueSelectedMotion = value;
                 NotifyPropertyChanged("ValueSelectedMotion");
+                this.nameOfMotionPath = value.PathVideo;
+            }
+        }
+
+        public Item ValueSelectedVideo
+        {
+            get
+            {
+                return this.valueSelectedVideo;
+            }
+            set
+            {
+                this.valueSelectedVideo = value;                
+                NotifyPropertyChanged("ValueSelectedVideo");
+                sendVideoToMotionCombobox(value.PathVideo);
             }
         }
 
@@ -601,13 +610,13 @@ public class Item
 {
     public int itemID { get; set; }
     public string Name { get; set; }
-    public string pathVideo { get; set; }
+    public string PathVideo { get; set; }
 
     public Item(int ID, string name , string pathVideo)
     {
         this.itemID = ID;
         this.Name = name;
-        this.pathVideo = pathVideo;
+        this.PathVideo = pathVideo;
     }
 
 }
