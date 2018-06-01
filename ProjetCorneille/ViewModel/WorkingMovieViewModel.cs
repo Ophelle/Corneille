@@ -164,6 +164,7 @@ namespace ProjetCorneille.ViewModel
             ObservableCollection<Item> video = XMLManager.bringVideoFromXml();
             // TODO enlever une fois que se sera dynamique
             ItemList = video;
+           //MessageBox.Show(ItemList[0].Name);
             
             //Item apple = new Item(1, "Apple");
            // Item orange = new Item(2, "Orange");
@@ -173,7 +174,7 @@ namespace ProjetCorneille.ViewModel
             //ItemList.Add(banana);
             if (ItemList.Count > 0 )
             {
-                sendVideoToMotionCombobox("Motion 1");
+                sendVideoToMotionCombobox(video[0].Name);
             }
         }
 
