@@ -29,6 +29,7 @@ namespace ProjetCorneille.ViewModel
         private bool buttonValVol3;
         private Item valueSelectedMotion;
         private int motionIndex;
+        private string nameOfMotionPath;
 
         //Video lecture buttons
         private bool btnPlay;
@@ -78,10 +79,10 @@ namespace ProjetCorneille.ViewModel
             BtnMoveForwardContent = "Forward";
             BtnOpenContent = "Open";
 
-            //For the video lecture it has to be false before 
+            //For the video lecture it has to be false befor 
             IsPlaying(false);
             this.motionIndex = 0;
-            ValueSelectedMotion = ItemMotionList[this.motionIndex];
+            ValueSelectedMotion = (ItemList.Count > 0) ?  ItemMotionList[this.motionIndex] : null;
 
 
         }
@@ -144,12 +145,12 @@ namespace ProjetCorneille.ViewModel
             ObservableCollection<Item> video = XMLManager.bringMotionFromVideoAndXml(NameOfVideo);
             // TODO enlever une fois que se sera dynamique
             ItemMotionList = video;
-            Item apple = new Item(1, "Motion 1 ");
-            Item orange = new Item(2, "Motion 2");
-            Item banana = new Item(3, "Motion 3 ");
-            ItemMotionList.Add(apple);
-            ItemMotionList.Add(orange);
-            ItemMotionList.Add(banana);
+            //Item apple = new Item(1, "Motion 1 ");
+           // Item orange = new Item(2, "Motion 2");
+            // banana = new Item(3, "Motion 3 ");
+           // ItemMotionList.Add(apple);
+           // ItemMotionList.Add(orange);
+            //ItemMotionList.Add(banana);
         }
 
         // peupagle de la lsite de video
@@ -163,12 +164,13 @@ namespace ProjetCorneille.ViewModel
             ObservableCollection<Item> video = XMLManager.bringVideoFromXml();
             // TODO enlever une fois que se sera dynamique
             ItemList = video;
-            Item apple = new Item(1, "Apple");
-            Item orange = new Item(2, "Orange");
-            Item banana = new Item(3, "Banana");
-            ItemList.Add(orange);
-            ItemList.Add(apple);
-            ItemList.Add(banana);
+            
+            //Item apple = new Item(1, "Apple");
+           // Item orange = new Item(2, "Orange");
+            //Item banana = new Item(3, "Banana");
+            //ItemList.Add(orange);
+            //ItemList.Add(apple);
+            //ItemList.Add(banana);
             if (ItemList.Count > 0 )
             {
                 sendVideoToMotionCombobox("Motion 1");
@@ -387,8 +389,9 @@ namespace ProjetCorneille.ViewModel
             // Process open file dialog box results 
             if (result == true)
             {
-                // Open document 
-                Uri uri = new Uri(dialog.FileName);
+                // Open document
+                
+                Uri uri = new Uri(this.nameOfMotionPath);
                 mediaPlayer.Open(uri);
 
                 BtnPlay = true;
@@ -598,11 +601,13 @@ public class Item
 {
     public int itemID { get; set; }
     public string Name { get; set; }
+    public string pathVideo { get; set; }
 
-    public Item(int ID, string name)
+    public Item(int ID, string name , string pathVideo)
     {
         this.itemID = ID;
         this.Name = name;
+        this.pathVideo = pathVideo;
     }
 
 }

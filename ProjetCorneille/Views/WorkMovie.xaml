@@ -15,13 +15,8 @@
             <RowDefinition  Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <ComboBox ItemsSource="{Binding ItemList}" IsEnabled="{Binding ButtonDisableButton}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <ComboBox ItemsSource="{Binding ItemList}"  SelectedValue="{Binding ValueSelectedVideo}"
+                          DisplayMemberPath="Name" Width="auto" IsEnabled="{Binding ButtonDisableButton}"/>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
