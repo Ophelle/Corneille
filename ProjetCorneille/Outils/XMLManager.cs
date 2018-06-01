@@ -10,6 +10,7 @@ using static ProjetCorneille.Model.Cameras.Camera;
 using static ProjetCorneille.Model.Movie;
 using ProjetCorneille.ViewModel;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace ProjetCorneille.Outils
 {
@@ -127,7 +128,7 @@ namespace ProjetCorneille.Outils
                     fileName = Path.GetFileNameWithoutExtension(infoMovie.PathMovie);
                     Item videoPath = new Item(numberOfMovie, fileName , infoMovie.PathMovie);
                     numberOfMovie++;
-                    video.Add(videoPath);
+                    video.Add(videoPath);                
                 }
             }           
             // boucluer sur info movie 
