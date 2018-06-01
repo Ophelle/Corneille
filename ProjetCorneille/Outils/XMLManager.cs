@@ -83,7 +83,7 @@ namespace ProjetCorneille.Outils
 
         public static void CreateXMLMotion(string pathMovie, int numbermotion, DateTime dateHoursStart, DateTime dateHoursEnd, string start, string end)
         {
-            string fileName = Path.GetFileNameWithoutExtension(pathMovie) + "_Number_" + numbermotion;
+            string fileName = Path.GetFileNameWithoutExtension(pathMovie) + "_Number_" + numbermotion + ".xml";
             Motion motion = new Motion();
             motion.Name = fileName;
             motion.DateHoursStart = dateHoursStart;
