@@ -120,7 +120,7 @@ namespace ProjetCorneille.ViewModel
 
         private void IsPlaying(bool flag)
         {
-            BtnPlay = flag;
+            BtnPlay = true;
             BtnStop = flag;
             BtnMoveBack = flag;
             BtnMoveForward = flag;
