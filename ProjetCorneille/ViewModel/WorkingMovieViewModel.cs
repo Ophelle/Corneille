@@ -30,6 +30,7 @@ namespace ProjetCorneille.ViewModel
         private Item valueSelectedMotion;
         private Item valueSelectedVideo;
         private ObservableCollection<Item> itemMotionList;
+        private ObservableCollection<Item> itemList;
         private int motionIndex;
         private string nameOfMotionPath;
 
@@ -135,7 +136,17 @@ namespace ProjetCorneille.ViewModel
         }
 
         // liste d item pour afficher les videos
-        public ObservableCollection<Item> ItemList { get; set; }
+        public ObservableCollection<Item> ItemList {
+            get
+            {
+                return this.itemList;
+            }
+            set
+            {
+                this.itemList = value;
+                NotifyPropertyChanged("ItemList");
+            }
+        }
 
         //Liste ditem motion afin de pouvoir afficher les motion d'une video
         public ObservableCollection<Item> ItemMotionList
@@ -536,13 +547,20 @@ namespace ProjetCorneille.ViewModel
             get
             {
                 return this.valueSelectedMotion;
-                
             }
             set
             {
                 this.valueSelectedMotion = value;
                 NotifyPropertyChanged("ValueSelectedMotion");
-                this.nameOfMotionPath = value.PathVideo;
+                try
+                {
+                    this.nameOfMotionPath = value.PathVideo;
+                }
+                catch
+                {
+
+                }
+                
             }
         }
 
@@ -554,6 +572,14 @@ namespace ProjetCorneille.ViewModel
             }
             set
             {
+                try
+                {
+                    ValueSelectedMotion = ItemMotionList[0];
+                }
+                catch
+                {
+
+                }                
                 this.valueSelectedVideo = value;                
                 NotifyPropertyChanged("ValueSelectedVideo");
                 sendVideoToMotionCombobox(value.PathVideo);
