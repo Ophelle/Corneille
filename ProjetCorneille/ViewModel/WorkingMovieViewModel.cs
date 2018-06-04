@@ -31,7 +31,7 @@ namespace ProjetCorneille.ViewModel
         private ObservableCollection<Item> itemMotionList;
         private ObservableCollection<Item> itemList;
         private int motionIndex;
-        public string nameOfMotionPath;
+        public  static string nameOfMotionPath;
 
         public WorkingMovieViewModel()
         {
@@ -142,6 +142,7 @@ namespace ProjetCorneille.ViewModel
 
         // Bouton to stop marqueur
         public RelayCommand CommandButtonStop { get; set; }
+
 
         // Methode to change le statut 
         public void FunctionboolToChange(Object obj)
@@ -281,6 +282,7 @@ namespace ProjetCorneille.ViewModel
             }
         }
 
+
         public Item ValueSelectedMotion
         {
             get
@@ -294,7 +296,7 @@ namespace ProjetCorneille.ViewModel
                 try
                 {
                     this.pathOfMotionToXml = value.PathVideo;
-                    this.nameOfMotionPath = value.PathVideo;
+                    nameOfMotionPath = value.PathVideo;
                 }
                 catch
                 {

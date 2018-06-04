@@ -23,14 +23,18 @@ namespace ProjetCorneille.Views
     public partial class WorkMovie : Window
     {
 
-        private string MotionPath;
+        public string motionPath;
 
         public WorkMovie()
         {
             InitializeComponent();
-            this.DataContext = new WorkingMovieViewModel();
+            this.DataContext = new WorkingMovieViewModel() ;
             IsPlaying(false);
+
+            motionPath = WorkingMovieViewModel.nameOfMotionPath;
         }
+
+        
 
         private void IsPlaying(bool flag)
         {
@@ -75,24 +79,10 @@ namespace ProjetCorneille.Views
 
         private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
-            // Configure open file dialog box
-            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
-            dialog.FileName = "Videos"; // Default file name
-            dialog.DefaultExt = ".WMV"; // Default file extension
-            dialog.Filter = "WMV file (.wm)|*.mp4"; // Filter files by extension 
-
-            MotionPath = dialog.FileName;
-
-            // Show open file dialog box
-            Nullable<bool> result = dialog.ShowDialog();
-
-            // Process open file dialog box results 
-            if (result == true)
-            {
-                // Open document 
-                MediaPlayer.Source = new Uri(dialog.FileName);
+           
+                MediaPlayer.Source = new Uri(motionPath);
                 btnPlay.IsEnabled = true;
-            }
+  
         }
     }
 }
