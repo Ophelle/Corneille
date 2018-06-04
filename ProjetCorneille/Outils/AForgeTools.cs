@@ -31,6 +31,7 @@ namespace ProjetCorneille.Outils
 
         public static void Initialisation(string path)
         {
+            _FileReader = new VideoFileReader();
             Console.WriteLine("Motion Detector");
             Console.WriteLine("Threshold level: " + _motionAlarmLevel);
             _motionDetector = new MotionDetector(new TwoFramesDifferenceDetector(), new MotionAreaHighlighting());
@@ -62,7 +63,7 @@ namespace ProjetCorneille.Outils
                     nbPicture = 0;
                     _firstFrameTime = new DateTime();
                     // TODO : DateTime detect in the video 
-                    XMLManager.CreateXMLMotion("/Movie/" + fileNameMovie, _volgnr, DateTime.Now, DateTime.Now, "00", "00");
+                    XMLManager.CreateXMLMotion("/Movie/" + fileNameMovie + ".xml", _volgnr, DateTime.Now, DateTime.Now, "00", "00");
                 }
                 _FileReader.Close();
                 _FileReader.Dispose();
@@ -103,7 +104,7 @@ namespace ProjetCorneille.Outils
                     nbPicture = 0;
                     _firstFrameTime = new DateTime();
                     // TODO : DateTime detect in the video 
-                    XMLManager.CreateXMLMotion("/Movie/"+fileNameMovie, _volgnr, DateTime.Now, DateTime.Now, "00", "00");
+                    XMLManager.CreateXMLMotion("/Movie/"+fileNameMovie+".xml", _volgnr, DateTime.Now, DateTime.Now, "00", "00");
                 }
                 else if(_hasMotion || nbPicture >=1)
                 {

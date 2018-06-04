@@ -10,6 +10,7 @@ using static ProjetCorneille.Model.Cameras.Camera;
 using static ProjetCorneille.Model.Movie;
 using ProjetCorneille.ViewModel;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace ProjetCorneille.Outils
 {
@@ -106,22 +107,57 @@ namespace ProjetCorneille.Outils
             XMLUtility.SerializeForXml<Movie>(fileName, "Movie", movie);
         }
         
-        public static void addToXmlMarqueurMotionInMovie(string category, string comment, string nameOfVideo, string nameOfMotion, DateTime date , DateTime dateFin)
+        public static void addToXmlMarqueurMotionInMovie(string category, string comment, string pathMotion, string date , string dateFin)
         {
-            return;
+            string fileName = Path.GetFileNameWithoutExtension(pathMotion);
+            Motion motions = XMLUtility.DeserializeForXml<Motion>("/Motion/"+ fileName + ".xml");
+            Motion.Marker addMotion = new Motion.Marker();
+            addMotion.Start = date;
+            addMotion.End = dateFin;
+            addMotion.Action = category;
+            addMotion.Comment = comment;
+            motions.Markers.Add(addMotion);
+            XMLUtility.SerializeForXml<Motion>(fileName, "Motion", motions);
         }
 
         public static ObservableCollection<Item> bringVideoFromXml()
         {
             ObservableCollection<Item> video = new ObservableCollection<Item>();
             // TODO faire le traitment pour alimenter la liste
+            int numberOfMovie = 1;
+            // Charger le xml de toute les cameras 
+            Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
+            // recupere tous les pathMovies, iterer sur camera 
+            foreach(Camera CameraVideo in cameras.CamerasList)
+            {
+                foreach (InfoMovie infoMovie in CameraVideo.InfoMovies)
+                {
+                    string fileName;
+                    fileName = Path.GetFileNameWithoutExtension(infoMovie.PathMovie);
+                    Item videoPath = new Item(numberOfMovie, fileName , infoMovie.PathMovie);
+                    numberOfMovie++;
+                    video.Add(videoPath);                
+                }
+            }           
+            // boucluer sur info movie 
             return video;
         }
 
-        public static ObservableCollection<Item> bringMotionFromVideoAndXml(string nameOfVideo)
+        public static ObservableCollection<Item> bringMotionFromVideoAndXml(string pathOfVideo)
         {
             ObservableCollection<Item> video = new ObservableCollection<Item>();
             // TODO faire le traitment pour alimenter la liste
+            Movie movie = XMLUtility.DeserializeForXml<Movie>(pathOfVideo);
+            int numberOfMotion = 1;
+
+            foreach (InfoMotion movieInfoMotion in movie.InfoMotions)
+            {
+                string fileName;
+                fileName = Path.GetFileNameWithoutExtension(movieInfoMotion.PathMotion);
+                Item motionPath = new Item(numberOfMotion, fileName, "MotionsVideo/"+fileName+".avi");
+                numberOfMotion++;
+                video.Add(motionPath);
+            }
             return video;
         }
     }

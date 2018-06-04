@@ -21,9 +21,16 @@ namespace ProjetCorneille.ViewModel
         private void motionDetection(object obj)
         {
             string path = General.getPathUser();
-            MessageBox.Show(path);
-            XMLManager.CreateXMLMovie(path, 1);
-            AForgeTools.Initialisation(path);
+            if (path != "")
+            {
+                MessageBox.Show(path);
+                XMLManager.CreateXMLMovie(path, 1);
+                AForgeTools.Initialisation(path);
+            }
+            else
+            {
+                MessageBox.Show("Veuillez choisir une video");
+            }
         }
 
         private void FunctionCommandMenuCreateCamera(object obj)
