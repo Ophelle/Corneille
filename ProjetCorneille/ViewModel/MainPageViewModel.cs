@@ -1,8 +1,11 @@
 ﻿using ProjetCorneille.Outils;
 using ProjetCorneille.Views;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows;
+
 
 namespace ProjetCorneille.ViewModel
 {
@@ -25,7 +28,8 @@ namespace ProjetCorneille.ViewModel
             {
                 MessageBox.Show(path);
                 XMLManager.CreateXMLMovie(path, 1);
-                AForgeTools.Initialisation(path);
+                List<System.Drawing.Point> polygon = XMLManager.ReadPolygonInXMLCamera(1);
+                AForgeTools.Initialisation(path, polygon);
             }
             else
             {

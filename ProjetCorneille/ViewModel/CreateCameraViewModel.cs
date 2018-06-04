@@ -3,7 +3,7 @@ using ProjetCorneille.Model;
 using ProjetCorneille.Outils;
 using System;
 using System.Collections.Generic;
-using System.Windows;
+using System.Drawing;
 
 namespace ProjetCorneille.ViewModel
 {
@@ -28,7 +28,7 @@ namespace ProjetCorneille.ViewModel
 
         private void FunctionCommandCreate(object obj)
         {
-            Outils.XMLManager.AddCameraInXMLCameras(CameraNameText, Session.ZonePointList);
+           Outils.XMLManager.AddCameraInXMLCameras(CameraNameText, Session.ZonePointList);
         }
 
         private void FunctionCommandButtonValider(object obj)

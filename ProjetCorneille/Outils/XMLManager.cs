@@ -10,7 +10,7 @@ using static ProjetCorneille.Model.Cameras.Camera;
 using static ProjetCorneille.Model.Movie;
 using ProjetCorneille.ViewModel;
 using System.Collections.ObjectModel;
-using System.Windows;
+using System.Drawing;
 
 namespace ProjetCorneille.Outils
 {
@@ -53,7 +53,7 @@ namespace ProjetCorneille.Outils
             XMLUtility.SerializeForXml<Cameras>("Cameras", "Cameras", cameras);
         }
 
-        public static void AddCameraInXMLCameras(string name, List<Coordinate> coordinates)
+        public static void AddCameraInXMLCameras(string name, List<Point> coordinates)
         {
             int idBefore = 0;
             if (!File.Exists("/Cameras/Cameras.xml"))

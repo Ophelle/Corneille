@@ -1,5 +1,6 @@
 ﻿using ProjetCorneille.Model;
 using System;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -34,13 +35,13 @@ namespace ProjetCorneille.ViewModel
             double pixelMousePositionY = e.GetPosition(tttt).Y * bitmapImage.PixelHeight / tttt.ActualHeight;
             
             Polygon poly = new Polygon();
-            poly.Stroke = Brushes.Red;
+            poly.Stroke = System.Windows.Media.Brushes.Red;
             poly.StrokeThickness = 1;
             poly.FillRule = FillRule.EvenOdd;
             myPointCollection2.Add(e.GetPosition(Cnv));
             
             poly.Points = myPointCollection2;
-            Session.ZonePointList.Add(new Point(pixelMousePositionX, pixelMousePositionY));
+            Session.ZonePointList.Add(new System.Drawing.Point((int)pixelMousePositionX, (int)pixelMousePositionY));
             Cnv.Children.Add(poly);
 
         }
@@ -48,7 +49,7 @@ namespace ProjetCorneille.ViewModel
         private void CommandUndo(object sender, RoutedEventArgs e)
         {
             Polygon poly = new Polygon();
-            poly.Stroke = Brushes.Red;
+            poly.Stroke = System.Windows.Media.Brushes.Red;
             poly.StrokeThickness = 1;
             poly.FillRule = FillRule.EvenOdd;
             if(myPointCollection2.Count > 0)
@@ -67,7 +68,7 @@ namespace ProjetCorneille.ViewModel
             if(messageBoxResult == MessageBoxResult.Yes)
             {
                 Polygon poly = new Polygon();
-                poly.Stroke = Brushes.Red;
+                poly.Stroke = System.Windows.Media.Brushes.Red;
                 poly.StrokeThickness = 1;
                 poly.FillRule = FillRule.EvenOdd;
                 myPointCollection2.Clear();
