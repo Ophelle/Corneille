@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -28,9 +29,11 @@ namespace ProjetCorneille.Outils
         private static VideoSourcePlayer videoSourcePlayer;
         private static int nbPicture = 0;
         private static string fileNameMovie;
+        private static List<Point> polygon; 
 
-        public static void Initialisation(string path)
+        public static void Initialisation(string path, List<Point> polygon_img)
         {
+            polygon = polygon_img;
             _FileReader = new VideoFileReader();
             Console.WriteLine("Motion Detector");
             Console.WriteLine("Threshold level: " + _motionAlarmLevel);
@@ -72,7 +75,8 @@ namespace ProjetCorneille.Outils
 
         private static void VideoSourcePlayer_NewFrame(Bitmap image)
         {
-            var motionLevel = _motionDetector.ProcessFrame(image);
+            Bitmap img_cut = SelectedZone(image, polygon);
+            var motionLevel = _motionDetector.ProcessFrame(img_cut);
             if (motionLevel > _motionAlarmLevel)
             {
                 if (_hasMotion){
@@ -113,6 +117,23 @@ namespace ProjetCorneille.Outils
                 }
                 _hasMotion = false;
             }
+        }
+
+        private static Bitmap SelectedZone (Bitmap img, List<Point> points)
+        {
+            // Copy the image.
+            Bitmap bm = new Bitmap(img);
+
+            // Clear the selected area.
+            using (Graphics gr = Graphics.FromImage(bm))
+            {
+                GraphicsPath path = new GraphicsPath();
+                path.AddPolygon(points.ToArray());
+                gr.SetClip(path);
+                gr.Clear(Color.Transparent);
+                gr.ResetClip();
+            }
+            return bm;
         }
     }
 }
