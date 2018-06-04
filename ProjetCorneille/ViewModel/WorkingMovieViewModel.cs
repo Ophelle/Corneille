@@ -349,9 +349,17 @@ namespace ProjetCorneille.ViewModel
             // Insertion dans le XMl et fin du marqueur
             else
             {
-                this.comment = comment;
-                this.category = category;
-                XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, this.date, date);
+                try
+                {
+                    this.comment = comment;
+                    this.category = category;
+                    XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, this.date, date);
+                    MessageBox.Show("Votre marqueur à bien été enregistrer");
+                }
+                catch {
+                    MessageBox.Show("Merci de selectionner une motion avant tous enregistrement");
+                }
+               
             }
         }            
     }
