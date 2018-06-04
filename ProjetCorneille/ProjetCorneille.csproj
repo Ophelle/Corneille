@@ -116,6 +116,7 @@
     <Compile Include="Model\Cameras.cs" />
     <Compile Include="Model\Motion.cs" />
     <Compile Include="Model\Movie.cs" />
+    <Compile Include="Model\Session.cs" />
     <Compile Include="Outils\AForgeTools.cs" />
     <Compile Include="Outils\General.cs" />
     <Compile Include="Outils\RelayCommand.cs" />

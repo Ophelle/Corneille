@@ -1,14 +1,9 @@
 ﻿using Accord.Video.FFMPEG;
+using ProjetCorneille.Model;
 using ProjetCorneille.Outils;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace ProjetCorneille.ViewModel
 {
@@ -23,11 +18,17 @@ namespace ProjetCorneille.ViewModel
         {
             CommandButtonChoice = new RelayCommand(FunctionCommandButtonChoice);
             CommandButtonValider = new RelayCommand(FunctionCommandButtonValider);
-
+            CommandCreate = new RelayCommand(FunctionCommandCreate);
+            Session.ZonePointList = new List<Point>();
             SourceImage = "";
             VideoCameraPath = "";
             CameraNameText = "Camera"+(XMLManager.idLastCamera()+1);
             EnableButtonOK = false;
+        }
+
+        private void FunctionCommandCreate(object obj)
+        {
+            Outils.XMLManager.AddCameraInXMLCameras(CameraNameText, Session.ZonePointList);
         }
 
         private void FunctionCommandButtonValider(object obj)
@@ -43,6 +44,7 @@ namespace ProjetCorneille.ViewModel
 
         public RelayCommand CommandButtonChoice { get; set; }
         public RelayCommand CommandButtonValider { get; set; }
+        public RelayCommand CommandCreate { get; set; }
         public string VideoCameraPath
         {
             get

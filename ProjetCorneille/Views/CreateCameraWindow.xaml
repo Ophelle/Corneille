@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjetCorneille.ViewModel"
         mc:Ignorable="d"
-        Title="CreateCameraWindow" Height="450" Width="800">
+        Title="CreateCameraWindow" Height="500" Width="900" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
             <RowDefinition Height="7*"></RowDefinition>
-            <RowDefinition Height="60*"></RowDefinition>
-            <RowDefinition Height="15*"></RowDefinition>
+            <RowDefinition Height="65*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="45">Creation d'une caméra</TextBlock>
         <Grid Grid.Row="1">
@@ -31,7 +31,19 @@
             <TextBox Grid.Column="0" Text="{Binding CameraNameText}"></TextBox>
             <Button Grid.Column="1" Content="Valider" IsEnabled="{Binding EnableButtonOK}" Command="{Binding CommandButtonValider}"></Button>
         </Grid>
-        <Image Grid.Row="3"  Source="{Binding SourceImage}"></Image>
-
+        <Grid Grid.Row="3">
+            <Image x:Name="tttt"  Source="{Binding SourceImage}" MouseLeftButtonDown="MouseMoveHandler"></Image>
+            <Canvas x:Name="Cnv"/>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Undo" Click="CommandUndo"></Button>
+            <Button Grid.Column="1" Content="Reset" Click="CommandReset"></Button>
+            <Button Grid.Column="2" Content="Créer" Command="{Binding CommandCreate}"></Button>
+        </Grid>
     </Grid>
 </Window>

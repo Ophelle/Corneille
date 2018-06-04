@@ -47,7 +47,7 @@ namespace ProjetCorneille.Outils
                 }
                 if (File.Exists(pathImage))
                 {
-                    File.Delete(pathImage);
+                    pathImage = Path.GetDirectoryName(pathVideo) + @"\" + cameraName + "image2.png";
                 }
                 videoFrame.Save(pathImage);
                 videoFrame.Dispose();
