@@ -16,9 +16,8 @@ namespace ProjetCorneille.ViewModel
 {
     class WorkingMovieViewModel : ViewModelBase
     {
-        private string nameOfVideo;
-        private string nameOfMotion;
-        private DateTime date;
+        private string pathOfMotionToXml;
+        private string date;
         private bool startAndStop;
         private bool buttonDisableButton;
         private string category;
@@ -417,7 +416,7 @@ namespace ProjetCorneille.ViewModel
         {
             if (!StartAndStop)
             {
-                FunctionStartAndStopRecToXmlSaveMarqueur(this.nameOfVideo, this.nameOfMotion, this.category, this.comment, this.date);
+                FunctionStartAndStopRecToXmlSaveMarqueur(this.pathOfMotionToXml, this.category, this.comment, this.date);
             }
             else
             {
@@ -608,13 +607,12 @@ namespace ProjetCorneille.ViewModel
         * @DateTime heure de capture  
         *
         */
-        public void FunctionStartAndStopRecToXmlSaveMarqueur(string nameOfVideo, string nameOfMotion, string category, string comment, DateTime date)
+        public void FunctionStartAndStopRecToXmlSaveMarqueur(string nameOfMotion, string category, string comment, string date)
         {
             if(StartAndStop)
             {
                 //Insestion dans les varaibles globales
-                this.nameOfMotion = nameOfMotion;
-                this.nameOfVideo = nameOfVideo;
+                this.pathOfMotionToXml = nameOfMotion;
                 this.category = category;
                 this.comment = comment;
                 this.date = date;
@@ -624,7 +622,10 @@ namespace ProjetCorneille.ViewModel
             {
                 this.comment = comment;
                 this.category = category;
-                XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.nameOfMotion, this.nameOfVideo, this.date, date);
+                XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, this.date, date);
+                MessageBox.Show("Time du premier enregistrement" + this.date);
+                MessageBox.Show("Time de fin enregistrement" + date);
+                MessageBox.Show(this.pathOfMotionToXml);
                 MessageBox.Show(this.category);
                 MessageBox.Show(Comment);   
             }

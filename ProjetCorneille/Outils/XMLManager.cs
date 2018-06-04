@@ -107,8 +107,13 @@ namespace ProjetCorneille.Outils
             XMLUtility.SerializeForXml<Movie>(fileName, "Movie", movie);
         }
         
-        public static void addToXmlMarqueurMotionInMovie(string category, string comment, string nameOfVideo, string nameOfMotion, DateTime date , DateTime dateFin)
+        public static void addToXmlMarqueurMotionInMovie(string category, string comment, string pathMotion, string date , string dateFin)
         {
+            string fileName = Path.GetFileNameWithoutExtension(pathMotion);
+            Motion motions = XMLUtility.DeserializeForXml<Motion>("/Motion/"+ fileName + ".xml");
+
+
+
             return;
         }
 
