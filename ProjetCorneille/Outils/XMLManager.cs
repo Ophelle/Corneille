@@ -111,10 +111,13 @@ namespace ProjetCorneille.Outils
         {
             string fileName = Path.GetFileNameWithoutExtension(pathMotion);
             Motion motions = XMLUtility.DeserializeForXml<Motion>("/Motion/"+ fileName + ".xml");
-
-
-
-            return;
+            Motion.Marker addMotion = new Motion.Marker();
+            addMotion.Start = date;
+            addMotion.End = dateFin;
+            addMotion.Action = category;
+            addMotion.Comment = comment;
+            motions.Markers.Add(addMotion);
+            XMLUtility.SerializeForXml<Motion>(fileName, "Motion", motions);
         }
 
         public static ObservableCollection<Item> bringVideoFromXml()

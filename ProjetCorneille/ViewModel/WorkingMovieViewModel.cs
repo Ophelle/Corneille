@@ -416,6 +416,7 @@ namespace ProjetCorneille.ViewModel
         {
             if (!StartAndStop)
             {
+                this.date = "00.00.01";
                 FunctionStartAndStopRecToXmlSaveMarqueur(this.pathOfMotionToXml, this.category, this.comment, this.date);
             }
             else
@@ -553,6 +554,7 @@ namespace ProjetCorneille.ViewModel
                 NotifyPropertyChanged("ValueSelectedMotion");
                 try
                 {
+                    this.pathOfMotionToXml = value.PathVideo;
                     this.nameOfMotionPath = value.PathVideo;
                 }
                 catch
@@ -623,11 +625,6 @@ namespace ProjetCorneille.ViewModel
                 this.comment = comment;
                 this.category = category;
                 XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, this.date, date);
-                MessageBox.Show("Time du premier enregistrement" + this.date);
-                MessageBox.Show("Time de fin enregistrement" + date);
-                MessageBox.Show(this.pathOfMotionToXml);
-                MessageBox.Show(this.category);
-                MessageBox.Show(Comment);   
             }
         }            
     }
