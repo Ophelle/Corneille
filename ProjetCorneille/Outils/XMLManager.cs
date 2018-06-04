@@ -113,9 +113,17 @@ namespace ProjetCorneille.Outils
             XMLUtility.SerializeForXml<Movie>(fileName, "Movie", movie);
         }
         
-        public static void addToXmlMarqueurMotionInMovie(string category, string comment, string nameOfVideo, string nameOfMotion, DateTime date , DateTime dateFin)
+        public static void addToXmlMarqueurMotionInMovie(string category, string comment, string pathMotion, string date , string dateFin)
         {
-            return;
+            string fileName = Path.GetFileNameWithoutExtension(pathMotion);
+            Motion motions = XMLUtility.DeserializeForXml<Motion>("/Motion/"+ fileName + ".xml");
+            Motion.Marker addMotion = new Motion.Marker();
+            addMotion.Start = date;
+            addMotion.End = dateFin;
+            addMotion.Action = category;
+            addMotion.Comment = comment;
+            motions.Markers.Add(addMotion);
+            XMLUtility.SerializeForXml<Motion>(fileName, "Motion", motions);
         }
 
         public static ObservableCollection<Item> bringVideoFromXml()
@@ -152,7 +160,7 @@ namespace ProjetCorneille.Outils
             {
                 string fileName;
                 fileName = Path.GetFileNameWithoutExtension(movieInfoMotion.PathMotion);
-                Item motionPath = new Item(numberOfMotion, fileName, "MotionVideo/"+fileName+".avi");
+                Item motionPath = new Item(numberOfMotion, fileName, "MotionsVideo/"+fileName+".avi");
                 numberOfMotion++;
                 video.Add(motionPath);
             }

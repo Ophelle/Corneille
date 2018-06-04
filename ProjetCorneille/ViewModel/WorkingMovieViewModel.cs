@@ -16,9 +16,8 @@ namespace ProjetCorneille.ViewModel
 {
     class WorkingMovieViewModel : ViewModelBase
     {
-        private string nameOfVideo;
-        private string nameOfMotion;
-        private DateTime date;
+        private string pathOfMotionToXml;
+        private string date;
         private bool startAndStop;
         private bool buttonDisableButton;
         private string category;
@@ -32,23 +31,7 @@ namespace ProjetCorneille.ViewModel
         private ObservableCollection<Item> itemMotionList;
         private ObservableCollection<Item> itemList;
         private int motionIndex;
-        private string nameOfMotionPath;
-
-        //Video lecture buttons
-        private bool btnPlay;
-        private bool btnStop;
-        private bool btnMoveBack;
-        private bool btnMoveForward;
-        private bool btnOpen;
-        public MediaPlayer mediaPlayer = new MediaPlayer();
-
-        private string btnPlayContent;
-        private string btnStopContent;
-        private string btnMoveBackContent;
-        private string btnMoveForwardContent;
-        private string btnOpenContent;
-
-       
+        public  static string nameOfMotionPath;
 
         public WorkingMovieViewModel()
         {
@@ -65,29 +48,8 @@ namespace ProjetCorneille.ViewModel
             ItemMotionList = new ObservableCollection<Item>();
             sendVideoToCombobox();
 
-            //Video Lecture
-            CommandBtnPlay = new RelayCommand(FunctionBtnPlay);
-            CommandBtnStop = new RelayCommand(FunctionBtnStop);
-            CommandBtnMoveBack = new RelayCommand(FunctionBtnMoveBack);
-            CommandBtnMoveForward = new RelayCommand(FunctionBtnMoveForward);
-            CommandBtnOpen = new RelayCommand(FunctionBtnOpen);
-            NextMotion = new RelayCommand(NextMotionItemList);
-            PreviousMotion = new RelayCommand(PreviousMotionItemList);
-
-
-            ButtonValVol0 = true;
-            StartAndStop = false;
-            BtnPlayContent = "Play";
-            BtnStopContent = "Stop";
-            BtnMoveBackContent = "Back";
-            BtnMoveForwardContent = "Forward";
-            BtnOpenContent = "Open";
-
-            //For the video lecture it has to be false befor 
-            IsPlaying(false);
             this.motionIndex = 0;
             //ValueSelectedMotion = (ItemList.Count > 0) ?  ItemMotionList[this.motionIndex] : null;
-           
 
         }
 
@@ -117,22 +79,6 @@ namespace ProjetCorneille.ViewModel
                 ValueSelectedMotion = ItemMotionList[this.motionIndex];       
             }
 
-        }
-
-        private void IsPlaying(bool flag)
-        {
-            BtnPlay = true;
-            BtnStop = flag;
-            BtnMoveBack = flag;
-            BtnMoveForward = flag;
-            BtnOpen = true;
-
-            CommandSaveMarqueur = new RelayCommand(FunctionSaveMarqueurToXml);
-
-            ButtonValVol0 = true;
-            StartAndStop = false;
-            ButtonDisableButton = true;
-           
         }
 
         // liste d item pour afficher les videos
@@ -181,19 +127,11 @@ namespace ProjetCorneille.ViewModel
             ItemList = video;
         }
 
-        public RelayCommand CommandBtnPlay { get; set; }
-        public RelayCommand CommandBtnStop { get; set; }
-        public RelayCommand CommandBtnMoveBack { get; set; }
-
-        public RelayCommand CommandBtnMoveForward { get; set; }
-        public RelayCommand CommandBtnOpen { get; set; }
-
         // Acces to next Motion
         public RelayCommand NextMotion { get; set; }
 
         // Acces to previpous Motion
         public RelayCommand PreviousMotion { get; set; }
-
 
 
         // Button to save marqueur 
@@ -204,205 +142,6 @@ namespace ProjetCorneille.ViewModel
 
         // Bouton to stop marqueur
         public RelayCommand CommandButtonStop { get; set; }
-
-        public bool BtnPlay
-        {
-            get
-            {
-                return this.btnPlay;
-            }
-            set
-            {
-                this.btnPlay = value;
-                NotifyPropertyChanged("BtnPlay");
-            }
-        }
-
-        public string BtnPlayContent
-        {
-            get
-            {
-                return this.btnPlayContent;
-            }
-            set
-            {
-                this.btnPlayContent = value;
-                NotifyPropertyChanged("BtnPlayContent");
-            }
-
-        }
-
-        public bool BtnStop
-        {
-            get
-            {
-                return this.btnStop;
-            }
-            set
-            {
-                this.btnStop = value;
-                NotifyPropertyChanged("BtnStop");
-            }
-        }
-
-        public string BtnStopContent
-        {
-            get
-            {
-                return this.btnStopContent;
-            }
-            set
-            {
-                this.btnStopContent = value;
-                NotifyPropertyChanged("BtnPlayContent");
-            }
-
-        }
-
-        public bool BtnMoveBack
-        {
-            get
-            {
-                return this.btnMoveBack;
-            }
-            set
-            {
-                this.btnMoveBack = value;
-                NotifyPropertyChanged("BtnMoveBack");
-            }
-        }
-
-        public string BtnMoveBackContent
-        {
-            get
-            {
-                return this.btnMoveBackContent;
-            }
-            set
-            {
-                this.btnMoveBackContent = value;
-                NotifyPropertyChanged("BtnMoveBackContent");
-            }
-
-        }
-
-        public bool BtnMoveForward
-        {
-            get
-            {
-                return this.btnMoveForward;
-            }
-            set
-            {
-                this.btnMoveForward = value;
-                NotifyPropertyChanged("BtnMoveForward");
-            }
-        }
-
-        public string BtnMoveForwardContent
-        {
-            get
-            {
-                return this.btnMoveForwardContent;
-            }
-            set
-            {
-                this.btnMoveForwardContent = value;
-                NotifyPropertyChanged("BtnMoveForwardContent");
-            }
-
-        }
-
-        public bool BtnOpen
-        {
-            get
-            {
-                return this.btnOpen;
-            }
-            set
-            {
-                this.btnOpen = value;
-                NotifyPropertyChanged("BtnOpen");
-            }
-        }
-
-        public string BtnOpenContent
-        {
-            get
-            {
-                return this.btnOpenContent;
-            }
-            set
-            {
-                this.btnOpenContent = value;
-                NotifyPropertyChanged("BtnOpenContent");
-            }
-
-        }
-
-
-        private void FunctionBtnPlay(Object obj)
-        {
-            //we have to set true "IsEnabled", so video will start directly 
-            IsPlaying(true);
-            if (BtnPlayContent == "Play")
-            {
-                mediaPlayer.Play();
-                BtnPlayContent = "Pause";
-            }
-            else
-            {
-                mediaPlayer.Pause();
-                BtnPlayContent = "Play";
-            }
-        }
-
-        private void FunctionBtnStop(Object obj)
-        {
-            mediaPlayer.Pause();
-            btnPlayContent = "Play";
-            IsPlaying(false);
-            BtnPlay = true;
-        }
-
-        private void FunctionBtnMoveBack(Object obj)
-        {
-            mediaPlayer.Position -= TimeSpan.FromSeconds(10);
-        }
-
-        private void FunctionBtnMoveForward(Object obj)
-        {
-            //to fetch video time by TimeSpan.FromSeconds() function 
-            mediaPlayer.Position += TimeSpan.FromSeconds(10);
-        }
-
-        //Open option will be for testing videos
-        private void FunctionBtnOpen(Object obj)
-        {
-
-            // Configure open file dialog box
-            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
-            dialog.FileName = "Videos"; // Default file name
-            dialog.DefaultExt = ".WMV"; // Default file extension
-            dialog.Filter = "WMV file (.wm)|*.mp4"; // Filter files by extension 
-            
-
-            // Show open file dialog box
-            Nullable<bool> result = dialog.ShowDialog();
-
-            // Process open file dialog box results 
-            if (result == true)
-            {
-                // Open document
-                
-                Uri uri = new Uri(this.nameOfMotionPath);
-                mediaPlayer.Open(uri);
-
-                BtnPlay = true;
-            }
-        }
-
-        //
 
 
         // Methode to change le statut 
@@ -417,7 +156,8 @@ namespace ProjetCorneille.ViewModel
         {
             if (!StartAndStop)
             {
-                FunctionStartAndStopRecToXmlSaveMarqueur(this.nameOfVideo, this.nameOfMotion, this.category, this.comment, this.date);
+                this.date = "00.00.01";
+                FunctionStartAndStopRecToXmlSaveMarqueur(this.pathOfMotionToXml, this.category, this.comment, this.date);
             }
             else
             {
@@ -542,6 +282,7 @@ namespace ProjetCorneille.ViewModel
             }
         }
 
+
         public Item ValueSelectedMotion
         {
             get
@@ -554,7 +295,8 @@ namespace ProjetCorneille.ViewModel
                 NotifyPropertyChanged("ValueSelectedMotion");
                 try
                 {
-                    this.nameOfMotionPath = value.PathVideo;
+                    this.pathOfMotionToXml = value.PathVideo;
+                    nameOfMotionPath = value.PathVideo;
                 }
                 catch
                 {
@@ -585,20 +327,6 @@ namespace ProjetCorneille.ViewModel
                 sendVideoToMotionCombobox(value.PathVideo);
             }
         }
-
-        public bool BtnPlayEnable
-        {
-            get
-            {
-                return this.btnPlay;
-            }
-            set
-            {
-                this.btnPlay = value;
-                NotifyPropertyChanged("BtnPlay");
-            }
-        }
-
         /**
         * @bool paramètre permettant de savoir si on doit enregistrer ou pas la video 
         * @string category type de vol constaté 
@@ -608,13 +336,12 @@ namespace ProjetCorneille.ViewModel
         * @DateTime heure de capture  
         *
         */
-        public void FunctionStartAndStopRecToXmlSaveMarqueur(string nameOfVideo, string nameOfMotion, string category, string comment, DateTime date)
+        public void FunctionStartAndStopRecToXmlSaveMarqueur(string nameOfMotion, string category, string comment, string date)
         {
             if(StartAndStop)
             {
                 //Insestion dans les varaibles globales
-                this.nameOfMotion = nameOfMotion;
-                this.nameOfVideo = nameOfVideo;
+                this.pathOfMotionToXml = nameOfMotion;
                 this.category = category;
                 this.comment = comment;
                 this.date = date;
@@ -622,11 +349,17 @@ namespace ProjetCorneille.ViewModel
             // Insertion dans le XMl et fin du marqueur
             else
             {
-                this.comment = comment;
-                this.category = category;
-                XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.nameOfMotion, this.nameOfVideo, this.date, date);
-                MessageBox.Show(this.category);
-                MessageBox.Show(Comment);   
+                try
+                {
+                    this.comment = comment;
+                    this.category = category;
+                    XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, this.date, date);
+                    MessageBox.Show("Votre marqueur à bien été enregistrer");
+                }
+                catch {
+                    MessageBox.Show("Merci de selectionner une motion avant tous enregistrement");
+                }
+               
             }
         }            
     }
