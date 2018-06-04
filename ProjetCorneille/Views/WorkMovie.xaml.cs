@@ -31,14 +31,14 @@ namespace ProjetCorneille.Views
             this.DataContext = new WorkingMovieViewModel() ;
             IsPlaying(false);
 
-            motionPath = WorkingMovieViewModel.nameOfMotionPath;
+           
         }
 
         
 
         private void IsPlaying(bool flag)
         {
-            btnPlay.IsEnabled = flag;
+            btnPlay.IsEnabled = true;
             btnStop.IsEnabled = flag;
             btnMoveBack.IsEnabled = flag;
             btnMoveForward.IsEnabled = flag;
@@ -49,6 +49,9 @@ namespace ProjetCorneille.Views
             IsPlaying(true);
             if (btnPlay.Content.ToString() == "Play")
             {
+                // TODO FIX PATH PROBLEM
+                motionPath = "C:/"+WorkingMovieViewModel.nameOfMotionPath;
+                MediaPlayer.Source = new Uri("C:/MotionsVideo/20180529_125628_203_motion2.avi");
                 MediaPlayer.Play();
                 btnPlay.Content = "Pause";
             }
@@ -80,7 +83,7 @@ namespace ProjetCorneille.Views
         private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
            
-                MediaPlayer.Source = new Uri(motionPath);
+               
                 btnPlay.IsEnabled = true;
   
         }

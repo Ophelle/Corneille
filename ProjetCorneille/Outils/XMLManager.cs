@@ -154,7 +154,7 @@ namespace ProjetCorneille.Outils
             {
                 string fileName;
                 fileName = Path.GetFileNameWithoutExtension(movieInfoMotion.PathMotion);
-                Item motionPath = new Item(numberOfMotion, fileName, "MotionVideo/"+fileName+".avi");
+                Item motionPath = new Item(numberOfMotion, fileName, "MotionsVideo/"+fileName+".avi");
                 numberOfMotion++;
                 video.Add(motionPath);
             }
