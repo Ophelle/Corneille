@@ -31,6 +31,12 @@ namespace ProjetCorneille.Outils
 
         }
 
+        internal static List<Point> ReadPolygonInXMLCamera(int idCamera)
+        {
+            Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
+            return cameras.CamerasList.Where(cam => cam.ID == idCamera).Single().Coordinates;
+        }
+
         private static void AddMovieInXMLCameras(int idCamera, string path)
         {
             Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
