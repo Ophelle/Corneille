@@ -4,6 +4,7 @@ using ProjetCorneille.Outils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows;
 
 namespace ProjetCorneille.ViewModel
 {
@@ -17,28 +18,32 @@ namespace ProjetCorneille.ViewModel
         public CreateCameraViewModel()
         {
             CommandButtonChoice = new RelayCommand(FunctionCommandButtonChoice);
-            CommandButtonValider = new RelayCommand(FunctionCommandButtonValider);
             CommandCreate = new RelayCommand(FunctionCommandCreate);
-            Session.ZonePointList = new List<Point>();
+            Session.ZonePointList = new List<System.Drawing.Point>();
             SourceImage = "";
             VideoCameraPath = "";
-            CameraNameText = "Camera"+(XMLManager.idLastCamera()+1);
+            CameraNameText = "Camera" + (XMLManager.idLastCamera() + 1);
             EnableButtonOK = false;
         }
 
         private void FunctionCommandCreate(object obj)
         {
-           Outils.XMLManager.AddCameraInXMLCameras(CameraNameText, Session.ZonePointList);
-        }
-
-        private void FunctionCommandButtonValider(object obj)
-        {
-            SourceImage = Outils.General.createPreviewFromVideo(VideoCameraPath, CameraNameText);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Etes vous sure de vouloir créer une nouvelle zone ? ", "Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                Outils.XMLManager.AddCameraInXMLCameras(CameraNameText, Session.ZonePointList);
+                MessageBox.Show("Création effectuée !");
+            }
         }
 
         private void FunctionCommandButtonChoice(object obj)
         {
             VideoCameraPath = General.getPathUser();
+            if (!String.IsNullOrEmpty(VideoCameraPath))
+            {
+                SourceImage = Outils.General.createPreviewFromVideo(VideoCameraPath, CameraNameText);
+            }
+            
 
         }
 
