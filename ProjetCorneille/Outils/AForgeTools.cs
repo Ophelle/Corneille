@@ -29,7 +29,8 @@ namespace ProjetCorneille.Outils
         private static VideoSourcePlayer videoSourcePlayer;
         private static int nbPicture = 0;
         private static string fileNameMovie;
-        private static List<Point> polygon; 
+        private static List<Point> polygon;
+        private static Bitmap bm;
 
         public static void Initialisation(string path, List<Point> polygon_img)
         {
@@ -77,6 +78,7 @@ namespace ProjetCorneille.Outils
         {
             Bitmap img_cut = SelectedZone(image, polygon);
             var motionLevel = _motionDetector.ProcessFrame(img_cut);
+            img_cut.Dispose();
             if (motionLevel > _motionAlarmLevel)
             {
                 if (_hasMotion){
@@ -88,8 +90,8 @@ namespace ProjetCorneille.Outils
                     int w = image.Width;
                     Console.WriteLine(DateTime.Now + ": Motion started. Motion level: " + motionLevel);
                     _FileWriter = new VideoFileWriter();
-                    _FileWriter.Open("/MotionsVideo/"+fileNameMovie+"_motion"+_volgnr+".avi", w, h, 25, VideoCodec.Default);
-                    Console.WriteLine("/MotionsVideo/" + fileNameMovie + "_motion" + _volgnr + ".avi");
+                    _FileWriter.Open("/MotionsVideo/"+fileNameMovie+"_Number_"+_volgnr+".avi", w, h, 25, VideoCodec.Default);
+                    Console.WriteLine("/MotionsVideo/" + fileNameMovie + "_Number_" + _volgnr + ".avi");
                     _FileWriter.WriteVideoFrame(image);
                     _firstFrameTime = DateTime.Now;
                 }
@@ -121,15 +123,13 @@ namespace ProjetCorneille.Outils
 
         private static Bitmap SelectedZone (Bitmap img, List<Point> points)
         {
-            // Copy the image.
-            Bitmap bm = new Bitmap(img);
-
+            bm = (Bitmap)img.Clone();
             // Clear the selected area.
             using (Graphics gr = Graphics.FromImage(bm))
             {
                 GraphicsPath path = new GraphicsPath();
                 path.AddPolygon(points.ToArray());
-                gr.SetClip(path);
+                gr.SetClip(path, CombineMode.Exclude);
                 gr.Clear(Color.Transparent);
                 gr.ResetClip();
             }

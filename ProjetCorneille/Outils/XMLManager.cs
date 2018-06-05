@@ -27,7 +27,7 @@ namespace ProjetCorneille.Outils
             movie.Name = fileName;
             XMLUtility.SerializeForXml<Movie>(fileName, "Movie", movie);
 
-            //AddMovieInXMLCameras(idCamera, path);
+            AddMovieInXMLCameras(idCamera, fileName);
 
         }
 
@@ -37,13 +37,13 @@ namespace ProjetCorneille.Outils
             return cameras.CamerasList.Where(cam => cam.ID == idCamera).Single().Coordinates;
         }
 
-        private static void AddMovieInXMLCameras(int idCamera, string path)
+        private static void AddMovieInXMLCameras(int idCamera, string fileName)
         {
             Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
             InfoMovie infoMovie = new InfoMovie();
-            infoMovie.PathMovie = path;
+            infoMovie.PathMovie = "/Movie/"+fileName+".xml";
             cameras.CamerasList.Where(cam => cam.ID == idCamera).Single().InfoMovies.Add(infoMovie);
-            XMLUtility.SerializeForXml<Movie>("Cameras", "Cameras", cameras);
+            XMLUtility.SerializeForXml<Cameras>("Cameras", "Cameras", cameras);
         }
 
         public static void CreateXMLCameras()

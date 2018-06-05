@@ -296,7 +296,7 @@ namespace ProjetCorneille.ViewModel
                 try
                 {
                     this.pathOfMotionToXml = value.PathVideo;
-                    nameOfMotionPath = value.PathVideo;
+                    nameOfMotionPath = value.Name;
                 }
                 catch
                 {
