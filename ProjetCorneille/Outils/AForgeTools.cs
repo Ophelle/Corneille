@@ -90,8 +90,8 @@ namespace ProjetCorneille.Outils
                     int w = image.Width;
                     Console.WriteLine(DateTime.Now + ": Motion started. Motion level: " + motionLevel);
                     _FileWriter = new VideoFileWriter();
-                    _FileWriter.Open("/MotionsVideo/"+fileNameMovie+"_motion"+_volgnr+".avi", w, h, 25, VideoCodec.Default);
-                    Console.WriteLine("/MotionsVideo/" + fileNameMovie + "_motion" + _volgnr + ".avi");
+                    _FileWriter.Open("/MotionsVideo/"+fileNameMovie+"_Number_"+_volgnr+".avi", w, h, 25, VideoCodec.Default);
+                    Console.WriteLine("/MotionsVideo/" + fileNameMovie + "_Number_" + _volgnr + ".avi");
                     _FileWriter.WriteVideoFrame(image);
                     _firstFrameTime = DateTime.Now;
                 }
