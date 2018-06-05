@@ -25,11 +25,12 @@
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80*"></ColumnDefinition>
-                <ColumnDefinition Width="20*"></ColumnDefinition>
+                <ColumnDefinition Width="797*"></ColumnDefinition>
+                <ColumnDefinition Width="98*"/>
+
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Text="{Binding CameraNameText}"></TextBox>
-            <Button Grid.Column="1" Content="Valider" IsEnabled="{Binding EnableButtonOK}" Command="{Binding CommandButtonValider}"></Button>
+            <TextBox Grid.Column="0" Text="{Binding CameraNameText}" Grid.ColumnSpan="2"></TextBox>
+
         </Grid>
         <Grid Grid.Row="3">
             <Image x:Name="tttt"  Source="{Binding SourceImage}" MouseLeftButtonDown="MouseMoveHandler"></Image>
