@@ -12,7 +12,8 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="5*"></RowDefinition>
-            <RowDefinition Height="65*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="60*"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
@@ -25,9 +26,13 @@
                 <ColumnDefinition Width="80*"></ColumnDefinition>
                 <ColumnDefinition Width="20*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Text="{Binding VideoCameraPath}"></TextBox>
+            <TextBox Grid.Column="0" Text="{Binding VideoPath}"></TextBox>
             <Button Grid.Column="1" Content="Choisir video ..." Command="{Binding CommandButtonChoice}"></Button>
         </Grid>
-        <Button Grid.Row="4" Content="Lancer Analyse" Command="{Binding CommandRunAnalyse}"></Button>
+        <Grid Grid.Row="3">
+            <ComboBox ItemsSource="{Binding ItemList}"  SelectedValue="{Binding ValueSelectedCamera}"
+                          DisplayMemberPath="Name" Width="auto" IsEnabled="{Binding ButtonDisableButton}"/>
+        </Grid>
+        <Button Grid.Row="5" Content="Lancer Analyse" Command="{Binding CommandRunAnalyse}"></Button>
     </Grid>
 </Page>

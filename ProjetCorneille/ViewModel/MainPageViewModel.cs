@@ -2,6 +2,7 @@
 using ProjetCorneille.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows;
@@ -12,24 +13,103 @@ namespace ProjetCorneille.ViewModel
     public class MainPageViewModel : ViewModelBase
     {
         private string selectUserPath;
-        public RelayCommand CommandOpenButton { get; set; }
+        public RelayCommand CommandButtonChoice { get; set; }
+        public RelayCommand CommandRunAnalyse { get; set; }
+        public RelayCommand ButtonDisableButton { get; set; }
+
+        private string videoPath;
+
+        public ObservableCollection<Item> itemList;
+        
+        private Item valueSelectedCamera;
+
+        public static string nameOfCamera;
+
+        public static int idOfCamera;
 
         public MainPageViewModel()
         {
             CommandMenuVisu = new RelayCommand(FunctionCommandMenuVisu);
             CommandMenuCreateCamera = new RelayCommand(FunctionCommandMenuCreateCamera);
-            CommandOpenButton = new RelayCommand(motionDetection);
+            CommandButtonChoice = new RelayCommand(ChoiceVideo);
+            CommandRunAnalyse = new RelayCommand(Analyse);
+            VideoPath = "";
+            ItemList = XMLManager.bringCameraFromXml();
         }
 
-        private void motionDetection(object obj)
+        private void ChoiceVideo(object obj)
         {
-            string path = General.getPathUser();
+            VideoPath = General.getPathUser();
+        }
+
+        // liste d item pour afficher les cameras
+        public ObservableCollection<Item> ItemList
+        {
+            get
+            {
+                return itemList;
+            }
+            set
+            {
+                itemList = value;
+                NotifyPropertyChanged("ItemList");
+            }
+        }
+
+
+        public string VideoPath
+        {
+            get
+            {
+                return this.videoPath;
+            }
+            set
+            {
+                this.videoPath = value;
+                NotifyPropertyChanged("VideoPath");
+            }
+        }
+
+        public Item ValueSelectedCamera
+        {
+            get
+            {
+                return this.valueSelectedCamera;
+            }
+            set
+            {
+                this.valueSelectedCamera = value;
+                NotifyPropertyChanged("ValueSelectedMotion");
+                try
+                {
+                    idOfCamera = value.itemID;
+                    nameOfCamera = value.Name;
+                }
+                catch
+                {
+
+                }
+
+            }
+        }
+
+        private void Analyse(object obj)
+        {
+            string path = VideoPath;
             if (path != "")
             {
-                MessageBox.Show(path);
-                XMLManager.CreateXMLMovie(path, 1);
-                List<System.Drawing.Point> polygon = XMLManager.ReadPolygonInXMLCamera(1);
-                AForgeTools.Initialisation(path, polygon);
+                if(ValueSelectedCamera.itemID > 0)
+                {
+                    MessageBox.Show("Veuillez appuyer sur OK pour commencer le traitement, un message sera present à la fin de celui-ci");
+                    XMLManager.CreateXMLMovie(path, ValueSelectedCamera.itemID);
+                    List<System.Drawing.Point> polygon = XMLManager.ReadPolygonInXMLCamera(ValueSelectedCamera.itemID);
+                    AForgeTools.Initialisation(path, polygon);
+                    MessageBox.Show("Traitement terminé");
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez choisir une camera");
+                }
             }
             else
             {
