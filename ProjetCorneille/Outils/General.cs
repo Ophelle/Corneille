@@ -52,7 +52,6 @@ namespace ProjetCorneille.Outils
                 }
 
                 videoFrame.Save(pathImage);
-
                 videoFrame.Dispose();
                 reader.Close();
             }
