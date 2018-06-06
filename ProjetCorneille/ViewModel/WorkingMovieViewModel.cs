@@ -43,7 +43,8 @@ namespace ProjetCorneille.ViewModel
             CommandButtonStart = new RelayCommand(FunctionboolToChange);
             CommandButtonStop = new RelayCommand(FunctionboolToChangeToFalse);
             CommandSaveMarqueur = new RelayCommand(FunctionSaveMarqueurToXml);
-
+            NextMotion = new RelayCommand(NextMotionItemList);
+            PreviousMotion = new RelayCommand(PreviousMotionItemList);
             ButtonValVol0 = true;
             StartAndStop = false;
             ButtonDisableButton = true;
@@ -66,6 +67,7 @@ namespace ProjetCorneille.ViewModel
             if(this.motionIndex + 1 < ItemMotionList.Count)
             {
                 this.motionIndex++;
+
                 ValueSelectedMotion = ItemMotionList[this.motionIndex];
             }
             
