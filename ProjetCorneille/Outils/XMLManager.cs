@@ -151,16 +151,24 @@ namespace ProjetCorneille.Outils
 
         public static ObservableCollection<Item> bringCameraFromXml()
         {
-            ObservableCollection<Item> camerasList = new ObservableCollection<Item>();
-            // Charger le xml de toute les cameras
-            Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
-            // recupere toutes les cameras
-            foreach (Camera CameraVideo in cameras.CamerasList)
+
+            if (File.Exists("/Cameras/Cameras.xml"))
             {
-                Item camerasItem = new Item(CameraVideo.ID, CameraVideo.Name, null);
-                camerasList.Add(camerasItem);
-            } 
-            return camerasList;
+                ObservableCollection<Item> camerasList = new ObservableCollection<Item>();
+                // Charger le xml de toute les cameras
+                Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
+                // recupere toutes les cameras
+                foreach (Camera CameraVideo in cameras.CamerasList)
+                {
+                    Item camerasItem = new Item(CameraVideo.ID, CameraVideo.Name, null);
+                    camerasList.Add(camerasItem);
+                }
+                return camerasList;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static ObservableCollection<Item> bringMotionFromVideoAndXml(string pathOfVideo)
