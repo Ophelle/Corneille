@@ -38,7 +38,7 @@ namespace ProjetCorneille.Views
 
         private void IsPlaying(bool flag)
         {
-            btnPlay.IsEnabled = true;
+            btnPlay.IsEnabled = flag;
             btnStop.IsEnabled = flag;
             btnMoveBack.IsEnabled = flag;
             btnMoveForward.IsEnabled = flag;
@@ -47,7 +47,7 @@ namespace ProjetCorneille.Views
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
             IsPlaying(true);
-            if (btnPlay.Content.ToString() == "Play")
+            if (btnPlay.Content.ToString() == "Démarrer")
             {
                 // TODO FIX PATH PROBLEM
                 motionPath = "C:\\MotionsVideo\\" + WorkingMovieViewModel.fileName + ".avi";
@@ -60,14 +60,14 @@ namespace ProjetCorneille.Views
             else
             {
                 MediaPlayer.Pause();
-                btnPlay.Content = "Play";
+                btnPlay.Content = "Démarrer";
             }
         }
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
             MediaPlayer.Pause();
-            btnPlay.Content = "Play";
+            btnPlay.Content = "Démarrer";
             IsPlaying(false);
             btnPlay.IsEnabled = true;
         }

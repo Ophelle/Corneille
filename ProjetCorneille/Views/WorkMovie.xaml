@@ -52,7 +52,7 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnPlay" Content="Demarrer" Click="btnPlay_Click" Width="130" Height="25" Margin="5"/>
+                        <Button x:Name="btnPlay" Content="Démarrer" Click="btnPlay_Click" Width="130" Height="25" Margin="5"/>
                         <Button x:Name="btnStop" Content="Arreter" Click="btnStop_Click" Width="130" Height="25" Margin="5"/>
                         <Button x:Name="btnMoveBack" Content="Reculer" Click="btnMoveBack_Click" Width="130" Height="25" Margin="5"/>
                         <Button x:Name="btnMoveForward" Content="Avancer" Click="btnMoveForward_Click" Width="130" Height="25" Margin="5"/>
