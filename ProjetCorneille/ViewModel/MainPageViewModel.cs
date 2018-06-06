@@ -79,16 +79,7 @@ namespace ProjetCorneille.ViewModel
             set
             {
                 this.valueSelectedCamera = value;
-                NotifyPropertyChanged("ValueSelectedMotion");
-                try
-                {
-                    idOfCamera = value.itemID;
-                    nameOfCamera = value.Name;
-                }
-                catch
-                {
-
-                }
+                NotifyPropertyChanged("ValueSelectedCamera");
 
             }
         }
