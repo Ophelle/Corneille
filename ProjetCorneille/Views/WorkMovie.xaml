@@ -27,7 +27,7 @@
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
                 <ComboBox ItemsSource="{Binding ItemMotionList}" SelectedValue="{Binding ValueSelectedMotion}"
                           DisplayMemberPath="Name" Width="364" IsEnabled="{Binding ButtonDisableButton}" />
-                <Button Width="214" Command="{Binding PreviousMotion}" IsEnabled="{Binding ButtonDisableButton}">Precedante</Button>
+                <Button Width="214" Command="{Binding PreviousMotion}" IsEnabled="{Binding ButtonDisableButton}">Precedente</Button>
                 <Button Width="214" Command="{Binding NextMotion}" IsEnabled="{Binding ButtonDisableButton}">Suivante</Button>
             </StackPanel>
         </Grid>
@@ -52,11 +52,10 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnPlay" Content="Play" Click="btnPlay_Click" Width="115" Height="25" Margin="5"/>
-                        <Button x:Name="btnStop" Content="Stop" Click="btnStop_Click" Width="115" Height="25" Margin="5"/>
-                        <Button x:Name="btnMoveBack" Content="Back" Click="btnMoveBack_Click" Width="115" Height="25" Margin="5"/>
-                        <Button x:Name="btnMoveForward" Content="Forward" Click="btnMoveForward_Click" Width="115" Height="25" Margin="5"/>
-                        <Button x:Name="btnOpen" Content="Open" Click="btnOpen_Click" Width="115" Height="25" Margin="5"/>
+                        <Button x:Name="btnPlay" Content="Demarrer" Click="btnPlay_Click" Width="130" Height="25" Margin="5"/>
+                        <Button x:Name="btnStop" Content="Arreter" Click="btnStop_Click" Width="130" Height="25" Margin="5"/>
+                        <Button x:Name="btnMoveBack" Content="Reculer" Click="btnMoveBack_Click" Width="130" Height="25" Margin="5"/>
+                        <Button x:Name="btnMoveForward" Content="Avancer" Click="btnMoveForward_Click" Width="130" Height="25" Margin="5"/>
                     </StackPanel>
                 </Grid>
             </Grid>

@@ -50,7 +50,7 @@ namespace ProjetCorneille.Views
             if (btnPlay.Content.ToString() == "Play")
             {
                 // TODO FIX PATH PROBLEM
-                motionPath = "C:\\MotionsVideo\\" + WorkingMovieViewModel.nameOfMotionPath + ".avi";
+                motionPath = "C:\\MotionsVideo\\" + WorkingMovieViewModel.fileName + ".avi";
                 MediaPlayer.Source = new Uri(motionPath);
                // MediaPlayer.Source = new Uri("C:\\MotionsVideo\\20180529_125628_203_motion1_motion1.avi");
 

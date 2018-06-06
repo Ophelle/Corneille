@@ -31,7 +31,8 @@ namespace ProjetCorneille.ViewModel
         private ObservableCollection<Item> itemMotionList;
         private ObservableCollection<Item> itemList;
         private int motionIndex;
-        public  static string nameOfMotionPath;
+        private string nameOfMotionPath;
+        public static string fileName;
 
         public WorkingMovieViewModel()
         {
@@ -296,7 +297,8 @@ namespace ProjetCorneille.ViewModel
                 try
                 {
                     this.pathOfMotionToXml = value.PathVideo;
-                    nameOfMotionPath = value.Name;
+                    this. nameOfMotionPath = value.PathVideo;
+                    fileName = value.Name;
                 }
                 catch
                 {
