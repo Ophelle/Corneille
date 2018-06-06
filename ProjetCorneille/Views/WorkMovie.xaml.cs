@@ -20,30 +20,24 @@ namespace ProjetCorneille.Views
     /// <summary>
     /// Logique d'interaction pour WorkMovie.xaml
     /// </summary>
+
+
     public partial class WorkMovie : Window
     {
 
+        public static bool isPlaying = true;
         
-
         public string motionPath;
+
+        private int count = 0;
+
+
 
         public WorkMovie()
         {
             InitializeComponent();
             this.DataContext = new WorkingMovieViewModel() ;
-            IsPlaying(false);
-
-
-            if (WorkingMovieViewModel.fileName != null)
-            {
-                IsPlaying(true);
-            }
-            else
-            {
-                IsPlaying(false);
-            }
-
-
+            IsPlaying(isPlaying);
         }
 
         
@@ -54,22 +48,27 @@ namespace ProjetCorneille.Views
             btnStop.IsEnabled = flag;
             btnMoveBack.IsEnabled = flag;
             btnMoveForward.IsEnabled = flag;
+          
         }
-
 
     private void btnPlay_Click(object sender, RoutedEventArgs e)
             {
-                IsPlaying(true);
-                if (btnPlay.Content.ToString() == "Démarrer")
-                {
-                    // TODO FIX PATH PROBLEM
-                    motionPath = "C:\\MotionsVideo\\" + WorkingMovieViewModel.fileName + ".avi";
-                    MediaPlayer.Source = new Uri(motionPath);
-                   // MediaPlayer.Source = new Uri("C:\\MotionsVideo\\20180529_125628_203_motion1_motion1.avi");
+            if (count == 0)
+            {
+                motionPath = "C:\\MotionsVideo\\" + WorkingMovieViewModel.fileName + ".avi";
+                MediaPlayer.Source = new Uri(motionPath);
+                btnPlay.IsEnabled = true;
+                count = +1;
+            }
 
+
+            IsPlaying(true);
+                if (btnPlay.Content.ToString() == "Démarrer")
+                { 
                     MediaPlayer.Play();
                     btnPlay.Content = "Pause";
-                }
+                    
+            }
                 else
                 {
                     MediaPlayer.Pause();
@@ -95,12 +94,6 @@ namespace ProjetCorneille.Views
             MediaPlayer.Position += TimeSpan.FromSeconds(10);
         }
 
-        private void btnOpen_Click(object sender, RoutedEventArgs e)
-        {
-           
-               
-                btnPlay.IsEnabled = true;
-  
-        }
+       
     }
 }
