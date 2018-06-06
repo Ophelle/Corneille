@@ -23,6 +23,8 @@ namespace ProjetCorneille.Views
     public partial class WorkMovie : Window
     {
 
+        
+
         public string motionPath;
 
         public WorkMovie()
@@ -31,7 +33,17 @@ namespace ProjetCorneille.Views
             this.DataContext = new WorkingMovieViewModel() ;
             IsPlaying(false);
 
-           
+
+            if (WorkingMovieViewModel.fileName != null)
+            {
+                IsPlaying(true);
+            }
+            else
+            {
+                IsPlaying(false);
+            }
+
+
         }
 
         
@@ -44,25 +56,26 @@ namespace ProjetCorneille.Views
             btnMoveForward.IsEnabled = flag;
         }
 
-        private void btnPlay_Click(object sender, RoutedEventArgs e)
-        {
-            IsPlaying(true);
-            if (btnPlay.Content.ToString() == "Démarrer")
-            {
-                // TODO FIX PATH PROBLEM
-                motionPath = "C:\\MotionsVideo\\" + WorkingMovieViewModel.fileName + ".avi";
-                MediaPlayer.Source = new Uri(motionPath);
-               // MediaPlayer.Source = new Uri("C:\\MotionsVideo\\20180529_125628_203_motion1_motion1.avi");
 
-                MediaPlayer.Play();
-                btnPlay.Content = "Pause";
-            }
-            else
+    private void btnPlay_Click(object sender, RoutedEventArgs e)
             {
-                MediaPlayer.Pause();
-                btnPlay.Content = "Démarrer";
+                IsPlaying(true);
+                if (btnPlay.Content.ToString() == "Démarrer")
+                {
+                    // TODO FIX PATH PROBLEM
+                    motionPath = "C:\\MotionsVideo\\" + WorkingMovieViewModel.fileName + ".avi";
+                    MediaPlayer.Source = new Uri(motionPath);
+                   // MediaPlayer.Source = new Uri("C:\\MotionsVideo\\20180529_125628_203_motion1_motion1.avi");
+
+                    MediaPlayer.Play();
+                    btnPlay.Content = "Pause";
+                }
+                else
+                {
+                    MediaPlayer.Pause();
+                    btnPlay.Content = "Démarrer";
+                }
             }
-        }
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
