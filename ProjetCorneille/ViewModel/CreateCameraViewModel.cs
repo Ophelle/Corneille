@@ -31,8 +31,16 @@ namespace ProjetCorneille.ViewModel
             MessageBoxResult messageBoxResult = MessageBox.Show("Etes vous sure de vouloir créer une nouvelle zone ? ", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                Outils.XMLManager.AddCameraInXMLCameras(CameraNameText, Session.ZonePointList);
-                MessageBox.Show("Création effectuée !");
+                if (Session.ZonePointList.Count > 1)
+                {
+                    Outils.XMLManager.AddCameraInXMLCameras(CameraNameText, Session.ZonePointList);
+                    MessageBox.Show("Création effectuée !");
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez séléctionner une zone pour créer une caméra !");
+                }
+
             }
         }
 
@@ -43,7 +51,7 @@ namespace ProjetCorneille.ViewModel
             {
                 SourceImage = Outils.General.createPreviewFromVideo(VideoCameraPath, CameraNameText);
             }
-            
+
 
         }
 

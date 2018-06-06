@@ -13,32 +13,11 @@ namespace ProjetCorneille.Views
     /// </summary>
     public partial class MainPage : Page
     {
-        MainPageViewModel mainPageViewModel = new MainPageViewModel();
-        Boolean click;
         public MainPage()
         {
             InitializeComponent();
-            this.DataContext = mainPageViewModel;
-            click = true;
+            this.DataContext = new MainPageViewModel();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Image_Loaded(object sender, RoutedEventArgs e)
-        {
-            // ... Create a new BitmapImage.
-            BitmapImage b = new BitmapImage();
-            b.BeginInit();
-            b.UriSource = new Uri(@"E:\Corneille\Corneille\ProjetCorneille\Resources\Capture001.png");
-            b.EndInit();
-
-            // ... Get Image reference from sender.
-            var image = sender as Image;
-            // ... Assign Source.
-            image.Source = b;
-        }
     }
 }
