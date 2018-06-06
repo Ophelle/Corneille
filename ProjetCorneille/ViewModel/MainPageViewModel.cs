@@ -111,7 +111,10 @@ namespace ProjetCorneille.ViewModel
         private void FunctionCommandMenuCreateCamera(object obj)
         {
            CreateCameraWindow ccw = new CreateCameraWindow();
-           ccw.Show();
+           if(ccw.ShowDialog() == false)
+            {
+                ItemList = XMLManager.bringCameraFromXml();
+            }
         }
 
         public RelayCommand CommandMenuVisu { get; set; }
