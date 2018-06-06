@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 using System.Collections.ObjectModel;
+using ProjetCorneille.Views;
 
 namespace ProjetCorneille.ViewModel
 {
@@ -34,6 +35,7 @@ namespace ProjetCorneille.ViewModel
         private string nameOfMotionPath;
         public static string fileName;
 
+
         public WorkingMovieViewModel()
         {
            
@@ -50,6 +52,7 @@ namespace ProjetCorneille.ViewModel
             sendVideoToCombobox();
 
             this.motionIndex = 0;
+
             //ValueSelectedMotion = (ItemList.Count > 0) ?  ItemMotionList[this.motionIndex] : null;
 
         }
@@ -92,6 +95,8 @@ namespace ProjetCorneille.ViewModel
             {
                 this.itemList = value;
                 NotifyPropertyChanged("ItemList");
+
+              
             }
         }
 
@@ -106,6 +111,8 @@ namespace ProjetCorneille.ViewModel
             {
                 this.itemMotionList = value;
                 NotifyPropertyChanged("ItemMotionList");
+                
+
             }
         }
 
@@ -114,6 +121,7 @@ namespace ProjetCorneille.ViewModel
         {
             ObservableCollection<Item> video = XMLManager.bringMotionFromVideoAndXml(NameOfVideo);
             ItemMotionList = video;
+         
         }
 
         // peupagle de la lsite de video
@@ -289,6 +297,7 @@ namespace ProjetCorneille.ViewModel
             get
             {
                 return this.valueSelectedMotion;
+                
             }
             set
             {
@@ -299,6 +308,8 @@ namespace ProjetCorneille.ViewModel
                     this.pathOfMotionToXml = value.PathVideo;
                     this. nameOfMotionPath = value.PathVideo;
                     fileName = value.Name;
+                   
+
                 }
                 catch
                 {
