@@ -27,8 +27,8 @@
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
                 <ComboBox ItemsSource="{Binding ItemMotionList}" SelectedValue="{Binding ValueSelectedMotion}"
                           DisplayMemberPath="Name" Width="364" IsEnabled="{Binding ButtonDisableButton}" />
-                <Button Width="214" Command="{Binding PreviousMotion}" IsEnabled="{Binding ButtonDisableButton}">Precedente</Button>
-                <Button Width="214" Command="{Binding NextMotion}" IsEnabled="{Binding ButtonDisableButton}">Suivante</Button>
+                <Button Width="214" Command="{Binding PreviousMotion}" IsEnabled="{Binding ButtonDisableButton}" Click="stopVideo_Click_Motion">Precedente</Button>
+                <Button Width="214" Command="{Binding NextMotion}" IsEnabled="{Binding ButtonDisableButton}" Click="stopVideo_Click_Motion">Suivante</Button>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4">
@@ -60,8 +60,8 @@
                 </Grid>
             </Grid>
             <StackPanel Orientation="Vertical" Grid.Column="1">
-                <Button Content="Demarrer le marqueur" Height="50" Command="{Binding CommandButtonStart}" IsEnabled="{Binding ButtonDisableButton}"/>
-                <Button Content="Arreter le marqueur" Height="50"  Command="{Binding CommandButtonStop}"/>
+                <Button Content="Demarrer le marqueur" Height="50" Command="{Binding CommandButtonStart}" IsEnabled="{Binding ButtonDisableButton}" Click="eventStart"/>
+                <Button Content="Arreter le marqueur" Height="50"  Command="{Binding CommandButtonStop}" Click="eventEnd"/>
                 <GroupBox>
                     <GroupBox.Header>
                         <Label>Chosir une action detectée</Label>

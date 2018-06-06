@@ -51,7 +51,6 @@ namespace ProjetCorneille.ViewModel
             ItemList = new ObservableCollection<Item>();
             ItemMotionList = new ObservableCollection<Item>();
             sendVideoToCombobox();
-
             this.motionIndex = 0;
 
             //ValueSelectedMotion = (ItemList.Count > 0) ?  ItemMotionList[this.motionIndex] : null;
@@ -67,7 +66,7 @@ namespace ProjetCorneille.ViewModel
             if(this.motionIndex + 1 < ItemMotionList.Count)
             {
                 this.motionIndex++;
-
+                WorkMovie.count = 0;
                 ValueSelectedMotion = ItemMotionList[this.motionIndex];
             }
             
@@ -82,6 +81,7 @@ namespace ProjetCorneille.ViewModel
             if (this.motionIndex - 1 >= 0)
             {
                 this.motionIndex--;
+                WorkMovie.count = 0;
                 ValueSelectedMotion = ItemMotionList[this.motionIndex];       
             }
 
@@ -160,6 +160,7 @@ namespace ProjetCorneille.ViewModel
         {
             StartAndStop = true;
             ButtonDisableButton = false;
+            this.date = date;
         }
 
         // Methode ta save marqueur
@@ -167,8 +168,7 @@ namespace ProjetCorneille.ViewModel
         {
             if (!StartAndStop)
             {
-                this.date = "00.00.01";
-                FunctionStartAndStopRecToXmlSaveMarqueur(this.pathOfMotionToXml, this.category, this.comment, this.date);
+                FunctionStartAndStopRecToXmlSaveMarqueur(this.pathOfMotionToXml, this.category, this.comment, WorkMovie.eventStartString);
             }
             else
             {
@@ -359,7 +359,6 @@ namespace ProjetCorneille.ViewModel
                 this.pathOfMotionToXml = nameOfMotion;
                 this.category = category;
                 this.comment = comment;
-                this.date = date;
             }
             // Insertion dans le XMl et fin du marqueur
             else
@@ -368,7 +367,7 @@ namespace ProjetCorneille.ViewModel
                 {
                     this.comment = comment;
                     this.category = category;
-                    XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, this.date, date);
+                    XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, WorkMovie.eventStartString, WorkMovie.eventEndString);
                     MessageBox.Show("Votre marqueur à bien été enregistrer");
                 }
                 catch {
