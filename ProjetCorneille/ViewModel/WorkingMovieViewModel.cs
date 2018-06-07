@@ -243,7 +243,8 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol0 = value;
                 NotifyPropertyChanged("ButtonValVol0");
-                this.category = "Vol";
+                if (value) { this.category = "Vol"; }
+               
             }
         }
         // vol1 
@@ -257,7 +258,7 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol1 = value;
                 NotifyPropertyChanged("ButtonValVol1");
-                this.category = "Vol1";
+                if (value) { this.category = "Suspect"; }
             }
         }
 
@@ -272,7 +273,8 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol2 = value;
                 NotifyPropertyChanged("ButtonValVol2");
-                this.category = "Vol2";
+                if (value) { this.category = "Echange"; }
+                
             }
         }
         // Autres
@@ -286,9 +288,11 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol3 = value;
                 NotifyPropertyChanged("buttonValVol3");
-                this.category = "Autres";
+                if (value) { this.category = "Autres"; }
+                
             }
         }
+
         public string Comment
         {
             get
@@ -366,7 +370,7 @@ namespace ProjetCorneille.ViewModel
             {
                 //Insestion dans les varaibles globales
                 this.pathOfMotionToXml = nameOfMotion;
-                this.category = category;
+                //this.category = category;
                 this.comment = comment;
             }
             // Insertion dans le XMl et fin du marqueur
@@ -375,7 +379,7 @@ namespace ProjetCorneille.ViewModel
                 try
                 {
                     this.comment = comment;
-                    this.category = category;
+                    //this.category = category;
                     XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, WorkMovie.eventStartString, WorkMovie.eventEndString);
                     MessageBox.Show("Votre marqueur à bien été enregistrer");
                 }

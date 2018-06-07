@@ -73,8 +73,8 @@
                     </GroupBox.Header>
                     <StackPanel Orientation="Vertical">
                         <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol0}">Vol</RadioButton>
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol1}">Vol1</RadioButton>
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol2}">Vol2</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol1}">Suspect</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol2}">Echange</RadioButton>
                         <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol3}">Autres</RadioButton>
                     </StackPanel>
                 </GroupBox>
