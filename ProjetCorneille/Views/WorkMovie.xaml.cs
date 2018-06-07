@@ -17,6 +17,7 @@ using ProjetCorneille.Outils;
 
 namespace ProjetCorneille.Views
 {
+  
 
     /// <summary>
     /// Logique d'interaction pour WorkMovie.xaml
@@ -96,6 +97,8 @@ namespace ProjetCorneille.Views
             btnPlay.Content = "Démarrer";
             IsPlaying(false);
             btnPlay.IsEnabled = true;
+            motionPath = "C:\\MotionsVideo\\" + WorkingMovieViewModel.fileName + ".avi";
+            MediaPlayer.Source = new Uri(motionPath);
         }
 
         private void btnMoveBack_Click(object sender, RoutedEventArgs e)
