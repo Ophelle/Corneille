@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using System.Windows.Navigation;
 using System.Collections.ObjectModel;
 using ProjetCorneille.Views;
+using ProjetCorneille.Model;
 
 namespace ProjetCorneille.ViewModel
 {
@@ -45,6 +46,7 @@ namespace ProjetCorneille.ViewModel
             CommandSaveMarqueur = new RelayCommand(FunctionSaveMarqueurToXml);
             NextMotion = new RelayCommand(NextMotionItemList);
             PreviousMotion = new RelayCommand(PreviousMotionItemList);
+            CommandShowMarqueur = new RelayCommand(ShowMarqueurs);
             ButtonValVol0 = true;
             StartAndStop = false;
             ButtonDisableButton = true;
@@ -56,6 +58,24 @@ namespace ProjetCorneille.ViewModel
             //ValueSelectedMotion = (ItemList.Count > 0) ?  ItemMotionList[this.motionIndex] : null;
 
         }
+        /*
+         * Show marqueur in the IHM
+         * 
+         */
+         public void ShowMarqueurs(Object obj)
+        {
+           string resultShow = "";
+            int number = 1;
+           var result = ValueSelectedMotion.PathVideo;
+           Motion listMarquers =  XMLManager.bringMarqueurToXmlMovie(result);
+           foreach(Motion.Marker listmarqueur in listMarquers.Markers)
+            {
+                resultShow = resultShow + "Marqueur N° " + number + " | Commentaire : " + listmarqueur.Comment + " | Category : " + listmarqueur.Action + " | Depart : " + listmarqueur.Start + " | Fin :" + listmarqueur.End + "\n\n\n";
+                number++;
+            }
+            MessageBox.Show(resultShow , "Vos Marqueurs");
+        }
+
 
         /*
          * Permet de pouvoir allez directement à la motion suivante
@@ -138,6 +158,9 @@ namespace ProjetCorneille.ViewModel
             ItemList = video;
         }
 
+        //Show marqueur
+        public RelayCommand CommandShowMarqueur { get; set; }
+
         // Acces to next Motion
         public RelayCommand NextMotion { get; set; }
 
@@ -160,7 +183,6 @@ namespace ProjetCorneille.ViewModel
         {
             StartAndStop = true;
             ButtonDisableButton = false;
-            this.date = date;
         }
 
         // Methode ta save marqueur
@@ -265,19 +287,6 @@ namespace ProjetCorneille.ViewModel
                 this.buttonValVol3 = value;
                 NotifyPropertyChanged("buttonValVol3");
                 this.category = "Autres";
-            }
-        }
-
-        public string Category
-        {
-            get
-            {
-                return this.category;
-            }
-            set
-            {
-                this.category = value;
-                NotifyPropertyChanged("Category");
             }
         }
         public string Comment

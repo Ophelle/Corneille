@@ -188,5 +188,14 @@ namespace ProjetCorneille.Outils
             }
             return video;
         }
+
+
+        public static Motion bringMarqueurToXmlMovie(string pathMotion)
+        {
+            string fileName;
+            fileName = Path.GetFileNameWithoutExtension(pathMotion);
+            Motion motion = XMLUtility.DeserializeForXml<Motion>("/Motion/"+fileName+".xml");
+            return motion;
+        }
     }
 }
