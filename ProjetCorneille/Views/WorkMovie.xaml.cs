@@ -14,30 +14,33 @@ using System.Windows.Shapes;
 using System.Windows.Navigation;
 using ProjetCorneille.ViewModel;
 using ProjetCorneille.Outils;
+using System.Windows.Threading;
+using System.ComponentModel;
 
 namespace ProjetCorneille.Views
 {
-  
-
     /// <summary>
     /// Logique d'interaction pour WorkMovie.xaml
     /// </summary>
-
-
+    /// 
     public partial class WorkMovie : Window
     {
+ 
 
         public static bool isPlaying = true;        
         public string motionPath;
         public static int count = 0;
         public static string eventStartString;
         public static string eventEndString;
+        private string totalDurationTime;
+        DispatcherTimer _timer = new DispatcherTimer(); 
 
         // Acces to next Motion
         public RelayCommand NextMotion { get; set; }
 
         // Acces to previpous Motion
         public RelayCommand PreviousMotion { get; set; }
+        public string TotalDurationTime { get => totalDurationTime; set => totalDurationTime = value; }
 
         public WorkMovie()
         {
@@ -45,7 +48,27 @@ namespace ProjetCorneille.Views
             this.DataContext = new WorkingMovieViewModel() ;
             IsPlaying(isPlaying);
             btnPlay.IsEnabled = true;
-            
+            _timer.Interval = TimeSpan.FromMilliseconds(1000);
+            _timer.Tick += new EventHandler(ticktock);
+            _timer.Start();
+
+        }
+
+
+        private void ticktock(object sender, EventArgs e)
+        {
+            sliderSeek.Value = MediaPlayer.Position.Seconds;
+            totalDurationTime = MediaPlayer.NaturalDuration.ToString();
+            //sliderSeek.Name = MediaPlayer.NaturalDuration.ToString();
+        }
+
+        private void sliderSeek_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            int pos = Convert.ToInt32(sliderSeek.Value);
+            MediaPlayer.Position = new TimeSpan(0, 0, 0, pos, 0);
+           
+
+
         }
 
         public void stopVideo_Click_Motion(object sender, RoutedEventArgs e)
