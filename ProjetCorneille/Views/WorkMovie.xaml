@@ -33,7 +33,12 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4">
-            <Button Content="Enregistrer" Command="{Binding CommandSaveMarqueur}" IsEnabled="{Binding ButtonDisableButton}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>                
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <Button  Grid.Column="0" Content="Enregistrer" Command="{Binding CommandSaveMarqueur}" IsEnabled="{Binding ButtonDisableButton}"/>
+            <Button  Grid.Column="1" Content="Afficher les marqueurs" Command="{Binding CommandShowMarqueur}"/>
         </Grid>
         <Grid Grid.Row="3">
             <TextBox Text="{Binding Comment}" ></TextBox>
@@ -74,9 +79,9 @@
                         <Label>Chosir une action detectée</Label>
                     </GroupBox.Header>
                     <StackPanel Orientation="Vertical">
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol0}">Vol</RadioButton>
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol1}">Vol1</RadioButton>
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol2}">Vol2</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol0}">Comportement Suspect</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol1}">A confirmer</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol2}">RAS</RadioButton>
                         <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol3}">Autres</RadioButton>
                     </StackPanel>
                 </GroupBox>
