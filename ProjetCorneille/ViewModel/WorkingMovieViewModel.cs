@@ -243,7 +243,7 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol0 = value;
                 NotifyPropertyChanged("ButtonValVol0");
-                if (value) { this.category = "Vol"; }
+                if (value) { this.category = "Comportement Suspect"; }
                
             }
         }
@@ -258,7 +258,7 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol1 = value;
                 NotifyPropertyChanged("ButtonValVol1");
-                if (value) { this.category = "Suspect"; }
+                if (value) { this.category = "A confirmer"; }
             }
         }
 
@@ -273,7 +273,7 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol2 = value;
                 NotifyPropertyChanged("ButtonValVol2");
-                if (value) { this.category = "Echange"; }
+                if (value) { this.category = "RAS"; }
                 
             }
         }

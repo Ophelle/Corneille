@@ -72,9 +72,9 @@
                         <Label>Chosir une action detectée</Label>
                     </GroupBox.Header>
                     <StackPanel Orientation="Vertical">
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol0}">Vol</RadioButton>
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol1}">Suspect</RadioButton>
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol2}">Echange</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol0}">Comportement Suspect</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol1}">A confirmer</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol2}">RAS</RadioButton>
                         <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol3}">Autres</RadioButton>
                     </StackPanel>
                 </GroupBox>
