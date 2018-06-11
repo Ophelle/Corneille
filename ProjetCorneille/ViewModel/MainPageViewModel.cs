@@ -92,10 +92,12 @@ namespace ProjetCorneille.ViewModel
                 if(ValueSelectedCamera.itemID > 0)
                 {
                     MessageBox.Show("Veuillez appuyer sur OK pour commencer le traitement, un message sera present à la fin de celui-ci");
+                    DateTime debut = DateTime.Now;
                     XMLManager.CreateXMLMovie(path, ValueSelectedCamera.itemID);
                     List<System.Drawing.Point> polygon = XMLManager.ReadPolygonInXMLCamera(ValueSelectedCamera.itemID);
                     AForgeTools.Initialisation(path, polygon);
-                    MessageBox.Show("Traitement terminé");
+                    TimeSpan dur = DateTime.Now - debut;
+                    MessageBox.Show("Traitement terminé - Durée de traitement : " + dur);
                 }
                 else
                 {

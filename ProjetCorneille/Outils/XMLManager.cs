@@ -11,6 +11,7 @@ using static ProjetCorneille.Model.Movie;
 using ProjetCorneille.ViewModel;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace ProjetCorneille.Outils
 {
@@ -182,7 +183,9 @@ namespace ProjetCorneille.Outils
             {
                 string fileName;
                 fileName = Path.GetFileNameWithoutExtension(movieInfoMotion.PathMotion);
+                MessageBox.Show(movieInfoMotion.PathMotion);
                 Item motionPath = new Item(numberOfMotion, fileName, "MotionsVideo/"+fileName+".avi");
+                MessageBox.Show(fileName);
                 numberOfMotion++;
                 video.Add(motionPath);
             }
