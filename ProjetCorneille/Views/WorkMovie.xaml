@@ -58,9 +58,9 @@
                     <MediaElement x:Name="MediaPlayer" Grid.RowSpan="1" LoadedBehavior="Manual"/>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Slider Margin="2" Maximum="600" Width="104" Name="sliderSeek" MouseLeftButtonUp="sliderSeek_MouseLeftButtonUp"></Slider>
-                    <TextBlock Text="{Binding totalDurationTime , StringFormat='Total duré de la vidéo: {00:00:00}'}" />
-                    <TextBlock Text="{Binding ElementName=sliderSeek, Path=Value, StringFormat=00:00:00}" Margin="185,0,-185,5"/>
+                    <Slider Margin="2" Maximum="14" Width="104" Name="sliderSeek" MouseLeftButtonUp="sliderSeek_MouseLeftButtonUp"></Slider>
+                    <TextBlock x:Name="textBlock"  Text ="{Binding ElementName=textBlock , Path=Text}" Margin="133,0,-133,0"/>
+                    <TextBlock Text="{Binding ElementName=sliderSeek, Path=Value, StringFormat=/ 00:00:00}" Margin="185,0,-185,5"/>
                 </Grid>
                 <Grid Grid.Row="2">
                     <StackPanel Orientation="Horizontal">

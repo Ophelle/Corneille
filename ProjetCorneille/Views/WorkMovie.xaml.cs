@@ -19,93 +19,97 @@ using System.ComponentModel;
 
 namespace ProjetCorneille.Views
 {
-    /// <summary>
-    /// Logique d'interaction pour WorkMovie.xaml
-    /// </summary>
-    /// 
+
     public partial class WorkMovie : Window
     {
- 
-
-        public static bool isPlaying = true;        
         public string motionPath;
         public static int count = 0;
         public static string eventStartString;
         public static string eventEndString;
-        private string totalDurationTime;
-        DispatcherTimer _timer = new DispatcherTimer(); 
+        DispatcherTimer _timer = new DispatcherTimer();
 
-        // Acces to next Motion
+        
+        // Permet de pouvoir allez directement à la motion suivante
         public RelayCommand NextMotion { get; set; }
 
-        // Acces to previpous Motion
+        
+        // Permet de pouvoir allez directement à la motion precedente
         public RelayCommand PreviousMotion { get; set; }
-        public string TotalDurationTime { get => totalDurationTime; set => totalDurationTime = value; }
 
         public WorkMovie()
         {
             InitializeComponent();
             this.DataContext = new WorkingMovieViewModel() ;
-            IsPlaying(isPlaying);
+            IsPlaying(true);
             btnPlay.IsEnabled = true;
             _timer.Interval = TimeSpan.FromMilliseconds(1000);
             _timer.Tick += new EventHandler(ticktock);
             _timer.Start();
-
+            TextBlock textBlock = new TextBlock();
         }
 
+        // Permet de pouvoir afficher la durée total de la vidéo
+        public string TextBlock { get; set; }
 
+        // Permet de pouvoir alimenter les variables "la barre de temps" et "la durée total de la vidéo"
         private void ticktock(object sender, EventArgs e)
         {
             sliderSeek.Value = MediaPlayer.Position.Seconds;
-            totalDurationTime = MediaPlayer.NaturalDuration.ToString();
-            //sliderSeek.Name = MediaPlayer.NaturalDuration.ToString();
+            if (MediaPlayer.NaturalDuration.ToString() == "Automatic")
+            {
+                textBlock.Text = null;
+            }
+            else
+            {
+                textBlock.Text = MediaPlayer.NaturalDuration.ToString().Remove((MediaPlayer.NaturalDuration.ToString()).Length - 8);
+                sliderSeek.Maximum = MediaPlayer.NaturalDuration.TimeSpan.Seconds;
+            }
+          
         }
 
+        // Permet de pouvoir detecter la position de la barre de temps
         private void sliderSeek_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             int pos = Convert.ToInt32(sliderSeek.Value);
             MediaPlayer.Position = new TimeSpan(0, 0, 0, pos, 0);
-           
-
-
         }
 
+        // Permet de pouvoir arreter la vidéo au moment de clicker le button "Suivant"
         public void stopVideo_Click_Motion(object sender, RoutedEventArgs e)
         {
             MediaPlayer.Pause();
             IsPlaying(false);
             btnPlay.IsEnabled = true;
             btnPlay.Content = "Démarrer";
-
         }
 
+        // Permet de pouvoir controller les booleans des buttons 
         private void IsPlaying(bool flag)
         {
             btnPlay.IsEnabled = flag;
             btnStop.IsEnabled = flag;
             btnMoveBack.IsEnabled = flag;
-            btnMoveForward.IsEnabled = flag;
-          
+            btnMoveForward.IsEnabled = flag;        
         }
-
-    private void btnPlay_Click(object sender, RoutedEventArgs e)
+        // Permet de pouvoir recuperer le chemin de vidéo
+        private void btnPlay_Click(object sender, RoutedEventArgs e)
             {
             if (count == 0)
             {
                 motionPath = "C:\\MotionsVideo\\" + WorkingMovieViewModel.fileName + ".avi";
                 MediaPlayer.Source = new Uri(motionPath);
                 btnPlay.IsEnabled = true;
+                
+                /*
+                 * Ce variable est crée pour ne pas alimenter Media Element avec le meme chemin de fichier plusieurs fois
+                 */
                 count = +1;
             }
-
-
             IsPlaying(true);
                 if (btnPlay.Content.ToString() == "Démarrer")
                 { 
                     MediaPlayer.Play();
-                    btnPlay.Content = "Pause";
-                    
+                    btnPlay.Content = "Pause";          
             }
                 else
                 {
@@ -113,7 +117,7 @@ namespace ProjetCorneille.Views
                     btnPlay.Content = "Démarrer";
                 }
             }
-
+        // Permet de pouvoir arreter la lecture de vidéo
         public void btnStop_Click(object sender, RoutedEventArgs e)
         {
             MediaPlayer.Pause();
@@ -124,21 +128,31 @@ namespace ProjetCorneille.Views
             MediaPlayer.Source = new Uri(motionPath);
         }
 
+        // Permet de pouvoir reculer dans la lecture de vidéo
         private void btnMoveBack_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * Par defaut c'est 10 secondes.
+             */
             MediaPlayer.Position -= TimeSpan.FromSeconds(10);
         }
 
+        // Permet de pouvoir avancer dans la lecture de vidéo
         private void btnMoveForward_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * Par defaut c'est 10 secondes.
+             */
             MediaPlayer.Position += TimeSpan.FromSeconds(10);
         }
 
+        // Permet de pouvoir recuperer debut de marqueurs
         private void eventStart(object sender, RoutedEventArgs e)
         {
             eventStartString = MediaPlayer.Position.ToString();
         }
 
+        // Permet de pouvoir recuperer fin de marqueurs
         private void eventEnd(object sender, RoutedEventArgs e)
         {
             eventEndString = MediaPlayer.Position.ToString();
