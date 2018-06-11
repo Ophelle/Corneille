@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjetCorneille.Views"
         mc:Ignorable="d"
-        Title="WorkMovie" Height="450" Width="800">
+        Title="WorkMovie" MinHeight="450" MinWidth="800" Height="450" Width="800" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition  Height="10*"></RowDefinition>
             <RowDefinition  Height="60*"></RowDefinition>
+            <RowDefinition  Height="10*"></RowDefinition>
             <RowDefinition  Height="10*"></RowDefinition>
             <RowDefinition  Height="10*"></RowDefinition>
             <RowDefinition  Height="10*"></RowDefinition>
@@ -27,12 +28,17 @@
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
                 <ComboBox ItemsSource="{Binding ItemMotionList}" SelectedValue="{Binding ValueSelectedMotion}"
                           DisplayMemberPath="Name" Width="364" IsEnabled="{Binding ButtonDisableButton}" />
-                <Button Width="214" Command="{Binding PreviousMotion}" IsEnabled="{Binding ButtonDisableButton}">Precedente</Button>
-                <Button Width="214" Command="{Binding NextMotion}" IsEnabled="{Binding ButtonDisableButton}">Suivante</Button>
+                <Button Width="214" Command="{Binding PreviousMotion}" IsEnabled="{Binding ButtonDisableButton}" Click="stopVideo_Click_Motion">Precedente</Button>
+                <Button Width="214" Command="{Binding NextMotion}" IsEnabled="{Binding ButtonDisableButton}" Click="stopVideo_Click_Motion">Suivante</Button>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4">
-            <Button Content="Enregistrer" Command="{Binding CommandSaveMarqueur}" IsEnabled="{Binding ButtonDisableButton}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>                
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <Button  Grid.Column="0" Content="Enregistrer" Command="{Binding CommandSaveMarqueur}" IsEnabled="{Binding ButtonDisableButton}"/>
+            <Button  Grid.Column="1" Content="Afficher les marqueurs" Command="{Binding CommandShowMarqueur}"/>
         </Grid>
         <Grid Grid.Row="3">
             <TextBox Text="{Binding Comment}" ></TextBox>
@@ -44,32 +50,38 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition  Height="90*"></RowDefinition>
+                    <RowDefinition  Height="80*"></RowDefinition>
+                    <RowDefinition  Height="10*"></RowDefinition>
                     <RowDefinition  Height="10*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <MediaElement x:Name="MediaPlayer" Grid.RowSpan="1" LoadedBehavior="Manual"/>
                 </Grid>
                 <Grid Grid.Row="1">
+                    <Slider Margin="2" Maximum="600" Width="104" Name="sliderSeek" MouseLeftButtonUp="sliderSeek_MouseLeftButtonUp"></Slider>
+                    <TextBlock Text="{Binding totalDurationTime , StringFormat='Total duré de la vidéo: {00:00:00}'}" />
+                    <TextBlock Text="{Binding ElementName=sliderSeek, Path=Value, StringFormat=00:00:00}" Margin="185,0,-185,5"/>
+                </Grid>
+                <Grid Grid.Row="2">
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnPlay" Content="Demarrer" Click="btnPlay_Click" Width="130" Height="25" Margin="5"/>
-                        <Button x:Name="btnStop" Content="Arreter" Click="btnStop_Click" Width="130" Height="25" Margin="5"/>
-                        <Button x:Name="btnMoveBack" Content="Reculer" Click="btnMoveBack_Click" Width="130" Height="25" Margin="5"/>
-                        <Button x:Name="btnMoveForward" Content="Avancer" Click="btnMoveForward_Click" Width="130" Height="25" Margin="5"/>
+                        <Button x:Name="btnPlay" Content="Démarrer" Click="btnPlay_Click" Width="150" Height="25" />
+                        <Button x:Name="btnStop" Content="Arreter" Click="btnStop_Click" Width="150" Height="25" />
+                        <Button x:Name="btnMoveBack" Content="Reculer" Click="btnMoveBack_Click" Width="150" Height="25" />
+                        <Button x:Name="btnMoveForward" Content="Avancer" Click="btnMoveForward_Click" Width="150" Height="25" />
                     </StackPanel>
                 </Grid>
             </Grid>
             <StackPanel Orientation="Vertical" Grid.Column="1">
-                <Button Content="Demarrer le marqueur" Height="50" Command="{Binding CommandButtonStart}" IsEnabled="{Binding ButtonDisableButton}"/>
-                <Button Content="Arreter le marqueur" Height="50"  Command="{Binding CommandButtonStop}"/>
+                <Button Content="Demarrer le marqueur" Height="50" Command="{Binding CommandButtonStart}" IsEnabled="{Binding ButtonDisableButton}" Click="eventStart"/>
+                <Button Content="Arreter le marqueur" Height="50"  Command="{Binding CommandButtonStop}" Click="eventEnd"/>
                 <GroupBox>
                     <GroupBox.Header>
                         <Label>Chosir une action detectée</Label>
                     </GroupBox.Header>
                     <StackPanel Orientation="Vertical">
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol0}">Vol</RadioButton>
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol1}">Vol1</RadioButton>
-                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol2}">Vol2</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol0}">Comportement Suspect</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol1}">A confirmer</RadioButton>
+                        <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol2}">RAS</RadioButton>
                         <RadioButton  Margin="5" IsChecked="{Binding ButtonValVol3}">Autres</RadioButton>
                     </StackPanel>
                 </GroupBox>

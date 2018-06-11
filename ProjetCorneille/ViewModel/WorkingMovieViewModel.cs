@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 using System.Collections.ObjectModel;
+using ProjetCorneille.Views;
+using ProjetCorneille.Model;
 
 namespace ProjetCorneille.ViewModel
 {
@@ -34,6 +36,7 @@ namespace ProjetCorneille.ViewModel
         private string nameOfMotionPath;
         public static string fileName;
 
+
         public WorkingMovieViewModel()
         {
            
@@ -41,18 +44,38 @@ namespace ProjetCorneille.ViewModel
             CommandButtonStart = new RelayCommand(FunctionboolToChange);
             CommandButtonStop = new RelayCommand(FunctionboolToChangeToFalse);
             CommandSaveMarqueur = new RelayCommand(FunctionSaveMarqueurToXml);
-
+            NextMotion = new RelayCommand(NextMotionItemList);
+            PreviousMotion = new RelayCommand(PreviousMotionItemList);
+            CommandShowMarqueur = new RelayCommand(ShowMarqueurs);
             ButtonValVol0 = true;
             StartAndStop = false;
             ButtonDisableButton = true;
             ItemList = new ObservableCollection<Item>();
             ItemMotionList = new ObservableCollection<Item>();
             sendVideoToCombobox();
-
             this.motionIndex = 0;
+
             //ValueSelectedMotion = (ItemList.Count > 0) ?  ItemMotionList[this.motionIndex] : null;
 
         }
+        /*
+         * Show marqueur in the IHM
+         * 
+         */
+         public void ShowMarqueurs(Object obj)
+        {
+           string resultShow = "";
+            int number = 1;
+           var result = ValueSelectedMotion.PathVideo;
+           Motion listMarquers =  XMLManager.bringMarqueurToXmlMovie(result);
+           foreach(Motion.Marker listmarqueur in listMarquers.Markers)
+            {
+                resultShow = resultShow + "Marqueur N° " + number + " | Commentaire : " + listmarqueur.Comment + " | Category : " + listmarqueur.Action + " | Depart : " + listmarqueur.Start + " | Fin :" + listmarqueur.End + "\n\n\n";
+                number++;
+            }
+            MessageBox.Show(resultShow , "Vos Marqueurs");
+        }
+
 
         /*
          * Permet de pouvoir allez directement à la motion suivante
@@ -63,6 +86,7 @@ namespace ProjetCorneille.ViewModel
             if(this.motionIndex + 1 < ItemMotionList.Count)
             {
                 this.motionIndex++;
+                WorkMovie.count = 0;
                 ValueSelectedMotion = ItemMotionList[this.motionIndex];
             }
             
@@ -77,6 +101,7 @@ namespace ProjetCorneille.ViewModel
             if (this.motionIndex - 1 >= 0)
             {
                 this.motionIndex--;
+                WorkMovie.count = 0;
                 ValueSelectedMotion = ItemMotionList[this.motionIndex];       
             }
 
@@ -92,6 +117,8 @@ namespace ProjetCorneille.ViewModel
             {
                 this.itemList = value;
                 NotifyPropertyChanged("ItemList");
+
+              
             }
         }
 
@@ -106,6 +133,8 @@ namespace ProjetCorneille.ViewModel
             {
                 this.itemMotionList = value;
                 NotifyPropertyChanged("ItemMotionList");
+                
+
             }
         }
 
@@ -114,6 +143,7 @@ namespace ProjetCorneille.ViewModel
         {
             ObservableCollection<Item> video = XMLManager.bringMotionFromVideoAndXml(NameOfVideo);
             ItemMotionList = video;
+         
         }
 
         // peupagle de la lsite de video
@@ -127,6 +157,9 @@ namespace ProjetCorneille.ViewModel
             ObservableCollection<Item> video = XMLManager.bringVideoFromXml();
             ItemList = video;
         }
+
+        //Show marqueur
+        public RelayCommand CommandShowMarqueur { get; set; }
 
         // Acces to next Motion
         public RelayCommand NextMotion { get; set; }
@@ -157,8 +190,7 @@ namespace ProjetCorneille.ViewModel
         {
             if (!StartAndStop)
             {
-                this.date = "00.00.01";
-                FunctionStartAndStopRecToXmlSaveMarqueur(this.pathOfMotionToXml, this.category, this.comment, this.date);
+                FunctionStartAndStopRecToXmlSaveMarqueur(this.pathOfMotionToXml, this.category, this.comment, WorkMovie.eventStartString);
             }
             else
             {
@@ -211,7 +243,8 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol0 = value;
                 NotifyPropertyChanged("ButtonValVol0");
-                this.category = "Vol";
+                if (value) { this.category = "Comportement Suspect"; }
+               
             }
         }
         // vol1 
@@ -225,7 +258,7 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol1 = value;
                 NotifyPropertyChanged("ButtonValVol1");
-                this.category = "Vol1";
+                if (value) { this.category = "A confirmer"; }
             }
         }
 
@@ -240,7 +273,8 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol2 = value;
                 NotifyPropertyChanged("ButtonValVol2");
-                this.category = "Vol2";
+                if (value) { this.category = "RAS"; }
+                
             }
         }
         // Autres
@@ -254,22 +288,11 @@ namespace ProjetCorneille.ViewModel
             {
                 this.buttonValVol3 = value;
                 NotifyPropertyChanged("buttonValVol3");
-                this.category = "Autres";
+                if (value) { this.category = "Autres"; }
+                
             }
         }
 
-        public string Category
-        {
-            get
-            {
-                return this.category;
-            }
-            set
-            {
-                this.category = value;
-                NotifyPropertyChanged("Category");
-            }
-        }
         public string Comment
         {
             get
@@ -289,6 +312,7 @@ namespace ProjetCorneille.ViewModel
             get
             {
                 return this.valueSelectedMotion;
+                
             }
             set
             {
@@ -299,6 +323,8 @@ namespace ProjetCorneille.ViewModel
                     this.pathOfMotionToXml = value.PathVideo;
                     this. nameOfMotionPath = value.PathVideo;
                     fileName = value.Name;
+                   
+
                 }
                 catch
                 {
@@ -344,9 +370,8 @@ namespace ProjetCorneille.ViewModel
             {
                 //Insestion dans les varaibles globales
                 this.pathOfMotionToXml = nameOfMotion;
-                this.category = category;
+                //this.category = category;
                 this.comment = comment;
-                this.date = date;
             }
             // Insertion dans le XMl et fin du marqueur
             else
@@ -354,8 +379,8 @@ namespace ProjetCorneille.ViewModel
                 try
                 {
                     this.comment = comment;
-                    this.category = category;
-                    XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, this.date, date);
+                    //this.category = category;
+                    XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, WorkMovie.eventStartString, WorkMovie.eventEndString);
                     MessageBox.Show("Votre marqueur à bien été enregistrer");
                 }
                 catch {
