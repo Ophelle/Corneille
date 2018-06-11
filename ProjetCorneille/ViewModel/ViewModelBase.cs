@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace ProjetCorneille.ViewModel
 {
+    //Classe permettant d'implémenter l'interface INotifyPropertyChanged 
+    //réutilisable pour tous les ViewModel
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
