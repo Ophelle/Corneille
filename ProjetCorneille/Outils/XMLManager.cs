@@ -182,10 +182,8 @@ namespace ProjetCorneille.Outils
             foreach (InfoMotion movieInfoMotion in movie.InfoMotions)
             {
                 string fileName;
-                fileName = Path.GetFileNameWithoutExtension(movieInfoMotion.PathMotion);
-                MessageBox.Show(movieInfoMotion.PathMotion);
+                fileName = Path.GetFileNameWithoutExtension(movieInfoMotion.PathMotion);               
                 Item motionPath = new Item(numberOfMotion, fileName, "MotionsVideo/"+fileName+".avi");
-                MessageBox.Show(fileName);
                 numberOfMotion++;
                 video.Add(motionPath);
             }

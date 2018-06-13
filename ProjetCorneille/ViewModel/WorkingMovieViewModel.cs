@@ -70,7 +70,7 @@ namespace ProjetCorneille.ViewModel
            Motion listMarquers =  XMLManager.bringMarqueurToXmlMovie(result);
            foreach(Motion.Marker listmarqueur in listMarquers.Markers)
             {
-                resultShow = resultShow + "Marqueur N° " + number + " | Commentaire : " + listmarqueur.Comment + " | Category : " + listmarqueur.Action + " | Depart : " + listmarqueur.Start + " | Fin :" + listmarqueur.End + "\n\n\n";
+                resultShow = resultShow + "Marqueur N° " + number + " | Commentaire : " + listmarqueur.Comment + " | Categorie : " + listmarqueur.Action + " | Depart : " + listmarqueur.Start + " | Fin :" + listmarqueur.End + "\n\n\n";
                 number++;
             }
             MessageBox.Show(resultShow , "Vos Marqueurs");
@@ -381,7 +381,7 @@ namespace ProjetCorneille.ViewModel
                     this.comment = comment;
                     //this.category = category;
                     XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, WorkMovie.eventStartString, WorkMovie.eventEndString);
-                    MessageBox.Show("Votre marqueur à bien été enregistrer");
+                    MessageBox.Show("Votre marqueur à bien été enregistré");
                 }
                 catch {
                     MessageBox.Show("Merci de selectionner une motion avant tous enregistrement");
