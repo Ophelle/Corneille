@@ -11,6 +11,7 @@ namespace ProjetCorneille.Outils
 {
 	class XMLUtility
 	{
+        // Méthode qui déserialise un XML et qui l'insère dans un objet 
 		public static T DeserializeForXml<T>(string filePath)
 		{
 			XmlSerializer selializer = new XmlSerializer(typeof(T));
@@ -20,6 +21,7 @@ namespace ProjetCorneille.Outils
 			}
 		}
 
+        // Méthode qui crée un XML depuis un objet 
 		public static void SerializeForXml<T>(string fileName, string type,Object XML)
 		{
 			XmlSerializer x = new XmlSerializer(typeof(T));

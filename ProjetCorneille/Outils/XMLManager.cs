@@ -17,6 +17,7 @@ namespace ProjetCorneille.Outils
 {
     class XMLManager
     {
+        // Méthode qui crée l'XML Movie
         public static void CreateXMLMovie(string path, int idCamera)
         {
             string fileName;
@@ -32,12 +33,14 @@ namespace ProjetCorneille.Outils
 
         }
 
+        // Méthode qui récupère le polygone d'une caméra
         internal static List<Point> ReadPolygonInXMLCamera(int idCamera)
         {
             Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
             return cameras.CamerasList.Where(cam => cam.ID == idCamera).Single().Coordinates;
         }
 
+        // Méthode qui ajoute une vidéo dans l'XML caméra
         private static void AddMovieInXMLCameras(int idCamera, string fileName)
         {
             Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
@@ -47,6 +50,7 @@ namespace ProjetCorneille.Outils
             XMLUtility.SerializeForXml<Cameras>("Cameras", "Cameras", cameras);
         }
 
+        // Méthode qui crée le XML caméras 
         public static void CreateXMLCameras()
         {
             Cameras cameras = new Cameras();
@@ -54,6 +58,7 @@ namespace ProjetCorneille.Outils
             XMLUtility.SerializeForXml<Cameras>("Cameras", "Cameras", cameras);
         }
 
+        // Méthode qui ajoute une caméra dans le XML caméras (liste de caméra)
         public static void AddCameraInXMLCameras(string name, List<Point> coordinates)
         {
             int idBefore = 0;
@@ -74,6 +79,7 @@ namespace ProjetCorneille.Outils
             XMLUtility.SerializeForXml<Cameras>("Cameras", "Cameras", cameras);
         }
 
+        // Méthide qui récupère l'ID de la dernière caméra créée
         public static int idLastCamera()
         {
             int id = 0;
@@ -89,6 +95,7 @@ namespace ProjetCorneille.Outils
             return id;
         }
 
+        // Méthode qui crée l'XML Motion
         public static void CreateXMLMotion(string pathMovie, int numbermotion, DateTime dateHoursStart, DateTime dateHoursEnd, string start, string end)
         {
             string fileName = Path.GetFileNameWithoutExtension(pathMovie) + "_Number_" + numbermotion;
@@ -100,6 +107,7 @@ namespace ProjetCorneille.Outils
             AddMotionInXMLMovie("/Motion/" + fileName, pathMovie, start, end);
         }
 
+        // Méthode qui ajoute une motion dans un XML Movie 
         private static void AddMotionInXMLMovie(string pathMotion, string pathMovie, string start, string end)
         {
             string fileName;
@@ -114,6 +122,7 @@ namespace ProjetCorneille.Outils
             XMLUtility.SerializeForXml<Movie>(fileName, "Movie", movie);
         }
         
+        // Méthode qui ajoute un marker dans le XML Motion
         public static void addToXmlMarqueurMotionInMovie(string category, string comment, string pathMotion, string date , string dateFin)
         {
             string fileName = Path.GetFileNameWithoutExtension(pathMotion);
@@ -127,6 +136,7 @@ namespace ProjetCorneille.Outils
             XMLUtility.SerializeForXml<Motion>(fileName, "Motion", motions);
         }
 
+        // Methode qui recupère toutes les videos traitées
         public static ObservableCollection<Item> bringVideoFromXml()
         {
             ObservableCollection<Item> video = new ObservableCollection<Item>();
@@ -149,6 +159,7 @@ namespace ProjetCorneille.Outils
             return video;
         }
 
+        //Methode qui recupère les caméras de l'XML caméras
         public static ObservableCollection<Item> bringCameraFromXml()
         {
 
@@ -171,6 +182,7 @@ namespace ProjetCorneille.Outils
             }
         }
 
+        // Méthode qui récupère les motions d'une video 
         public static ObservableCollection<Item> bringMotionFromVideoAndXml(string pathOfVideo)
         {
             ObservableCollection<Item> video = new ObservableCollection<Item>();
@@ -188,7 +200,7 @@ namespace ProjetCorneille.Outils
             return video;
         }
 
-
+        // Méthode qui recupère les marker d'une motion 
         public static Motion bringMarqueurToXmlMovie(string pathMotion)
         {
             string fileName;

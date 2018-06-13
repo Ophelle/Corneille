@@ -37,12 +37,13 @@ namespace ProjetCorneille.ViewModel
             ItemList = XMLManager.bringCameraFromXml();
         }
 
+        // Méthode qui permet d'ouvrir une fenêtre pour choisir la video 
         private void ChoiceVideo(object obj)
         {
             VideoPath = General.getPathUser();
         }
 
-        // liste d item pour afficher les cameras
+        // liste d'item pour afficher les cameras
         public ObservableCollection<Item> ItemList
         {
             get
@@ -56,7 +57,7 @@ namespace ProjetCorneille.ViewModel
             }
         }
 
-
+        // Champ de text qui contient le path de la video choisie
         public string VideoPath
         {
             get
@@ -70,6 +71,7 @@ namespace ProjetCorneille.ViewModel
             }
         }
 
+        // Valeur de la caméra séléctionné 
         public Item ValueSelectedCamera
         {
             get
@@ -84,6 +86,7 @@ namespace ProjetCorneille.ViewModel
             }
         }
 
+        // Methode qui lance l'analyse de video 
         private void Analyse(object obj)
         {
             string path = VideoPath;

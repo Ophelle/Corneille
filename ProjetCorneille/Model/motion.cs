@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetCorneille.Model
 {
+    // objet permettant de créer l'XML Motion
 	public class Motion
 	{
 		public string Name { get; set; }
@@ -13,6 +14,7 @@ namespace ProjetCorneille.Model
         public DateTime DateHoursEnd { get; set; }
         public List<Marker> Markers { get; set; }
 
+        // Liste qui stock tous les markers d'une motion
 		public class Marker
 		{
 			public string Start { get; set; }
