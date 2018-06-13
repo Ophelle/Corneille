@@ -29,7 +29,7 @@ namespace ProjetCorneille.ViewModel
             VideoPath = "";
             ItemList = XMLManager.bringCameraFromXml();
         }
-        S
+        
         #region Partie des Commandes
         public RelayCommand CommandButtonChoice { get; set; }
         public RelayCommand CommandRunAnalyse { get; set; }
