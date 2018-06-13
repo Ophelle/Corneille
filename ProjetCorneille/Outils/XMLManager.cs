@@ -130,7 +130,6 @@ namespace ProjetCorneille.Outils
         public static ObservableCollection<Item> bringVideoFromXml()
         {
             ObservableCollection<Item> video = new ObservableCollection<Item>();
-            // TODO faire le traitment pour alimenter la liste
             int numberOfMovie = 1;
             // Charger le xml de toute les cameras 
             Cameras cameras = XMLUtility.DeserializeForXml<Cameras>("/Cameras/Cameras.xml");
@@ -146,7 +145,7 @@ namespace ProjetCorneille.Outils
                     video.Add(videoPath);                
                 }
             }           
-            // boucluer sur info movie 
+            // boucler sur info movie 
             return video;
         }
 
@@ -175,7 +174,6 @@ namespace ProjetCorneille.Outils
         public static ObservableCollection<Item> bringMotionFromVideoAndXml(string pathOfVideo)
         {
             ObservableCollection<Item> video = new ObservableCollection<Item>();
-            // TODO faire le traitment pour alimenter la liste
             Movie movie = XMLUtility.DeserializeForXml<Movie>(pathOfVideo);
             int numberOfMotion = 1;
 

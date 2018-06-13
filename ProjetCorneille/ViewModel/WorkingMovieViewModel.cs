@@ -40,7 +40,7 @@ namespace ProjetCorneille.ViewModel
         public WorkingMovieViewModel()
         {
            
-            //For marquer events 
+            //Marqueur
             CommandButtonStart = new RelayCommand(FunctionboolToChange);
             CommandButtonStop = new RelayCommand(FunctionboolToChangeToFalse);
             CommandSaveMarqueur = new RelayCommand(FunctionSaveMarqueurToXml);
@@ -54,12 +54,9 @@ namespace ProjetCorneille.ViewModel
             ItemMotionList = new ObservableCollection<Item>();
             sendVideoToCombobox();
             this.motionIndex = 0;
-
-            //ValueSelectedMotion = (ItemList.Count > 0) ?  ItemMotionList[this.motionIndex] : null;
-
         }
         /*
-         * Show marqueur in the IHM
+         * Afficher les marqueurs dans l'IHM
          * 
          */
          public void ShowMarqueurs(Object obj)
@@ -93,7 +90,7 @@ namespace ProjetCorneille.ViewModel
         }
 
          /*
-         * Permet de pouvoir allez directement à la motion suivante
+         * Permet de pouvoir allez directement à la motion précédante
          * 
          */
         public void PreviousMotionItemList(Object obj)
@@ -122,7 +119,7 @@ namespace ProjetCorneille.ViewModel
             }
         }
 
-        //Liste ditem motion afin de pouvoir afficher les motion d'une video
+        //Liste d'item motion afin de pouvoir afficher les motion d'une video
         public ObservableCollection<Item> ItemMotionList
         {
             get
@@ -146,7 +143,7 @@ namespace ProjetCorneille.ViewModel
          
         }
 
-        // peupagle de la lsite de video
+        // peupagle de la liste des video
         /*
          * 
          * @Return list de video a afficher
@@ -158,34 +155,34 @@ namespace ProjetCorneille.ViewModel
             ItemList = video;
         }
 
-        //Show marqueur
+        //Afficher les marqueurs
         public RelayCommand CommandShowMarqueur { get; set; }
 
-        // Acces to next Motion
+        // Acceder à la prochaine Motion
         public RelayCommand NextMotion { get; set; }
 
-        // Acces to previpous Motion
+        // Acceder à la précédente Motion
         public RelayCommand PreviousMotion { get; set; }
 
 
-        // Button to save marqueur 
+        // Button pour sauvegarder le marqueur 
         public RelayCommand CommandSaveMarqueur { get; set; }
 
-        // Button to start marqueur
+        // Button pour démarrer le  marqueur
         public RelayCommand CommandButtonStart { get; set; }
 
-        // Bouton to stop marqueur
+        // Bouton pour stopper marqueur
         public RelayCommand CommandButtonStop { get; set; }
 
 
-        // Methode to change le statut 
+        // Methode pour changer le statut 
         public void FunctionboolToChange(Object obj)
         {
             StartAndStop = true;
             ButtonDisableButton = false;
         }
 
-        // Methode ta save marqueur
+        // Methode pour sauvegarder le marqueur
         public void FunctionSaveMarqueurToXml(Object obj)
         {
             if (!StartAndStop)
@@ -200,7 +197,7 @@ namespace ProjetCorneille.ViewModel
         }
 
 
-        // Methode to change le statut 
+        // Methode pour changer le statut 
         public void FunctionboolToChangeToFalse(Object obj)
         {
             StartAndStop = false;
@@ -232,7 +229,7 @@ namespace ProjetCorneille.ViewModel
         }
 
         
-        // Bouton de catagorie de vol 
+        // Bouton changemen de catagorie 
         public bool ButtonValVol0
         {
             get
@@ -247,7 +244,7 @@ namespace ProjetCorneille.ViewModel
                
             }
         }
-        // vol1 
+        // Bouton changemen de catagorie 
         public bool ButtonValVol1
         {
             get
@@ -262,7 +259,7 @@ namespace ProjetCorneille.ViewModel
             }
         }
 
-        // vol2
+        // Bouton changemen de catagorie
         public bool ButtonValVol2
         {
             get
@@ -277,7 +274,7 @@ namespace ProjetCorneille.ViewModel
                 
             }
         }
-        // Autres
+        // Bouton changemen de catagorie
         public bool ButtonValVol3
         {
             get
@@ -370,7 +367,6 @@ namespace ProjetCorneille.ViewModel
             {
                 //Insestion dans les varaibles globales
                 this.pathOfMotionToXml = nameOfMotion;
-                //this.category = category;
                 this.comment = comment;
             }
             // Insertion dans le XMl et fin du marqueur
@@ -378,8 +374,7 @@ namespace ProjetCorneille.ViewModel
             {
                 try
                 {
-                    this.comment = comment;
-                    //this.category = category;
+                    this.comment = comment;                    
                     XMLManager.addToXmlMarqueurMotionInMovie(this.category, Comment, this.pathOfMotionToXml, WorkMovie.eventStartString, WorkMovie.eventEndString);
                     MessageBox.Show("Votre marqueur à bien été enregistré");
                 }
