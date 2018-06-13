@@ -10,6 +10,7 @@ namespace ProjetCorneille.ViewModel
 {
     public class CreateCameraViewModel : ViewModelBase
     {
+
         private string videoCameraPath;
         private string cameraNameText;
         private string sourceImage;
@@ -52,6 +53,7 @@ namespace ProjetCorneille.ViewModel
         //pour choisir le fichier à ouvir
         private void FunctionCommandButtonChoice(object obj)
         {
+            //Appel de la méthode pour récupérer un fichier
             VideoCameraPath = General.getPathUser();
             if (!String.IsNullOrEmpty(VideoCameraPath))
             {

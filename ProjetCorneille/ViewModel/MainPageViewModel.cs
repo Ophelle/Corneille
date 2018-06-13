@@ -12,20 +12,13 @@ namespace ProjetCorneille.ViewModel
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private string selectUserPath;
-        public RelayCommand CommandButtonChoice { get; set; }
-        public RelayCommand CommandRunAnalyse { get; set; }
-        public RelayCommand ButtonDisableButton { get; set; }
-
         private string videoPath;
-
         public ObservableCollection<Item> itemList;
-        
         private Item valueSelectedCamera;
-
         public static string nameOfCamera;
-
         public static int idOfCamera;
+        private string selectUserPath;
+
 
         public MainPageViewModel()
         {
@@ -36,6 +29,14 @@ namespace ProjetCorneille.ViewModel
             VideoPath = "";
             ItemList = XMLManager.bringCameraFromXml();
         }
+        S
+        #region Partie des Commandes
+        public RelayCommand CommandButtonChoice { get; set; }
+        public RelayCommand CommandRunAnalyse { get; set; }
+        public RelayCommand ButtonDisableButton { get; set; }
+        public RelayCommand CommandMenuVisu { get; set; }
+        public RelayCommand CommandMenuCreateCamera { get; set; }
+        #endregion Partie des Commandes
 
         // Méthode qui permet d'ouvrir une fenêtre pour choisir la video 
         private void ChoiceVideo(object obj)
@@ -92,7 +93,7 @@ namespace ProjetCorneille.ViewModel
             string path = VideoPath;
             if (path != "")
             {
-                if(ValueSelectedCamera.itemID > 0)
+                if (ValueSelectedCamera.itemID > 0)
                 {
                     MessageBox.Show("Veuillez appuyer sur OK pour commencer le traitement, un message sera present à la fin de celui-ci");
                     DateTime debut = DateTime.Now;
@@ -112,41 +113,25 @@ namespace ProjetCorneille.ViewModel
                 MessageBox.Show("Veuillez choisir une video");
             }
         }
-
+        //Méthode qui permet d'ouvrir la page de cration d'une nouvelle camera
         private void FunctionCommandMenuCreateCamera(object obj)
         {
-           CreateCameraWindow ccw = new CreateCameraWindow();
-           if(ccw.ShowDialog() == false)
+            //Création de l'instance
+            CreateCameraWindow ccw = new CreateCameraWindow();
+            //Si la page a été fermé on actualise la liste
+            if (ccw.ShowDialog() == false)
             {
                 ItemList = XMLManager.bringCameraFromXml();
             }
         }
-
-        public RelayCommand CommandMenuVisu { get; set; }
-        public RelayCommand CommandMenuCreateCamera { get; }
-
-        public string SelectUserPath
-        {
-            get
-            {
-
-                return this.selectUserPath;
-            }
-            set
-            {
-                this.selectUserPath = value;
-                NotifyPropertyChanged("SelectUserPath");
-            }
-        }
-
-        private void FunctionCommandMenuVisu (object obj)
+        
+        //Méthode qui permet d'ouvrir la fenêtre de visualisation des motions
+        private void FunctionCommandMenuVisu(object obj)
         {
             WorkMovie wm = new WorkMovie();
+            //Ouverture de la fenêtre
+            wm.Show();
 
-            if (wm.DialogResult != false)
-            {
-                wm.Show();
-            }
         }
     }
 }
