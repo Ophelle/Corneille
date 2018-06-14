@@ -14,7 +14,6 @@ namespace ProjetCorneille.ViewModel
         private string videoCameraPath;
         private string cameraNameText;
         private string sourceImage;
-        private bool enableButtonOK;
 
         public CreateCameraViewModel()
         {

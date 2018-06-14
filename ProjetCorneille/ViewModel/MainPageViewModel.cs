@@ -15,9 +15,6 @@ namespace ProjetCorneille.ViewModel
         private string videoPath;
         public ObservableCollection<Item> itemList;
         private Item valueSelectedCamera;
-        public static string nameOfCamera;
-        public static int idOfCamera;
-        private string selectUserPath;
 
 
         public MainPageViewModel()
